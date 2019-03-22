@@ -56,5 +56,12 @@ function draw() {
 
   // Draw the path
   drawPath(path);
+}
 
+function keyTyped() {
+
+  // Download pattern image
+  if (key === 's') {
+    saveCanvas("pattern", "png")
+  }
 }

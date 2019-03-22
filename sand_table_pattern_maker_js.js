@@ -60,8 +60,13 @@ function draw() {
 
 function keyTyped() {
 
-  // Download pattern image
+  // Note: Safari browser doesn't appear to allow multiple downloads. Chrome does.
   if (key === 's') {
+    
+    // Download pattern image
     saveCanvas("pattern", "png")
+    
+    // Download pattern G-code
+    save(createGcode(path), "pattern", "gcode");     
   }
 }

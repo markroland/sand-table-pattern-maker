@@ -43,6 +43,11 @@ function setup() {
   spiral_twist = createSlider(1, 2, 1, 0.001);
   spiral_twist.position(10, 740);
   spiral_twist.style('width', '400px');
+  
+  // Download controls
+  downloadButton = createButton('Download');
+  downloadButton.parent('sketch-holder');
+  downloadButton.mousePressed(download);
 }
 
 function draw() {
@@ -58,15 +63,22 @@ function draw() {
   drawPath(path);
 }
 
-function keyTyped() {
+function keyTyped()
+{
 
   // Note: Safari browser doesn't appear to allow multiple downloads. Chrome does.
   if (key === 's') {
-    
-    // Download pattern image
-    saveCanvas("pattern", "png")
-    
-    // Download pattern G-code
-    save(createGcode(path), "pattern", "gcode");     
+    download();
   }
 }
+
+function download()
+{
+
+  // Download pattern image
+  saveCanvas("pattern", "png")
+    
+  // Download pattern G-code
+  save(createGcode(path), "pattern", "gcode"); 
+}
+  

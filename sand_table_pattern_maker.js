@@ -4,7 +4,6 @@
   20 MAR 2019
 
   This is a rewrite/refactor of my original Java sketches
-
 */
 
 // Plotter settings (mm)
@@ -32,17 +31,32 @@ function setup() {
 
   background(255);
 
+  // Sides controls
+  sides = createDiv('Sides');
+  sides.parent('sketch-holder');
   spiral_sides = createSlider(3, 60, 3);
-  spiral_sides.position(10, 700);
+  spiral_sides.parent(sides);
   spiral_sides.style('width', '400px');
+  sides_value = createSpan('0');
+  sides_value.parent(sides);
 
+  // Offset control
+  offset = createDiv('Offset');
+  offset.parent('sketch-holder');
   spiral_offset = createSlider(1, 40, 20);
-  spiral_offset.position(10, 720);
+  spiral_offset.parent(offset);
   spiral_offset.style('width', '400px');
+  offset_value = createSpan('0');
+  offset_value.parent(offset);
 
-  spiral_twist = createSlider(1, 2, 1, 0.001);
-  spiral_twist.position(10, 740);
+  // Twist controls
+  twist_div = createDiv('Twist');
+  twist_div.parent('sketch-holder');
+  spiral_twist = createSlider(1, 1.112, 1, 0.001);
+  spiral_twist.parent(twist_div);
   spiral_twist.style('width', '400px');
+  twist_value = createSpan('0');
+  twist_value.parent(twist_div);
   
   // Download controls
   downloadButton = createButton('Download');
@@ -55,6 +69,11 @@ function draw() {
   // Draw the background
   background(255);
   drawTable();
+
+  // Draw control selection values
+  sides_value.html(spiral_sides.value());
+  offset_value.html(spiral_offset.value());
+  twist_value.html(spiral_twist.value());
 
   // Calculate the path
   path = calcSpiral(spiral_offset.value(), spiral_sides.value(), spiral_twist.value());

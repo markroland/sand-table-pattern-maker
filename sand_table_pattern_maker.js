@@ -34,7 +34,7 @@ function setup() {
   // Sides controls
   sides = createDiv('Sides');
   sides.parent('sketch-holder');
-  spiral_sides = createSlider(3, 60, 3);
+  spiral_sides = createSlider(3, 60, 6);
   spiral_sides.parent(sides);
   spiral_sides.style('width', '400px');
   sides_value = createSpan('0');
@@ -57,7 +57,7 @@ function setup() {
   spiral_twist.style('width', '400px');
   twist_value = createSpan('0');
   twist_value.parent(twist_div);
-  
+
   // Download controls
   downloadButton = createButton('Download');
   downloadButton.parent('sketch-holder');
@@ -78,6 +78,17 @@ function draw() {
   // Calculate the path
   path = calcSpiral(spiral_offset.value(), spiral_sides.value(), spiral_twist.value());
 
+  // Calculate a Spiral path
+  path = calcSpiral(
+    0,
+    0,
+    0,
+    0,
+    spiral_offset.value(),
+    spiral_sides.value(),
+    spiral_twist.value()
+  );
+
   // Draw the path
   drawPath(path);
 }
@@ -96,8 +107,7 @@ function download()
 
   // Download pattern image
   saveCanvas("pattern", "png")
-    
+
   // Download pattern G-code
-  save(createGcode(path), "pattern", "gcode"); 
+  save(createGcode(path), "pattern", "gcode");
 }
-  

@@ -4,30 +4,23 @@
 function setupCircle()
 {
 
-  // Clear controls
-  select('#pattern-controls').html('');
-
   // Offset control
-  angle_div = createDiv('Start Angle')
+  angle_div = createDiv('<label>Start Angle</label>')
     .parent('pattern-controls')
     .addClass('pattern-control');
   angle = createSlider(0, 60, 0, 1)
-    .parent(angle_div)
-    .style('width', '400px');
+    .parent(angle_div);
   angle_value = createSpan('0');
   angle_value.parent(angle_div);
 
   // Twist controls
-  radius_div = createDiv('Radius')
+  radius_div = createDiv('<label>Radius</label>')
     .parent('pattern-controls')
     .addClass('pattern-control');
-  radius = createSlider(1, 0.5 * min(max_x,max_y), 30, 0.1);
-  radius.parent(radius_div);
-  radius.style('width', '400px');
+  radius = createSlider(1, 0.5 * min(max_x,max_y), 30, 0.1)
+    .parent(radius_div);
   radius_value = createSpan('0');
   radius_value.parent(radius_div);
-
-  path = [[0,0]];
 }
 
 /**

@@ -27,18 +27,16 @@ function setup() {
   // noLoop();
 
   // Define canvas size
-  var canvas = createCanvas(648, 648);
-
-  // Move the canvas so it’s inside our <div id="sketch-holder">
-  canvas.parent('canvas-holder');
+  var canvas = createCanvas(648, 648).parent('canvas-holder');
 
   // Pattern selector
   pattern_select_div = createDiv('<label>Pattern</label>')
     .parent('pattern-selector');
   pattern_select = createSelect()
     .parent(pattern_select_div);
-  pattern_select.option('Spiral')
-  pattern_select.option('Circle')
+  pattern_select.option('Spiral');
+  pattern_select.option('Circle');
+  pattern_select.option('Diameters');
   pattern_select.changed(patternSelectEvent);
 
   select("#plotter-max_x").html(max_x + " " + units);
@@ -74,6 +72,9 @@ function draw() {
     case "Circle":
       path = drawCircle();
       break;
+    case "Diameters":
+      path = drawDiameters();
+      break;
     default:
       path = [[0,0]];
   }
@@ -96,12 +97,19 @@ function draw() {
  * Trigger actions when the pattern is changed
  */
 function patternSelectEvent() {
+
+  // Clear controls
+  select('#pattern-controls').html('');
+
   switch(pattern_select.value()) {
     case "Spiral":
       setupSpiral();
       break;
     case "Circle":
       setupCircle();
+      break;
+    case "Diameters":
+      setupDiameters();
       break;
   }
 }

@@ -4,9 +4,6 @@
 function setupSpiral()
 {
 
-  // Clear controls
-  select('#pattern-controls').html('');
-
   // Sides controls
   sides = createDiv('<label>Sides</label>')
     .parent('pattern-controls')

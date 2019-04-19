@@ -1,4 +1,62 @@
 /**
+ * Use this in setup() to set up the Pattern's controls
+ */
+function setupSpiral()
+{
+
+  // Sides controls
+  sides = createDiv('Sides');
+  sides.parent('sketch-holder');
+  spiral_sides = createSlider(3, 60, 6);
+  spiral_sides.parent(sides);
+  spiral_sides.style('width', '400px');
+  sides_value = createSpan('0');
+  sides_value.parent(sides);
+
+  // Offset control
+  offset = createDiv('Offset');
+  offset.parent('sketch-holder');
+  spiral_offset = createSlider(1, 40, 20);
+  spiral_offset.parent(offset);
+  spiral_offset.style('width', '400px');
+  offset_value = createSpan('0');
+  offset_value.parent(offset);
+
+  // Twist controls
+  twist_div = createDiv('Twist');
+  twist_div.parent('sketch-holder');
+  spiral_twist = createSlider(1, 1.112, 1, 0.001);
+  spiral_twist.parent(twist_div);
+  spiral_twist.style('width', '400px');
+  twist_value = createSpan('0');
+  twist_value.parent(twist_div);
+
+}
+
+/**
+ * Use this in draw() to compose the Pattern
+ */
+function drawSpiral()
+{
+
+  // Draw control selection values
+  sides_value.html(spiral_sides.value());
+  offset_value.html(spiral_offset.value());
+  twist_value.html(spiral_twist.value());
+
+  // Calculate a Spiral path
+  return calcSpiral(
+    0,
+    0,
+    0,
+    0,
+    spiral_offset.value(),
+    spiral_sides.value(),
+    spiral_twist.value()
+  );
+}
+
+/**
  * Calculate coordinates for a Spiral
  *
  * @param float start_x Starting X position (in G-code coordinates)
@@ -11,7 +69,7 @@
  * @param integer sides This determines how many sides the spiral has. For example,
  *   if sides equals 4 then for every iteration of "step", theta will be incremented
  *   by 1/4 of 360 degrees, resulting in for samples per 360 degrees. Must be greater
- *   than 3. 
+ *   than 3.
  * @param float twist This is a multiplication factor for theta that modifies the
  *   angle every iteration, resulting in a "twisting" effect on the spiral
  *
@@ -22,11 +80,11 @@ function calcSpiral(start_x, start_y, start_r, start_theta, offset, sides, twist
   var x;
   var y;
   var r = start_r;
-  var theta = start_theta; 
+  var theta = start_theta;
 
   // Calculate the maximum radius
   var max_r = min(max_x/2, max_y/2);
-  
+
   // Initialize shape path array
   // This stores the x,y coordinates for each step
   var path = new Array();
@@ -60,6 +118,6 @@ function calcSpiral(start_x, start_y, start_r, start_theta, offset, sides, twist
     // Increment iteration counter
     step++;
   }
-  
-  return path; 
+
+  return path;
 }

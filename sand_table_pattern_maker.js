@@ -1,8 +1,6 @@
 /*
   Sand Table Pattern Maker
 
-  20 MAR 2019
-
   This is a rewrite/refactor of my original Java sketches
 */
 
@@ -16,92 +14,67 @@ var motor_speed = 6000.0;
 // Width/Diameter of print head (steel ball) used for etching pattern (mm)
 var ball_size = 19.0;
 
-// Store the coordinates for the path
-var path;
-
 // Store the total path distance
 var distance;
 
+// Processing standard function called once at beginning of Sketch
 function setup() {
 
+  // Define canvas size
   var canvas = createCanvas(648, 648);
 
   // Move the canvas so it’s inside our <div id="sketch-holder">
   canvas.parent('sketch-holder');
 
-  background(255);
-
-  // Sides controls
-  sides = createDiv('Sides');
-  sides.parent('sketch-holder');
-  spiral_sides = createSlider(3, 60, 6);
-  spiral_sides.parent(sides);
-  spiral_sides.style('width', '400px');
-  sides_value = createSpan('0');
-  sides_value.parent(sides);
-
-  // Offset control
-  offset = createDiv('Offset');
-  offset.parent('sketch-holder');
-  spiral_offset = createSlider(1, 40, 20);
-  spiral_offset.parent(offset);
-  spiral_offset.style('width', '400px');
-  offset_value = createSpan('0');
-  offset_value.parent(offset);
-
-  // Twist controls
-  twist_div = createDiv('Twist');
-  twist_div.parent('sketch-holder');
-  spiral_twist = createSlider(1, 1.112, 1, 0.001);
-  spiral_twist.parent(twist_div);
-  spiral_twist.style('width', '400px');
-  twist_value = createSpan('0');
-  twist_value.parent(twist_div);
+  // Pattern selector
+  pattern_select_div = createDiv('<label>Pattern</label>')
+    .parent('sketch-holder');
+  pattern_select = createSelect()
+    .parent(pattern_select_div);
+  pattern_select.option('Spiral')
+  pattern_select.option('B')
+  pattern_select.changed(patternSelectEvent);
 
   // Download controls
   downloadButton = createButton('Download');
   downloadButton.parent('sketch-holder');
   downloadButton.mousePressed(download);
+
+  // Initialize
+  if (pattern_select.value() == "Spiral") {
+    setupSpiral();
+  }
 }
 
+// Processing standard function that loops forever
 function draw() {
 
   // Draw the background
   background(255);
+
+  // Draw the table
   drawTable();
 
-  // Draw control selection values
-  sides_value.html(spiral_sides.value());
-  offset_value.html(spiral_offset.value());
-  twist_value.html(spiral_twist.value());
-
-  // Calculate the path
-  path = calcSpiral(spiral_offset.value(), spiral_sides.value(), spiral_twist.value());
-
-  // Calculate a Spiral path
-  path = calcSpiral(
-    0,
-    0,
-    0,
-    0,
-    spiral_offset.value(),
-    spiral_sides.value(),
-    spiral_twist.value()
-  );
+  // Calculate the pattern
+  if (pattern_select.value() == "Spiral") {
+    path = drawSpiral();
+  }
 
   // Draw the path
   drawPath(path);
 }
 
-function keyTyped()
-{
-
-  // Note: Safari browser doesn't appear to allow multiple downloads. Chrome does.
-  if (key === 's') {
-    download();
-  }
+/**
+ * Trigger actions when the pattern is changed
+ */
+function patternSelectEvent() {
+  var item = sel.value();
+  console.log(item);
 }
 
+/**
+ * Download items to the browser
+ */
 function download()
 {
 

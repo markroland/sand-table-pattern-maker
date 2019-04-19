@@ -1,107 +1,101 @@
 /*
   Sand Table Pattern Maker
 
-  20 MAR 2019
-
   This is a rewrite/refactor of my original Java sketches
 */
 
-// Plotter settings (mm)
+// Set the units, i.e. "mm", "in"
+var units = "mm";
+
+// Plotter settings
 var max_x = 472.0;
 var max_y = 380.0;
 
-// Set motor speed in mm/min
+// Set motor speed in units/min
 var motor_speed = 6000.0;
 
 // Width/Diameter of print head (steel ball) used for etching pattern (mm)
 var ball_size = 19.0;
 
-// Store the coordinates for the path
-var path;
-
 // Store the total path distance
 var distance;
 
+// Processing standard function called once at beginning of Sketch
 function setup() {
 
+  // Debugging
+  // noLoop();
+
+  // Define canvas size
   var canvas = createCanvas(648, 648);
 
   // Move the canvas so it’s inside our <div id="sketch-holder">
-  canvas.parent('sketch-holder');
+  canvas.parent('canvas-holder');
 
-  background(255);
+  // Pattern selector
+  pattern_select_div = createDiv('<label>Pattern</label>')
+    .parent('controls-holder');
+  pattern_select = createSelect()
+    .parent(pattern_select_div);
+  pattern_select.option('Spiral')
+  pattern_select.option('B')
+  pattern_select.changed(patternSelectEvent);
 
-  // Sides controls
-  sides = createDiv('Sides');
-  sides.parent('sketch-holder');
-  spiral_sides = createSlider(3, 60, 6);
-  spiral_sides.parent(sides);
-  spiral_sides.style('width', '400px');
-  sides_value = createSpan('0');
-  sides_value.parent(sides);
-
-  // Offset control
-  offset = createDiv('Offset');
-  offset.parent('sketch-holder');
-  spiral_offset = createSlider(1, 40, 20);
-  spiral_offset.parent(offset);
-  spiral_offset.style('width', '400px');
-  offset_value = createSpan('0');
-  offset_value.parent(offset);
-
-  // Twist controls
-  twist_div = createDiv('Twist');
-  twist_div.parent('sketch-holder');
-  spiral_twist = createSlider(1, 1.112, 1, 0.001);
-  spiral_twist.parent(twist_div);
-  spiral_twist.style('width', '400px');
-  twist_value = createSpan('0');
-  twist_value.parent(twist_div);
+  select("#plotter-max_x").html(max_x + " " + units);
+  select("#plotter-max_y").html(max_y + " " + units);
+  select("#plotter-motor_speed").html(motor_speed + " " + units + "/min");
+  select("#plotter-ball_size").html(ball_size + " " + units);
 
   // Download controls
-  downloadButton = createButton('Download');
-  downloadButton.parent('sketch-holder');
+  downloadButton = createButton('Download')
+    .parent('download');
   downloadButton.mousePressed(download);
-}
 
-function draw() {
-
-  // Draw the background
-  background(255);
-  drawTable();
-
-  // Draw control selection values
-  sides_value.html(spiral_sides.value());
-  offset_value.html(spiral_offset.value());
-  twist_value.html(spiral_twist.value());
-
-  // Calculate the path
-  path = calcSpiral(spiral_offset.value(), spiral_sides.value(), spiral_twist.value());
-
-  // Calculate a Spiral path
-  path = calcSpiral(
-    0,
-    0,
-    0,
-    0,
-    spiral_offset.value(),
-    spiral_sides.value(),
-    spiral_twist.value()
-  );
-
-  // Draw the path
-  drawPath(path);
-}
-
-function keyTyped()
-{
-
-  // Note: Safari browser doesn't appear to allow multiple downloads. Chrome does.
-  if (key === 's') {
-    download();
+  // Initialize
+  if (pattern_select.value() == "Spiral") {
+    setupSpiral();
   }
 }
 
+// Processing standard function that loops forever
+function draw() {
+
+  // Draw the background
+  background(68);
+
+  // Draw the table
+  drawTable();
+
+  // Calculate the pattern
+  if (pattern_select.value() == "Spiral") {
+    path = drawSpiral();
+  }
+
+  // Draw the path
+  drawPath(path);
+
+  // Calculate path length
+  distance = 0;
+  for (i = 1; i < path.length; i++) {
+    distance += sqrt(pow(path[i][0] - path[i-1][0], 2) + pow(path[i][1] - path[i-1][1], 2));
+  }
+
+  // Display the path distance and time
+  select("#pattern-distance").html(nfc(distance, 1) + " " + units);
+  select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
+}
+
+/**
+ * Trigger actions when the pattern is changed
+ */
+function patternSelectEvent() {
+  var item = sel.value();
+  console.log(item);
+}
+
+/**
+ * Download items to the browser
+ */
 function download()
 {
 

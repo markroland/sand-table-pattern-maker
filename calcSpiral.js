@@ -110,11 +110,6 @@ function calcSpiral(start_x, start_y, start_r, start_theta, offset, sides, twist
     // Add coordinates to shape array
     path[step] = [x,y];
 
-    // Calculate total distance traveled
-    if (step > 0) {
-      distance += sqrt(pow(x - path[step-1][0], 2) + pow(y - path[step-1][1], 2));
-    }
-
     // Increment iteration counter
     step++;
   }

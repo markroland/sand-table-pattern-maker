@@ -62,6 +62,13 @@ function draw() {
 
   // Draw the path
   drawPath(path);
+
+  // Calculate path length
+  distance = 0;
+  for (i = 1; i < path.length; i++) {
+    distance += sqrt(pow(path[i][0] - path[i-1][0], 2) + pow(path[i][1] - path[i-1][1], 2));
+  }
+
 }
 
 /**

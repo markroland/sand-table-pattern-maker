@@ -19,12 +19,46 @@
   <!-- This line removes any default padding and style.
        You might only need one of these values set. -->
   <style>
-    h1 { text-align: center; }
     body {
       padding: 0;
       margin: 0;
       font-family: 'Dosis', sans-serif;
       background-color: rgb(68,68,68);
+    }
+
+    header {
+      margin: 0;
+      padding: 0.5em 0;
+      text-align: center;
+      background-color: rgb(32,32,32);
+    }
+
+    header h1 {
+      margin: 0;
+      padding: 0;
+      color: rgb(255, 255, 255);
+    }
+
+    footer {
+      color: rgb(255,255,255);
+      text-align: center;
+      background-color: rgb(32,32,32);
+      padding: 0.5em 0;
+    }
+
+    footer p{
+      margin: 0;
+      padding: 0;
+    }
+
+    footer a,
+    footer a:link,
+    footer a:visited,
+    footer a:hover,
+    footer a:active
+    {
+      color: rgb(220,220,220);
+      text-decoration: underline;
     }
 
     #sketch-holder {
@@ -37,7 +71,11 @@
 </head>
 
 <body>
-  <h1>Sand Pattern Maker</h1>
-  <div id="sketch-holder"></div>
+
+  <header><h1>Sand Pattern Maker</h1></header>
+
+  <footer>
+    <p>&copy; Mark Roland, 2019. <a href="https://github.com/markroland/sand-table-pattern-maker">On Github</a></p>
+  </footer>
 </body>
 </html>

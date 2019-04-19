@@ -5,32 +5,31 @@ function setupSpiral()
 {
 
   // Sides controls
-  sides = createDiv('Sides');
-  sides.parent('sketch-holder');
+  sides = createDiv('<label>Sides</label>')
+    .parent('controls-holder')
+    .addClass('sketch-control');
   spiral_sides = createSlider(3, 60, 6);
   spiral_sides.parent(sides);
-  spiral_sides.style('width', '400px');
   sides_value = createSpan('0');
   sides_value.parent(sides);
 
   // Offset control
-  offset = createDiv('Offset');
-  offset.parent('sketch-holder');
+  offset = createDiv('<label>Offset</label>')
+    .parent('controls-holder')
+    .addClass('sketch-control');
   spiral_offset = createSlider(1, 40, 20);
   spiral_offset.parent(offset);
-  spiral_offset.style('width', '400px');
   offset_value = createSpan('0');
   offset_value.parent(offset);
 
   // Twist controls
-  twist_div = createDiv('Twist');
-  twist_div.parent('sketch-holder');
+  twist_div = createDiv('<label>Twist</label>')
+    .parent('controls-holder')
+    .addClass('sketch-control');
   spiral_twist = createSlider(1, 1.112, 1, 0.001);
   spiral_twist.parent(twist_div);
-  spiral_twist.style('width', '400px');
   twist_value = createSpan('0');
   twist_value.parent(twist_div);
-
 }
 
 /**
@@ -41,7 +40,7 @@ function drawSpiral()
 
   // Draw control selection values
   sides_value.html(spiral_sides.value());
-  offset_value.html(spiral_offset.value());
+  offset_value.html(spiral_offset.value() + " " + units);
   twist_value.html(spiral_twist.value());
 
   // Calculate a Spiral path

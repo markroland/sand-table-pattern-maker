@@ -67,12 +67,97 @@
       margin: 0 auto;
     }
 
+    .container {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      /*grid-gap: 10px;*/
+      background-color: #fff;
+      color: rgb(68,68,68);
+    }
+    .box {
+      background-color: rgb(68,68,68);
+      color: rgb(255,255,255);
+      padding: 20px;
+    }
+    #canvas-holder {
+      min-width: 600px;
+    }
+
+    .sketch-control {
+      background-color: rgb(32, 32, 32);
+      padding: 0.25em 0.5em;
+      margin: 0.25em 0;
+    }
+
+    .sketch-control label {
+      display: inline-block;
+      width: 5em;
+    }
+    .sketch-control input[type="range"] {
+      width: 20em;
+      margin: 0 1em;
+    }
+
   </style>
 </head>
 
 <body>
 
   <header><h1>Sand Pattern Maker</h1></header>
+
+  <div class="container">
+    <div class="box" id="canvas-holder"></div>
+    <div class="box">
+
+      <div>
+        <h2>Plotter Configuration</h2>
+        <table>
+          <tr>
+            <td>Max X</td>
+            <td><span id="plotter-max_x"></span></td>
+          </tr>
+          <tr>
+            <td>Max Y</td>
+            <td><span id="plotter-max_y"></span></td>
+          </tr>
+          <tr>
+            <td>Motor Speed</td>
+            <td><span id="plotter-motor_speed"></span></td>
+          </tr>
+          <tr>
+            <td>Ball Size</td>
+            <td><span id="plotter-ball_size"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <h2>Pattern Input</h2>
+        <div id="controls-holder"></div>
+      </div>
+
+      <div>
+        <h2>Pattern Output</h2>
+        <table>
+          <tr>
+            <td>Distance</td>
+            <td><span id="pattern-distance"></span></td>
+          </tr>
+          <tr>
+            <td>Time</td>
+            <td><span id="pattern-time"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <h2>Export</h2>
+        <div id="download"></div>
+        <p>Download Gcode and PNG image at once. Chrome Required.</p>
+      </div>
+
+    </div>
+  </div>
 
   <footer>
     <p>&copy; Mark Roland, 2019. <a href="https://github.com/markroland/sand-table-pattern-maker">On Github</a></p>

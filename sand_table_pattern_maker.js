@@ -4,11 +4,14 @@
   This is a rewrite/refactor of my original Java sketches
 */
 
-// Plotter settings (mm)
+// Set the units, i.e. "mm", "in"
+var units = "mm";
+
+// Plotter settings
 var max_x = 472.0;
 var max_y = 380.0;
 
-// Set motor speed in mm/min
+// Set motor speed in units/min
 var motor_speed = 6000.0;
 
 // Width/Diameter of print head (steel ball) used for etching pattern (mm)
@@ -20,24 +23,32 @@ var distance;
 // Processing standard function called once at beginning of Sketch
 function setup() {
 
+  // Debugging
+  // noLoop();
+
   // Define canvas size
   var canvas = createCanvas(648, 648);
 
   // Move the canvas so it’s inside our <div id="sketch-holder">
-  canvas.parent('sketch-holder');
+  canvas.parent('canvas-holder');
 
   // Pattern selector
   pattern_select_div = createDiv('<label>Pattern</label>')
-    .parent('sketch-holder');
+    .parent('controls-holder');
   pattern_select = createSelect()
     .parent(pattern_select_div);
   pattern_select.option('Spiral')
   pattern_select.option('B')
   pattern_select.changed(patternSelectEvent);
 
+  select("#plotter-max_x").html(max_x + " " + units);
+  select("#plotter-max_y").html(max_y + " " + units);
+  select("#plotter-motor_speed").html(motor_speed + " " + units + "/min");
+  select("#plotter-ball_size").html(ball_size + " " + units);
+
   // Download controls
-  downloadButton = createButton('Download');
-  downloadButton.parent('sketch-holder');
+  downloadButton = createButton('Download')
+    .parent('download');
   downloadButton.mousePressed(download);
 
   // Initialize
@@ -50,7 +61,7 @@ function setup() {
 function draw() {
 
   // Draw the background
-  background(255);
+  background(68);
 
   // Draw the table
   drawTable();
@@ -69,6 +80,9 @@ function draw() {
     distance += sqrt(pow(path[i][0] - path[i-1][0], 2) + pow(path[i][1] - path[i-1][1], 2));
   }
 
+  // Display the path distance and time
+  select("#pattern-distance").html(nfc(distance, 1) + " " + units);
+  select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
 }
 
 /**

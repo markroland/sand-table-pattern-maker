@@ -3,19 +3,19 @@
 */
 function createGcode(path) {
   var gcode = gCodeHeader();
-  
+
   // Compose start command(s)
   gcode = concat(gcode, gCodeStart());
-  
+
   // Compose G-code path
   for (i = 0; i < path.length; i++) {
 
     gcode.push("G0 X" + nf(path[i][0] + max_x/2,0,2) + " Y" + nf(path[i][1] + max_y/2,0,2));
   }
-  
+
   // Compose end command(s)
   gcode = concat(gcode, gCodeFinish());
-  
+
   return gcode;
 }
 
@@ -24,7 +24,7 @@ function createGcode(path) {
  */
 function gCodeHeader() {
   return [
-    "; Created by Processing 'sand_table_js' sketch",
+    "; Created using https://markroland.github.io/sand-table-pattern-maker/",
     "; " + month() + "/" + day() + "/" + year() + " " + hour() + ":" + minute() + ":" + second(),
     "; Written by Mark Roland",
     ";",

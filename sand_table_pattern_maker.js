@@ -34,10 +34,13 @@ function setup() {
     .parent('pattern-selector');
   pattern_select = createSelect()
     .parent(pattern_select_div);
-  pattern_select.option('Spiral');
   pattern_select.option('Circle');
   pattern_select.option('Diameters');
+  pattern_select.option('Spiral');
+  pattern_select.option('Spokes');
   pattern_select.changed(patternSelectEvent);
+  pattern_select.selected('Spiral');
+
 
   select("#plotter-max_x").html(max_x + " " + units);
   select("#plotter-max_y").html(max_y + " " + units);
@@ -50,9 +53,7 @@ function setup() {
   downloadButton.mousePressed(download);
 
   // Initialize
-  if (pattern_select.value() == "Spiral") {
-    setupSpiral();
-  }
+  patternSelectEvent();
 }
 
 // Processing standard function that loops forever
@@ -66,14 +67,17 @@ function draw() {
 
   // Calculate the pattern
   switch(pattern_select.value()) {
-    case "Spiral":
-      path = drawSpiral();
-      break;
     case "Circle":
       path = drawCircle();
       break;
     case "Diameters":
       path = drawDiameters();
+      break;
+    case "Spiral":
+      path = drawSpiral();
+      break;
+    case "Spokes":
+      path = drawSpokes();
       break;
     default:
       path = [[0,0]];
@@ -102,14 +106,17 @@ function patternSelectEvent() {
   select('#pattern-controls').html('');
 
   switch(pattern_select.value()) {
-    case "Spiral":
-      setupSpiral();
-      break;
     case "Circle":
       setupCircle();
       break;
     case "Diameters":
       setupDiameters();
+      break;
+    case "Spiral":
+      setupSpiral();
+      break;
+    case "Spokes":
+      setupSpokes();
       break;
   }
 }

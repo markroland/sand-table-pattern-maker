@@ -34,11 +34,11 @@ function setup() {
 
   // Pattern selector
   pattern_select_div = createDiv('<label>Pattern</label>')
-    .parent('controls-holder');
+    .parent('pattern-selector');
   pattern_select = createSelect()
     .parent(pattern_select_div);
   pattern_select.option('Spiral')
-  pattern_select.option('B')
+  pattern_select.option('Circle')
   pattern_select.changed(patternSelectEvent);
 
   select("#plotter-max_x").html(max_x + " " + units);
@@ -67,8 +67,15 @@ function draw() {
   drawTable();
 
   // Calculate the pattern
-  if (pattern_select.value() == "Spiral") {
-    path = drawSpiral();
+  switch(pattern_select.value()) {
+    case "Spiral":
+      path = drawSpiral();
+      break;
+    case "Circle":
+      path = drawCircle();
+      break;
+    default:
+      path = [[0,0]];
   }
 
   // Draw the path
@@ -89,8 +96,14 @@ function draw() {
  * Trigger actions when the pattern is changed
  */
 function patternSelectEvent() {
-  var item = sel.value();
-  console.log(item);
+  switch(pattern_select.value()) {
+    case "Spiral":
+      setupSpiral();
+      break;
+    case "Circle":
+      setupCircle();
+      break;
+  }
 }
 
 /**

@@ -4,10 +4,13 @@
 function setupSpiral()
 {
 
+  // Clear controls
+  select('#pattern-controls').html('');
+
   // Sides controls
   sides = createDiv('<label>Sides</label>')
-    .parent('controls-holder')
-    .addClass('sketch-control');
+    .parent('pattern-controls')
+    .addClass('pattern-control');
   spiral_sides = createSlider(3, 60, 6);
   spiral_sides.parent(sides);
   sides_value = createSpan('0');
@@ -15,8 +18,8 @@ function setupSpiral()
 
   // Offset control
   offset = createDiv('<label>Offset</label>')
-    .parent('controls-holder')
-    .addClass('sketch-control');
+    .parent('pattern-controls')
+    .addClass('pattern-control');
   spiral_offset = createSlider(1, 40, 20);
   spiral_offset.parent(offset);
   offset_value = createSpan('0');
@@ -24,8 +27,8 @@ function setupSpiral()
 
   // Twist controls
   twist_div = createDiv('<label>Twist</label>')
-    .parent('controls-holder')
-    .addClass('sketch-control');
+    .parent('pattern-controls')
+    .addClass('pattern-control');
   spiral_twist = createSlider(1, 1.112, 1, 0.001);
   spiral_twist.parent(twist_div);
   twist_value = createSpan('0');

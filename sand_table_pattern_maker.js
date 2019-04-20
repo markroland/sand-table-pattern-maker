@@ -40,10 +40,11 @@ function setup() {
   pattern_select.option('Circle');
   pattern_select.option('Diameters');
   pattern_select.option('Fibonacci');
+  pattern_select.option('Cycloid');
   pattern_select.option('Spiral');
   pattern_select.option('Spokes');
   pattern_select.option('Zig Zag');
-  pattern_select.selected('Zig Zag');
+  pattern_select.selected('Cycloid');
   pattern_select.changed(patternSelectEvent);
 
   // Select pattern from URL query string
@@ -82,6 +83,9 @@ function draw() {
       break;
     case "Fibonacci":
       path = drawFibonacci();
+      break;
+    case "Cycloid":
+      path = drawCycloid();
       break;
     case "Spiral":
       path = drawSpiral();
@@ -161,6 +165,9 @@ function patternSelectEvent() {
       break;
     case "Fibonacci":
       setupFibonacci();
+      break;
+    case "Cycloid":
+      setupCycloid();
       break;
     case "Spiral":
       setupSpiral();

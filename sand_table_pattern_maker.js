@@ -36,11 +36,11 @@ function setup() {
     .parent(pattern_select_div);
   pattern_select.option('Circle');
   pattern_select.option('Diameters');
+  pattern_select.option('Fibonacci');
   pattern_select.option('Spiral');
   pattern_select.option('Spokes');
   pattern_select.changed(patternSelectEvent);
   pattern_select.selected('Spiral');
-
 
   select("#plotter-max_x").html(max_x + " " + units);
   select("#plotter-max_y").html(max_y + " " + units);
@@ -72,6 +72,9 @@ function draw() {
       break;
     case "Diameters":
       path = drawDiameters();
+      break;
+    case "Fibonacci":
+      path = drawFibonacci();
       break;
     case "Spiral":
       path = drawSpiral();
@@ -111,6 +114,9 @@ function patternSelectEvent() {
       break;
     case "Diameters":
       setupDiameters();
+      break;
+    case "Fibonacci":
+      setupFibonacci();
       break;
     case "Spiral":
       setupSpiral();

@@ -1,4 +1,4 @@
-function drawTable() {
+function drawTable(plotter_exceeded = false) {
   // Draw table surface
   noStroke();
   fill(220, 220, 220);
@@ -6,9 +6,14 @@ function drawTable() {
 
   // Draw plottable area
   rectMode(CENTER);
+  stroke(200);
+  if (plotter_exceeded) {
+    stroke(255,0,0,128);
+  }
+  strokeWeight(1);
   fill(215, 215, 215);
   rect(width/2, height/2, max_x, max_y);
-  
+
   // Draw crosshairs
   //*
   stroke(200);

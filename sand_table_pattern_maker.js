@@ -8,8 +8,11 @@
 var units = "mm";
 
 // Plotter settings
+var min_x = 0.0;
 var max_x = 472.0;
+var min_y = 0.0;
 var max_y = 380.0;
+var plotter_exceeded = false;
 
 // Set motor speed in units/min
 var motor_speed = 6000.0;
@@ -62,9 +65,6 @@ function draw() {
   // Draw the background
   background(68);
 
-  // Draw the table
-  drawTable();
-
   // Calculate the pattern
   switch(pattern_select.value()) {
     case "Circle":
@@ -86,6 +86,9 @@ function draw() {
       path = [[0,0]];
   }
 
+  // Draw the table
+  drawTable(path_exceeds_plotter(path));
+
   // Draw the path
   drawPath(path, 1);
 
@@ -98,6 +101,36 @@ function draw() {
   // Display the path distance and time
   select("#pattern-distance").html(nfc(distance, 1) + " " + units);
   select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
+}
+
+/**
+ * Check to see if the path exceeds the plotter dimensions
+ */
+function path_exceeds_plotter(path)
+{
+
+  // Define function to extract column from multidimensional array
+  const arrayColumn = (arr, n) => arr.map(a => a[n]);
+
+  // Get X and Y coordinates as an 1-dimensional array
+  x_coordinates = arrayColumn(path, 0);
+  y_coordinates = arrayColumn(path, 1);
+
+  // Check boundaries
+  if (Math.min(...x_coordinates) < -((max_x - min_x)/2)) {
+    return true;
+  }
+  if (Math.max(...x_coordinates) > max_x/2) {
+    return true;
+  }
+  if (Math.min(...y_coordinates) < -((max_y - min_y)/2)) {
+    return true;
+  }
+  if (Math.max(...y_coordinates) > max_y/2) {
+    return true;
+  }
+
+  return false;
 }
 
 /**

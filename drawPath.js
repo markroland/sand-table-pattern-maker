@@ -2,7 +2,7 @@
 Draw Path
 
 */
-function drawPath(path, connected = true) {
+function drawPath(path, pathWidth = 1, connected = true) {
 
   stroke(128, 164, 200);
   strokeCap(ROUND);
@@ -24,7 +24,7 @@ function drawPath(path, connected = true) {
       stroke(128, 24 * cos((i/2000.0) * TWO_PI) + 164, 200);
 
       // Thicken to represent ball path
-      strokeWeight(ball_size/5);
+      strokeWeight(pathWidth);
 
       // Set vertex
       vertex(path[i][0], path[i][1]);

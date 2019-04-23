@@ -87,7 +87,7 @@ function draw() {
   }
 
   // Draw the path
-  drawPath(path);
+  drawPath(path, 1);
 
   // Calculate path length
   distance = 0;

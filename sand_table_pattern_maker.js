@@ -42,8 +42,14 @@ function setup() {
   pattern_select.option('Fibonacci');
   pattern_select.option('Spiral');
   pattern_select.option('Spokes');
-  pattern_select.changed(patternSelectEvent);
   pattern_select.selected('Spiral');
+  pattern_select.changed(patternSelectEvent);
+
+  // Select pattern from URL query string
+  let url_params = getURLParams();
+  if (url_params.pattern) {
+    pattern_select.selected(url_params.pattern);
+  }
 
   select("#plotter-max_x").html(max_x + " " + units);
   select("#plotter-max_y").html(max_y + " " + units);

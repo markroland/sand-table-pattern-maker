@@ -165,6 +165,15 @@ function patternSelectEvent() {
       setupSpokes();
       break;
   }
+
+  // Update the URL
+  history.replaceState({
+        id: 'homepage'
+    },
+    'Patten | ' + pattern_select.value(),
+    '?pattern=' + pattern_select.value()
+  );
+
 }
 
 /**

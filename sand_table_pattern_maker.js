@@ -99,6 +99,7 @@ function draw() {
   }
 
   // Display the path distance and time
+  select("#pattern-instructions").html(nfc(path.length));
   select("#pattern-distance").html(nfc(distance, 1) + " " + units);
   select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
 }

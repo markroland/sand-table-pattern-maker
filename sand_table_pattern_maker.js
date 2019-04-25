@@ -42,7 +42,8 @@ function setup() {
   pattern_select.option('Fibonacci');
   pattern_select.option('Spiral');
   pattern_select.option('Spokes');
-  pattern_select.selected('Spiral');
+  pattern_select.option('Zig Zag');
+  pattern_select.selected('Zig Zag');
   pattern_select.changed(patternSelectEvent);
 
   // Select pattern from URL query string
@@ -87,6 +88,9 @@ function draw() {
       break;
     case "Spokes":
       path = drawSpokes();
+      break;
+    case "Zig Zag":
+      path = drawZigZag();
       break;
     default:
       path = [[0,0]];
@@ -163,6 +167,9 @@ function patternSelectEvent() {
       break;
     case "Spokes":
       setupSpokes();
+      break;
+    case "Zig Zag":
+      setupZigZag();
       break;
   }
 

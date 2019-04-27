@@ -45,6 +45,7 @@ function setup() {
   pattern_select.option('Fibonacci');
   pattern_select.option('Cycloid');
   pattern_select.option('Spiral');
+  pattern_select.option('Spiral - Modulated');
   pattern_select.option('Spokes');
   pattern_select.option('Zig Zag');
   pattern_select.selected('Cycloid');
@@ -92,6 +93,9 @@ function draw() {
       break;
     case "Spiral":
       path = drawSpiral();
+      break;
+    case "Spiral - Modulated":
+      path = drawWigglySpiral();
       break;
     case "Spokes":
       path = drawSpokes();
@@ -174,6 +178,9 @@ function patternSelectEvent() {
       break;
     case "Spiral":
       setupSpiral();
+      break;
+    case "Spiral - Modulated":
+      setupWigglySpiral();
       break;
     case "Spokes":
       setupSpokes();

@@ -29,6 +29,9 @@ function setup() {
   // Debugging
   // noLoop();
 
+  // Slow down the frame rate to reduce calculations
+  frameRate(12);
+
   // Define canvas size
   var canvas = createCanvas(648, 648).parent('canvas-holder');
 

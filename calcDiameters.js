@@ -102,19 +102,26 @@ function calcDiameters(num_spokes, num_waves, wave_amplitude) {
     y = wave_amplitude * sin((sub_step/sub_steps) * num_waves * TWO_PI);
     //*/
 
-    // Rotate [x,y] about the center
-    // https://en.wikipedia.org/wiki/Rotation_matrix
-    var x_prime = x * cos(theta) - y * sin(theta);
-    var y_prime = x * sin(theta) + y * cos(theta);
-    x = x_prime;
-    y = y_prime;
-
-    // Add coordinates to shape array
-    path[step] = [x,y];
+      // Rotate [x,y] coordinates around [0,0] by angle theta, and then append to path
+      path.push(
+        rotationMatrix(x, y, theta)
+      );
+    }
 
     // Increment iteration counter
     step++;
   }
 
   return path;
+}
+
+/**
+ * Rotate points x and y by angle theta about center point (0,0)
+ * https://en.wikipedia.org/wiki/Rotation_matrix
+ **/
+function rotationMatrix(x, y, theta) {
+    return [
+      x * cos(theta) - y * sin(theta),
+      x * sin(theta) + y * cos(theta)
+    ];
 }

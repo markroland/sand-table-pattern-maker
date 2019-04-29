@@ -50,7 +50,7 @@ function drawCycloid()
   path = calcCycloid(
     radius_a.value(),
     radius_b.value(),
-    arm_length.value(),
+    arm_length.value()
   );
 
   return path;

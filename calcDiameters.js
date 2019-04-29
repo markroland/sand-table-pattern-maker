@@ -26,7 +26,7 @@ function setupDiameters()
   wave_amplitude_div = createDiv('<label>Amplitude</label>')
     .parent('pattern-controls')
     .addClass('pattern-control');
-  wave_amplitude = createSlider(1, 60, 20, 1);
+  wave_amplitude = createSlider(0, 60, 20, 1);
   wave_amplitude.parent(wave_amplitude_div);
   wave_amplitude_span = createSpan('0');
   wave_amplitude_span.parent(wave_amplitude_div);
@@ -75,32 +75,20 @@ function calcDiameters(num_spokes, num_waves, wave_amplitude) {
   // Sub-steps
   var sub_steps = 20 * num_waves;
 
+  // Set direction of travel for "x"
   var direction = 1;
 
   // Loop through 360 degrees
   while (theta < TWO_PI) {
 
     // Calculate new theta
-    theta = floor((step/sub_steps)) * theta_per_step;
+    theta = step * theta_per_step;
 
-    // Alternate the direction each loop, going from +x to -x
-    direction = 1;
-    if (floor(step/sub_steps) % 2 == 1) {
-      direction = -1;
-    }
+    for (var j = 0; j <= sub_steps; j++) {
 
-    // Straight Line
-    /*
-    x = direction * (min(max_x, max_y)/2);
-    y = 0.0;
-    //*/
-
-    // Sine Wave
-    //*
-    var sub_step = step % sub_steps;
-    x = direction * (min(max_x, max_y)/2) * ((sub_step - (sub_steps/2))/(sub_steps/2));
-    y = wave_amplitude * sin((sub_step/sub_steps) * num_waves * TWO_PI);
-    //*/
+      // Sine Wave
+      x = direction * (min(max_x, max_y)/2) * ((j - (sub_steps/2))/(sub_steps/2));
+      y = wave_amplitude * sin((j/sub_steps) * num_waves * TWO_PI);
 
       // Rotate [x,y] coordinates around [0,0] by angle theta, and then append to path
       path.push(
@@ -110,6 +98,9 @@ function calcDiameters(num_spokes, num_waves, wave_amplitude) {
 
     // Increment iteration counter
     step++;
+
+    // Alternate the direction each step, going from +x to -x
+    direction = direction * -1;
   }
 
   return path;

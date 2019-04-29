@@ -1,5 +1,5 @@
 /**
- * Combine G-Code headers, foofer and path
+ * Combine G-Code headers, footer and path
 */
 function createGcode(path) {
   var gcode = gCodeHeader();

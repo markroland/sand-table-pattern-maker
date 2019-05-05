@@ -2,6 +2,8 @@ class Circle {
 
   constructor() {
 
+    this.key = "circle";
+
     this.name = "Circle";
 
     this.config = {
@@ -9,7 +11,7 @@ class Circle {
         "name": "Radius",
         "value": 0
       },
-      "radius": {
+      "angle": {
         "name": "Angle",
         "value": 0
       }
@@ -48,20 +50,20 @@ class Circle {
   draw() {
 
     // Update object
-    this.config.radius = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.angle = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.radius.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.angle.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
 
     // Display selected values
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.radius;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.angle + '°';
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.radius.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.angle.value + '°';
 
     // Calculate path for Circle at center
     //*
     let path = this.calc(
       0,
       0,
-      this.config.radius,
-      (this.config.angle / 360) * TWO_PI
+      this.config.radius.value,
+      (this.config.angle.value / 360) * TWO_PI
     );
     //*/
 

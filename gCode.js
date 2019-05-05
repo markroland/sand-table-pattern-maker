@@ -1,7 +1,9 @@
 /**
  * Combine G-Code headers, footer and path
 */
-function createGcode(path) {
+function createGcode(path, gCommand = "G0") {
+
+  // Get G-Code header
   var gcode = gCodeHeader();
 
   // Compose start command(s)
@@ -9,8 +11,7 @@ function createGcode(path) {
 
   // Compose G-code path
   for (i = 0; i < path.length; i++) {
-
-    gcode.push("G0 X" + nf(path[i][0] + max_x/2,0,2) + " Y" + nf(path[i][1] + max_y/2,0,2));
+    gcode.push(gCommand + " X" + nf(path[i][0] + max_x/2,0,2) + " Y" + nf(path[i][1] + max_y/2,0,2));
   }
 
   // Compose end command(s)
@@ -23,30 +24,45 @@ function createGcode(path) {
  * Header Content for the  G-code file
  */
 function gCodeHeader() {
-  return [
+
+  var header = [
     "; Created using https://markroland.github.io/sand-table-pattern-maker/",
+    ";",
     "; " + month() + "/" + day() + "/" + year() + " " + hour() + ":" + minute() + ":" + second(),
-    "; Written by Mark Roland",
     ";",
     "; Machine Specifications:",
-    "; ",
+    ";",
+    "; Units: " + units,
+    ";",
     "; Min X: 0",
     "; Max X: " + max_x,
     "; Min Y: 0",
     "; Max Y: " + max_y,
-    "; Motor Speed (mm/min): " + motor_speed,
-    "; ",
+    "; Motor Speed (" + units + "/min): " + motor_speed,
+    ";",
     "; Pattern Specifications:",
-    "; ",
-    "; Shape: Spiral",
-    "; Parameters:",
-    ";   A: 1",
-    ";   B: 2",
-    "; ",
-    "; Pattern Distance (mm): " + nfc(distance, 1),
+    ";",
+    "; Name: " + Patterns.circle.name,
+    ";",
+    "; Parameters:"
+  ];
+
+  // Add pattern parameters
+  const entries = Object.entries(Patterns.circle.config)
+  for (const [param, content] of entries) {
+    header = header.concat([`; - ${param}: ${content}`]);
+  }
+
+  header = header.concat([
+    ";",
+    "; URL: " + window.location,
+    ";",
+    "; Pattern Distance (" + units + "): " + nfc(distance, 1),
     "; Pattern Draw Time (minutes): " + nfc(distance / motor_speed, 1),
     ""
-  ];
+  ]);
+
+  return header;
 }
 
 /**

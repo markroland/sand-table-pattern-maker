@@ -129,6 +129,25 @@ function draw() {
   select("#pattern-instructions").html(nfc(path.length));
   select("#pattern-distance").html(nfc(distance, 1) + " " + units);
   select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
+
+  // Update the URL
+  // https://zellwk.com/blog/looping-through-js-objects/
+  let query_string = '?pattern=' + pattern_select.value();
+  const entries = Object.entries(Patterns.circle.config)
+  for (const [param, content] of entries) {
+    query_string = query_string.concat(`&${param}=${content}`)
+  }
+
+  // Update the browser history
+  //*
+  history.replaceState({
+        id: 'homepage'
+    },
+    document.title,
+    query_string
+  );
+  //*/
+
 }
 
 /**
@@ -197,14 +216,24 @@ function patternSelectEvent() {
       break;
   }
 
+  // Change document title
+  document.title = 'Sand Pattern | ' + pattern_select.value();
+
   // Update the URL
+  // https://zellwk.com/blog/looping-through-js-objects/
+  let query_string = '?pattern=' + pattern_select.value();
+  const entries = Object.entries(Patterns.circle.config)
+  for (const [param, content] of entries) {
+    query_string = query_string.concat(`&${param}=${content}`)
+  }
+
+  // Update the browser history
   history.replaceState({
         id: 'homepage'
     },
-    'Patten | ' + pattern_select.value(),
-    '?pattern=' + pattern_select.value()
+    document.title,
+    query_string
   );
-
 }
 
 /**
@@ -217,5 +246,5 @@ function download()
   saveCanvas("pattern", "png")
 
   // Download pattern G-code
-  save(createGcode(path), "pattern", "gcode");
+  save(createGcode(path, "G0"), "pattern", "gcode");
 }

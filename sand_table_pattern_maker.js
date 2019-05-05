@@ -17,7 +17,7 @@ var plotter_exceeded = false;
 // Set motor speed in units/min
 var motor_speed = 6000.0;
 
-// Width/Diameter of print head (steel ball) used for etching pattern (mm)
+// Width/Diameter of print head (steel ball) used for etching pattern (in "units")
 var ball_size = 19.0;
 
 // Store the total path distance
@@ -62,6 +62,7 @@ function setup() {
     pattern_select.selected(url_params.pattern);
   }
 
+  // Display config values
   select("#plotter-max_x").html(max_x + " " + units);
   select("#plotter-max_y").html(max_y + " " + units);
   select("#plotter-motor_speed").html(motor_speed + " " + units + "/min");

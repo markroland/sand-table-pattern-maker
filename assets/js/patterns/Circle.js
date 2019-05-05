@@ -2,6 +2,8 @@ class Circle {
 
   constructor() {
 
+    this.key = "circle";
+
     this.name = "Circle";
 
     this.config = {

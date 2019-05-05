@@ -45,7 +45,13 @@ function setup() {
     .parent('pattern-selector');
   pattern_select = createSelect()
     .parent(pattern_select_div);
-  pattern_select.option('Circle');
+
+  // Add patterns from object
+  var pattern_select_menu = document.querySelector('#pattern-selector > div > select');
+  const entries = Object.entries(Patterns)
+  for (const [pattern_key, pattern_object] of entries) {
+    pattern_select.option(pattern_object.name, pattern_object.key);
+  }
   pattern_select.option('Diameters');
   pattern_select.option('Fibonacci');
   pattern_select.option('Cycloid');
@@ -85,10 +91,6 @@ function draw() {
 
   // Calculate the pattern
   switch(pattern_select.value()) {
-    case "Circle":
-      // path = drawCircle();
-      path = Patterns.circle.draw();
-      break;
     case "Diameters":
       path = drawDiameters();
       break;
@@ -111,7 +113,7 @@ function draw() {
       path = drawZigZag();
       break;
     default:
-      path = [[0,0]];
+      path = Patterns[pattern_select.value()].draw();
   }
 
   // Draw the table
@@ -133,14 +135,16 @@ function draw() {
 
   // Update the URL
   // https://zellwk.com/blog/looping-through-js-objects/
+  /*
   let query_string = '?pattern=' + pattern_select.value();
-  const entries = Object.entries(Patterns.circle.config)
+  const entries = Object.entries(Patterns[pattern_select.value()].config)
   for (const [param, content] of entries) {
     query_string = query_string.concat(`&${param}=${content}`)
   }
+  //*/
 
   // Update the browser history
-  //*
+  /*
   history.replaceState({
         id: 'homepage'
     },
@@ -190,10 +194,6 @@ function patternSelectEvent() {
   select('#pattern-controls').html('');
 
   switch(pattern_select.value()) {
-    case "Circle":
-      // setupCircle();
-      Patterns.circle.setup();
-      break;
     case "Diameters":
       setupDiameters();
       break;
@@ -215,6 +215,8 @@ function patternSelectEvent() {
     case "Zig Zag":
       setupZigZag();
       break;
+    default:
+      Patterns[pattern_select.value()].setup();
   }
 
   // Change document title
@@ -223,7 +225,7 @@ function patternSelectEvent() {
   // Update the URL
   // https://zellwk.com/blog/looping-through-js-objects/
   let query_string = '?pattern=' + pattern_select.value();
-  const entries = Object.entries(Patterns.circle.config)
+  const entries = Object.entries(Patterns[pattern_select.value()].config)
   for (const [param, content] of entries) {
     query_string = query_string.concat(`&${param}=${content}`)
   }
@@ -244,8 +246,8 @@ function download()
 {
 
   // Download pattern image
-  saveCanvas("pattern", "png")
+  saveCanvas("pattern-" + Patterns[pattern_select.value()].key, "png")
 
   // Download pattern G-code
-  save(createGcode(path, "G0"), "pattern", "gcode");
+  save(createGcode(path, "G0"), "pattern-" + Patterns[pattern_select.value()].key, "gcode");
 }

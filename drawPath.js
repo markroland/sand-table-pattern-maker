@@ -16,20 +16,14 @@ function drawPath(path, pathWidth = 1, connected = true) {
   if (connected) {
 
     noFill();
+    stroke(128, 190, 200);
+    strokeWeight(pathWidth);
+
+    // Draw shape
     beginShape();
-
     for (var i = 0; i < path.length; i++) {
-
-      // Gradiated Stroke
-      stroke(128, 24 * cos((i/2000.0) * TWO_PI) + 164, 200);
-
-      // Thicken to represent ball path
-      strokeWeight(pathWidth);
-
-      // Set vertex
       vertex(path[i][0], path[i][1]);
     }
-
     endShape();
 
   } else {

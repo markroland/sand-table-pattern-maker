@@ -35,6 +35,7 @@
       margin: 0;
       font-family: 'Dosis', sans-serif;
       background-color: rgb(68,68,68);
+      font-size: 16px;
     }
 
     header {
@@ -47,11 +48,22 @@
     header h1 {
       margin: 0;
       padding: 0;
+      font-size: 1em;
       color: rgb(255, 255, 255);
     }
 
+    h2 {
+      font-size: 1em;
+      margin-top: 1.5em;
+      color: rgb(240, 255, 180);
+    }
+
+    p.small {
+      font-size: 0.75em;
+    }
+
     footer {
-      color: rgb(255,255,255);
+      color: rgb(128, 128, 128);
       text-align: center;
       background-color: rgb(32,32,32);
       padding: 0.5em 0;
@@ -68,7 +80,7 @@
     footer a:hover,
     footer a:active
     {
-      color: rgb(220,220,220);
+      color: rgb(140, 140, 140);
       text-decoration: underline;
     }
 
@@ -82,7 +94,6 @@
       display: grid;
       grid-template-columns: 50% 50%;
       /*grid-gap: 10px;*/
-      background-color: #fff;
       color: rgb(68,68,68);
     }
     .box {
@@ -90,6 +101,12 @@
       color: rgb(255,255,255);
       padding: 20px;
     }
+
+    .box:nth-of-type(2) {
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
     #canvas-holder {
       min-width: 600px;
     }
@@ -105,6 +122,23 @@
       width: 7em;
     }
 
+    table tr td:nth-of-type(1) {
+      width: 7em;
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 0.5em;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
     .pattern-control {
       background-color: rgb(32, 32, 32);
       padding: 0.25em 0.5em;
@@ -117,7 +151,6 @@
     }
     .pattern-control input[type="range"] {
       width: 20em;
-      margin: 0 1em;
     }
 
   </style>
@@ -178,9 +211,9 @@
       </div>
 
       <div>
-        <h2>Export</h2>
+        <h2>&nbsp;</h2>
         <div id="download"></div>
-        <p>Download Gcode and PNG image at once. Chrome Required.</p>
+        <p class="small">Download Pattern image and G-code instructions at once. Chrome Required.</p>
       </div>
 
     </div>

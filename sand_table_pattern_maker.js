@@ -23,6 +23,11 @@ var ball_size = 19.0;
 // Store the total path distance
 var distance;
 
+// Master Patterns object to hold patterns
+var Patterns = {
+  "circle" : new Circle()
+}
+
 // Processing standard function called once at beginning of Sketch
 function setup() {
 
@@ -80,7 +85,8 @@ function draw() {
   // Calculate the pattern
   switch(pattern_select.value()) {
     case "Circle":
-      path = drawCircle();
+      // path = drawCircle();
+      path = Patterns.circle.draw();
       break;
     case "Diameters":
       path = drawDiameters();
@@ -111,7 +117,7 @@ function draw() {
   drawTable(path_exceeds_plotter(path));
 
   // Draw the path
-  drawPath(path, 1);
+  drawPath(path, 2, true);
 
   // Calculate path length
   distance = 0;
@@ -165,7 +171,8 @@ function patternSelectEvent() {
 
   switch(pattern_select.value()) {
     case "Circle":
-      setupCircle();
+      // setupCircle();
+      Patterns.circle.setup();
       break;
     case "Diameters":
       setupDiameters();

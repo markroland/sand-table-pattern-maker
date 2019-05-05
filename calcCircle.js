@@ -47,23 +47,15 @@ class Circle {
 
   draw() {
 
-    // Draw control selection values
-    // angle_value.html('(' + parseInt(60 * (angle.value() / TWO_PI)) + '/60) * 2π');
-    // angle_value.html('(' + angle.value() + '/60) * 2π');
-    // let angle_value = select('.pattern-control span')
-    // angle_value.html((angle.value() * (360/60)) + '°');
-    // radius_value.html(radius.value());
-
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML =
-      this.config.radius;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML =
-      // '(' + parseInt(60 * (this.config.angle / TWO_PI)) + '/60) * 2π';
-      this.config.angle + '°';
-
+    // Update object
     this.config.radius = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.angle = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
 
-    // Circle at center
+    // Display selected values
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.radius;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.angle + '°';
+
+    // Calculate path for Circle at center
     //*
     let path = this.calc(
       0,
@@ -73,17 +65,20 @@ class Circle {
     );
     //*/
 
-    // Circle
+    // Calculate path for Circle not at center
     /*
     var start_x = 0.25 * max_x;
     var start_y = 0.25 * max_y;
-    path = calcCircle(
+    let path = this.calc(
       start_x,
       start_y,
-      0.1 * min(max_x, max_y),
+      this.config.radius,
       atan(start_y/start_x) + PI
     );
     //*/
+
+    // Update object
+    this.path = path;
 
     return path;
   }
@@ -108,7 +103,7 @@ class Circle {
     var y;
     var theta = start_theta;
 
-    // Initialize shape path array
+    // Initialize return value - the path array
     // This stores the x,y coordinates for each step
     var path = new Array();
 
@@ -121,7 +116,7 @@ class Circle {
     // let sides = 30 + (radius/max_r) * 30;
     let sides = 60;
 
-    // Continue as long as the design stays within bounds of the plotter
+    // Loop through one revolution
     while (theta < start_theta + TWO_PI) {
 
        // Rotational Angle (steps per rotation in the denominator)

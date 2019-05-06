@@ -26,6 +26,7 @@ var distance;
 // Master Patterns object to hold patterns
 var Patterns = {
   "circle": new Circle(),
+  "parametric": new Parametric(),
   "rectangle": new Rectangle()
 }
 

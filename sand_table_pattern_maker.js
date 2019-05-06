@@ -25,7 +25,8 @@ var distance;
 
 // Master Patterns object to hold patterns
 var Patterns = {
-  "circle" : new Circle()
+  "circle": new Circle(),
+  "rectangle": new Rectangle()
 }
 
 // Processing standard function called once at beginning of Sketch

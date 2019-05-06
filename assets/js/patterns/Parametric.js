@@ -63,8 +63,12 @@ class Parametric {
     // this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     // this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
 
-    // Calculate path for Circle at center
-    let path = this.calc();
+    // Heart Curve
+    // http://mathworld.wolfram.com/HeartCurve.html
+    let path = this.calc(
+        "10 * (16 * pow(sin(theta), 3))",
+        "10 * (13 * cos(theta) - 5 * cos(2 * theta) - 2 * cos(3 * theta) - cos(4 * theta))"
+    );
 
     // Update object
     this.path = path;
@@ -77,17 +81,12 @@ class Parametric {
    *
    * @return Array Path
    **/
-  calc() {
+  calc(x_equation, y_equation) {
 
     // Set initial values
     var x;
     var y;
     var theta = 0.0;
-
-    // Heart Curve
-    // http://mathworld.wolfram.com/HeartCurve.html
-    const x_equation = "10 * (16 * pow(sin(theta), 3))";
-    const y_equation = "10 * (13 * cos(theta) - 5 * cos(2 * theta) - 2 * cos(3 * theta) - cos(4 * theta))";
 
     // Initialize return value - the path array
     // This stores the x,y coordinates for each step

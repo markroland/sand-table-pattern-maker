@@ -6,7 +6,35 @@ class Parametric {
 
     this.name = "Parametric";
 
+    // Heart Curve
+    // http://mathworld.wolfram.com/HeartCurve.html
+    let heart_curve = {
+        "x": "10 * (16 * pow(sin(t), 3))",
+        "y": "10 * (13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t))"
+    };
+
+    // Define the parametric equations using text inputs
     this.config = {
+      "x": {
+        "name": "X",
+        "value": 0,
+        "input": {
+          "type": "createInput",
+          "params" : [
+            heart_curve.x
+          ]
+        }
+      },
+      "y": {
+        "name": "Y",
+        "value": 0,
+        "input": {
+          "type": "createInput",
+          "params" : [
+            heart_curve.y
+          ]
+        }
+      }
     };
 
     this.path = [];
@@ -40,9 +68,7 @@ class Parametric {
           .addClass(val.input.class);
       } else if (val.input.type == "createInput") {
         control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
-          .attribute("type", "checkbox")
           .attribute('name', key)
-          .attribute('checkbox', null)
           .parent(control.div);
       }
 
@@ -60,14 +86,12 @@ class Parametric {
   draw() {
 
     // Update object
-    // this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    // this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.x.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.y.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
 
-    // Heart Curve
-    // http://mathworld.wolfram.com/HeartCurve.html
     let path = this.calc(
-        "10 * (16 * pow(sin(theta), 3))",
-        "10 * (13 * cos(theta) - 5 * cos(2 * theta) - 2 * cos(3 * theta) - cos(4 * theta))"
+        this.config.x.value,
+        this.config.y.value
     );
 
     // Update object
@@ -86,7 +110,7 @@ class Parametric {
     // Set initial values
     var x;
     var y;
-    var theta = 0.0;
+    var t = 0.0;
 
     // Initialize return value - the path array
     // This stores the x,y coordinates for each step
@@ -99,10 +123,10 @@ class Parametric {
     let steps_per_revolution = 120;
 
     // Loop through one revolution
-    while (theta < TWO_PI) {
+    while (t < TWO_PI) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      theta = (step/steps_per_revolution) * TWO_PI;
+      t = (step/steps_per_revolution) * TWO_PI;
 
       // Run the parametric equations
       x = eval(x_equation);

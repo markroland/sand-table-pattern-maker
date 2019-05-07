@@ -1,3 +1,6 @@
+/*
+https://en.wikipedia.org/wiki/Parametric_equation
+*/
 class Parametric {
 
   constructor() {
@@ -5,6 +8,13 @@ class Parametric {
     this.key = "parametric";
 
     this.name = "Parametric";
+
+    // Butterfly Curve
+    // https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)
+    let butterfly = {
+        "x": "40 * sin(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))",
+        "y": "40 * cos(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))"
+    };
 
     // Heart Curve
     // http://mathworld.wolfram.com/HeartCurve.html
@@ -21,7 +31,7 @@ class Parametric {
         "input": {
           "type": "createInput",
           "params" : [
-            heart_curve.x
+            butterfly.x
           ]
         }
       },
@@ -31,7 +41,7 @@ class Parametric {
         "input": {
           "type": "createInput",
           "params" : [
-            heart_curve.y
+            butterfly.y
           ]
         }
       }

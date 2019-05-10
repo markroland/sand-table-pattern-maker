@@ -247,9 +247,15 @@ function patternSelectEvent() {
 function download()
 {
 
+  // Set filename
+  let filename = "pattern";
+  if (Patterns[pattern_select.value()] !== undefined) {
+    filename += "-" + Patterns[pattern_select.value()].key;
+  }
+
   // Download pattern image
-  saveCanvas("pattern-" + Patterns[pattern_select.value()].key, "png")
+  saveCanvas(filename, "png")
 
   // Download pattern G-code
-  save(createGcode(path, "G0"), "pattern-" + Patterns[pattern_select.value()].key, "gcode");
+  save(createGcode(path, "G0"), filename, "gcode");
 }

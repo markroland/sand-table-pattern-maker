@@ -9,6 +9,13 @@ class Parametric {
 
     this.name = "Parametric";
 
+    // http://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008
+    // http://www.sineofthetimes.org/the-art-of-parametric-equations-2/
+    let farris = {
+      "x": "cos(1*t) + cos(6*t)/2 + sin(14*t)/3",
+      "y": "cos(1*t) + sin(6*t)/2 + cos(14*t)/3"
+    }
+
     // Butterfly Curve
     // https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)
     let butterfly = {

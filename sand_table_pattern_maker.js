@@ -30,7 +30,8 @@ var draw_iteration = 0;
 var Patterns = {
   "circle": new Circle(),
   "parametric": new Parametric(),
-  "rectangle": new Rectangle()
+  "rectangle": new Rectangle(),
+  "shapespin": new ShapeSpin()
 }
 
 // Processing standard function called once at beginning of Sketch

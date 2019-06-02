@@ -8,13 +8,25 @@ class ShapeSpin {
 
     // Define the shape to spin
 
-    // Square
+    // Shape 1
     //*
+    this.base_shape = [
+        [-160, 0],
+        [80, -80],
+        [160, 0],
+        [80, 80],
+        [-160, 0]
+    ];
+    //*/
+
+    // Square
+    /*
     this.base_shape = [
         [30, 30],
         [60, 30],
         [60, 60],
-        [30, 60]
+        [30, 60],
+        [30, 30]
     ];
     //*/
 

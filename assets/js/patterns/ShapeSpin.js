@@ -31,7 +31,23 @@ class ShapeSpin {
     //*/
 
     // Define the parametric equations using text inputs
-    this.config = {};
+    this.config = {
+      "steps": {
+        "name": "Steps",
+        "value": 0,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            1,
+            120,
+            30,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
+    };
 
     this.path = [];
   }
@@ -55,6 +71,21 @@ class ShapeSpin {
         .parent('pattern-controls')
         .addClass('pattern-control');
 
+      // Create the control form input
+      // TODO: make this dynamic
+      if (val.input.type == "createSlider") {
+        control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
+          .attribute('name', key)
+          .parent(control.div)
+          .addClass(val.input.class);
+      } else if (val.input.type == "createInput") {
+        control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
+          .attribute("type", "checkbox")
+          .attribute('name', key)
+          .attribute('checkbox', null)
+          .parent(control.div);
+      }
+
       // Create a span element to display the current input's value (useful for Sliders)
       if (val.input.displayValue) {
         let radius_value = createSpan('0')
@@ -68,7 +99,16 @@ class ShapeSpin {
 
   draw() {
 
-    let path = this.calc(this.base_shape);
+    // Update object
+    this.config.steps.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+
+    // Display selected values
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.steps.value;
+
+    let path = this.calc(
+      this.base_shape,
+      parseInt(this.config.steps.value)
+    );
 
     // Update object
     this.path = path;
@@ -81,7 +121,7 @@ class ShapeSpin {
    *
    * @return Array Path
    **/
-  calc(base_shape) {
+  calc(base_shape, steps_per_revolution) {
 
     // Set initial values
     var x;
@@ -95,13 +135,9 @@ class ShapeSpin {
     // Iteration counter.
     var step = 0;
 
-    // The number of "sides" to the circle.
-    let steps_per_revolution = 60;
-
     let growth_factor;
 
     const max_t = TWO_PI;
-
 
     // Loop through one revolution
     while (t < max_t) {

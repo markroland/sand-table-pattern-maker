@@ -23,6 +23,9 @@ var ball_size = 19.0;
 // Store the total path distance
 var distance;
 
+// A counter for the draw loop
+var draw_iteration = 0;
+
 // Master Patterns object to hold patterns
 var Patterns = {
   "circle": new Circle(),
@@ -37,7 +40,7 @@ function setup() {
   // noLoop();
 
   // Slow down the frame rate to reduce calculations
-  frameRate(12);
+  frameRate(10);
 
   // Define canvas size
   var canvas = createCanvas(648, 648).parent('canvas-holder');
@@ -121,8 +124,8 @@ function draw() {
   // Draw the table
   drawTable(path_exceeds_plotter(path));
 
-  // Draw the path
-  drawPath(path, 2, true);
+  // Draw the path [path, path width, connected path, animated]
+  drawPath(path, 2, true, true);
 
   // Calculate path length
   distance = 0;
@@ -150,6 +153,9 @@ function draw() {
       query_string
     );
   }
+
+  // Increment draw loop counter
+  draw_iteration++;
 }
 
 /**

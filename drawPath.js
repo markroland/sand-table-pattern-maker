@@ -38,7 +38,7 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
     }
     endShape();
 
-    // Draw endpoint
+    // Draw current point
     noStroke();
     if (animated) {
       fill(255,255,0,128);
@@ -79,7 +79,7 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
       vertex(path[i][0], path[i][1]);
     }
 
-    // Draw endpoint
+    // Draw current point
     noStroke();
     if (animated) {
       fill(255,255,0,128);

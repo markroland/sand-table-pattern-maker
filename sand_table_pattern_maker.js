@@ -123,6 +123,10 @@ function draw() {
       path = Patterns[pattern_select.value()].draw();
   }
 
+  // Optimize path
+  // Remove step sizes less than a threshold ("units")
+  path = optimizePath(path, 5);
+
   // Draw the table
   drawTable(path_exceeds_plotter(path));
 
@@ -247,6 +251,37 @@ function patternSelectEvent() {
     );
   }
   //*/
+}
+
+/**
+ * Optimize the path to remove insignificant steps
+ */
+function optimizePath(path, min_distance)
+{
+  var filtered_path = new Array();
+  /*
+  let filtered_path = path.filter(function(element, index){
+    // Return every-other step
+    if (index % 2) {
+      return false;
+    }
+    return true;
+  });
+  */
+
+  // Copy first position of "path" to the filtered path
+  filtered_path.push(path[0]);
+
+  // Subsequent positions must greater than the minimum distance to be added
+  path.forEach(function(element, index) {
+    var fp_last = filtered_path[filtered_path.length - 1];
+    var step_distance = sqrt(pow(element[0] - fp_last[0], 2) + pow(element[1] - fp_last[1], 2));
+    if (step_distance > min_distance) {
+      filtered_path.push(element);
+    }
+  });
+
+  return filtered_path;
 }
 
 /**

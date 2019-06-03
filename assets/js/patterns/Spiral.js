@@ -54,6 +54,21 @@ class Spiral {
           "class": "slider",
           "displayValue": true
         }
+      },
+      "noise": {
+        "name": "Noise",
+        "value": 0,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            0,
+            50,
+            0,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
       }
     };
 
@@ -114,11 +129,13 @@ class Spiral {
     this.config.sides.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.offset.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
     this.config.twist.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.noise.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.sides.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.offset.value + " " + units;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.twist.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.noise.value;
 
     // Calculate path
     let path = this.calc(
@@ -128,7 +145,8 @@ class Spiral {
         0,
         this.config.offset.value,
         this.config.sides.value,
-        this.config.twist.value
+        this.config.twist.value,
+        this.config.noise.value
     );
 
     // Update object
@@ -144,7 +162,7 @@ class Spiral {
    *
    * @return Array Path
    **/
-  calc(start_x, start_y, start_r, start_theta, offset, sides, twist) {
+  calc(start_x, start_y, start_r, start_theta, offset, sides, twist, noise) {
 
     // Set initial values
     var x;
@@ -171,7 +189,7 @@ class Spiral {
       theta = start_theta + (step/sides) * TWO_PI;
 
       // Increment radius
-      r = start_r + offset * (theta/TWO_PI);
+      r = start_r + offset * (theta/TWO_PI) - (noise * Math.random());
 
       // Convert polar position to rectangular coordinates
       x = start_x + (r * cos(theta * twist));

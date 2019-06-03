@@ -32,7 +32,8 @@ var Patterns = {
   "fermatspiral": new FermatSpiral(),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),
-  "shapespin": new ShapeSpin()
+  "shapespin": new ShapeSpin(),
+  "spiral": new Spiral()
 }
 
 // Processing standard function called once at beginning of Sketch
@@ -62,7 +63,6 @@ function setup() {
   pattern_select.option('Diameters');
   pattern_select.option('Fibonacci');
   pattern_select.option('Cycloid');
-  pattern_select.option('Spiral');
   pattern_select.option('Spiral - Modulated');
   pattern_select.option('Spokes');
   pattern_select.option('Zig Zag');
@@ -106,9 +106,6 @@ function draw() {
       break;
     case "Cycloid":
       path = drawCycloid();
-      break;
-    case "Spiral":
-      path = drawSpiral();
       break;
     case "Spiral - Modulated":
       path = drawWigglySpiral();
@@ -211,9 +208,6 @@ function patternSelectEvent() {
       break;
     case "Cycloid":
       setupCycloid();
-      break;
-    case "Spiral":
-      setupSpiral();
       break;
     case "Spiral - Modulated":
       setupWigglySpiral();

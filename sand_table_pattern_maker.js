@@ -33,7 +33,8 @@ var Patterns = {
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),
   "shapespin": new ShapeSpin(),
-  "spiral": new Spiral()
+  "spiral": new Spiral(),
+  "star": new Star()
 }
 
 // Processing standard function called once at beginning of Sketch

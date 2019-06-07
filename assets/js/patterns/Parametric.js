@@ -16,6 +16,12 @@ class Parametric {
       "y": "cos(1*t) + sin(6*t)/2 + cos(14*t)/3"
     }
 
+    // Rhodonea
+    let rhodonea = {
+        "x": "50 * sin(6*t) * cos(t)",
+        "y": "50 * sin(6*t) * sin(t)"
+    };
+
     // Butterfly Curve
     // https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)
     let butterfly = {

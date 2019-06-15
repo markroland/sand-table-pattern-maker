@@ -13,8 +13,9 @@ class Lindenmayer {
     this.name = "Lindenmayer";
 
     // Hilbert Curve
+    // https://en.wikipedia.org/wiki/Hilbert_curve#Representation_as_Lindenmayer_system
+    /*
     this.curve = {
-      "iterations": 4,
       "l_system" : {
         "axiom": "A",
         "rules" : [
@@ -128,11 +129,14 @@ class Lindenmayer {
       lindenmayer_string = this.compose_lindenmayer_string(lindenmayer_string);
     }
 
-    // Debugging
+    // Log Lindemayer System string
     // console.log(lindenmayer_string);
 
     // Calculate path
     let path = this.calc(lindenmayer_string, this.config.length.value);
+
+    // Log Path coordinates
+    // console.log(path);
 
     // Update object
     this.path = path;
@@ -164,7 +168,7 @@ class Lindenmayer {
 
       if (lindenmayer_string[pos] == 'F') {
 
-        // draw forward
+        // Draw forward
 
         // polar to cartesian based on step and current_angle:
         let x1 = x + segment_length * cos(radians(current_angle));
@@ -178,12 +182,12 @@ class Lindenmayer {
 
       } else if (lindenmayer_string[pos] == '+') {
 
-        // turn left
+        // Turn left
         current_angle += this.curve.draw.angle;
 
       } else if (lindenmayer_string[pos] == '-') {
 
-        // turn right
+        // Turn right
         current_angle -= this.curve.draw.angle;
       }
 
@@ -201,22 +205,20 @@ class Lindenmayer {
     var x_coordinates = arrayColumn(path, 0);
     var x_min = Math.min(...x_coordinates);
     var x_max = Math.max(...x_coordinates);
-    var x_range = Math.abs(x_max - x_min);
+    var x_range = x_max - x_min;
 
     var y_coordinates = arrayColumn(path, 1);
     var y_min = Math.min(...y_coordinates);
     var y_max = Math.max(...y_coordinates);
-    var y_range = Math.abs(y_max - y_min);
+    var y_range = y_max - y_min;
 
-    // Transpose
+    // Translate path to center of drawing area
     path = path.map(function(a){
       return [
-        (a[0] - x_range/2),
-        (a[1] + y_range/2)
+        (a[0] - x_min - ((x_max - x_min)/2)),
+        (a[1] - y_min - ((y_max - y_min)/2)),
       ];
     });
-
-    // console.log(path, x_range, y_range);
 
     return path;
   }
@@ -233,7 +235,7 @@ class Lindenmayer {
 
       for (let j = 0; j < this.curve.l_system.rules.length; j++) {
 
-        if (s[i] == this.curve.l_system.rules[j][0])  {
+        if (s[i] == this.curve.l_system.rules[j][0]) {
 
           // Write substitution
           outputstring += this.curve.l_system.rules[j][1];

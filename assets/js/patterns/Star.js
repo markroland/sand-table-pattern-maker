@@ -69,6 +69,19 @@ class Star {
           "class": "slider",
           "displayValue": true
         }
+      },
+      "reverse": {
+        "name": "Reverse",
+        "value": 0,
+        "input": {
+          "type": "createInput",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
       }
     };
 
@@ -148,6 +161,11 @@ class Star {
         this.config.pointiness.value,
         this.config.twist.value
     );
+
+    // Reverse the path
+    if (document.querySelector('#pattern-controls > div:nth-child(5) > input[type=checkbox]').checked) {
+      path.reverse();
+    }
 
     // Update object
     this.path = path;

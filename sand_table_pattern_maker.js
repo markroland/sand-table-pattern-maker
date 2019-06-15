@@ -30,6 +30,7 @@ var draw_iteration = 0;
 var Patterns = {
   "circle": new Circle(),
   "fermatspiral": new FermatSpiral(),
+  "lindenmayer": new Lindenmayer(),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),
   "shapespin": new ShapeSpin(),
@@ -123,7 +124,7 @@ function draw() {
 
   // Optimize path
   // Remove step sizes less than a threshold ("units")
-  path = optimizePath(path, 5);
+  // path = optimizePath(path, 5);
 
   // Draw the table
   drawTable(path_exceeds_plotter(path));

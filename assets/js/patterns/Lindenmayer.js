@@ -1,7 +1,10 @@
 /**
- * Lindenmayer
+ * Space Filling Curves
  *
  * Modified from https://p5js.org/examples/simulate-l-systems.html on 6/15/2019
+ *
+ * https://en.wikipedia.org/wiki/Space-filling_curve
+ * https://fedimser.github.io/l-systems.html
  *
  */
 class Lindenmayer {
@@ -10,35 +13,81 @@ class Lindenmayer {
 
     this.key = "lindenmayer";
 
-    this.name = "Lindenmayer";
+    this.name = "Space Filling Curves";
 
     // Hilbert Curve
     // https://en.wikipedia.org/wiki/Hilbert_curve#Representation_as_Lindenmayer_system
-    /*
-    this.curve = {
-      "l_system" : {
+    this.hilbert_curve = {
+      "l_system": {
         "axiom": "A",
-        "rules" : [
+        "rules": [
           ["A", "-BF+AFA+FB-"],
           ["B", "+AF-BFB-FA+"]
         ]
       },
-      "draw" : {
+      "draw": {
         "length": ball_size,
         "angle": 90
       }
     }
 
+    // Gosper Curve
+    // https://en.wikipedia.org/wiki/Gosper_curve
+    // "F"-based rules found at https://gist.github.com/nitaku/6521802
+    this.gosper_curve = {
+      "l_system": {
+        "axiom": "A",
+        "rules": [
+          ["A", "A+BF++BF-FA--FAFA-BF+"],
+          ["B", "-FA+BFBF++BF+FA--FA-B"]
+        ]
+      },
+      "draw": {
+        "length": ball_size,
+        "angle": 60
+      }
+    }
+
+    // Sierpinkski Arrowhead
+    this.sierpinski_arrowhead = {
+      "l_system": {
+        "axiom": "AF",
+        "rules": [
+          ["A", "BF+AF+B"],
+          ["B", "AF-BF-A"]
+        ]
+      },
+      "draw": {
+        "length": ball_size,
+        "angle": 60
+      }
+    }
+
+    // Set the curve to draw
+    this.curve = this.sierpinski_arrowhead;
+
     this.config = {
+      "curve": {
+        "name": "Curve",
+        "value": 5,
+        "input": {
+          "type": "createSelect",
+          "options": {
+            "hilbert_curve": "Hilbert Curve",
+            "gosper_curve": "Gosper Curve",
+            "sierpinski_arrowhead": "Sierpinski Arrowhead"
+          }
+        }
+      },
       "iterations": {
         "name": "Iterations",
         "value": 3,
         "input": {
           "type": "createSlider",
-          "params" : [
+          "params": [
             1,
             7,
-            4,
+            3,
             1
           ],
           "class": "slider",
@@ -50,7 +99,7 @@ class Lindenmayer {
         "value": 10,
         "input": {
           "type": "createSlider",
-          "params" : [
+          "params": [
             1,
             50,
             10,
@@ -60,6 +109,21 @@ class Lindenmayer {
           "displayValue": true
         }
       },
+      "rotate": {
+        "name": "Rotate",
+        "value": 0,
+        "input": {
+          "type": "createSlider",
+          "params": [
+            0,
+            360,
+            0,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      }
     };
 
     this.path = [];
@@ -85,8 +149,18 @@ class Lindenmayer {
         .addClass('pattern-control');
 
       // Create the control form input
-      // TODO: make this dynamic
-      if (val.input.type == "createSlider") {
+      if (val.input.type == "createSelect") {
+        control.input = createSelect()
+          .attribute('name', key)
+          .parent(control.div)
+          .addClass(val.input.class);
+
+          const entries = Object.entries(val.input.options)
+          for (const [key, object] of entries) {
+            control.input.option(object, key);
+          }
+
+      } else if (val.input.type == "createSlider") {
         control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
           .attribute('name', key)
           .parent(control.div)
@@ -116,13 +190,19 @@ class Lindenmayer {
   draw() {
 
     // Read in selected value(s)
-    this.config.iterations.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+
+    var curve_type = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
+    this.curve = this[curve_type];
+
+    this.config.iterations.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
     this.curve.iterations = this.config.iterations.value;
-    this.config.length.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.length.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.rotate.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
 
     // Display selected value(s)
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.iterations.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.length.value + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.iterations.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.length.value + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.rotate.value + "°";
 
     let lindenmayer_string = this.curve.l_system.axiom;
     for (let i = 0; i < this.curve.iterations; i++) {
@@ -194,31 +274,14 @@ class Lindenmayer {
       pos++;
     }
 
-    // console.log(path);
-
-    // Define function to extract column from multidimensional array
-    const arrayColumn = (arr, n) => arr.map(a => a[n]);
-
-    // Transpose path to center of drawing area
-
-    // Get X and Y coordinates as an 1-dimensional array
-    var x_coordinates = arrayColumn(path, 0);
-    var x_min = Math.min(...x_coordinates);
-    var x_max = Math.max(...x_coordinates);
-    var x_range = x_max - x_min;
-
-    var y_coordinates = arrayColumn(path, 1);
-    var y_min = Math.min(...y_coordinates);
-    var y_max = Math.max(...y_coordinates);
-    var y_range = y_max - y_min;
-
     // Translate path to center of drawing area
-    path = path.map(function(a){
-      return [
-        (a[0] - x_min - ((x_max - x_min)/2)),
-        (a[1] - y_min - ((y_max - y_min)/2)),
-      ];
-    });
+    path = this.translate_to_center(path);
+
+    // Rotate path around the center of drawing area
+    if (this.config.rotate.value > 0) {
+      path = this.rotate_around_center(path);
+      path = this.translate_to_center(path);
+    }
 
     return path;
   }
@@ -254,5 +317,41 @@ class Lindenmayer {
     }
 
     return outputstring;
+  }
+
+  translate_to_center(path) {
+
+    // Define function to extract column from multidimensional array
+    const arrayColumn = (arr, n) => arr.map(a => a[n]);
+
+    // Get X and Y coordinates as an 1-dimensional array
+    var x_coordinates = arrayColumn(path, 0);
+    var x_min = Math.min(...x_coordinates);
+    var x_max = Math.max(...x_coordinates);
+    var x_range = x_max - x_min;
+
+    var y_coordinates = arrayColumn(path, 1);
+    var y_min = Math.min(...y_coordinates);
+    var y_max = Math.max(...y_coordinates);
+    var y_range = y_max - y_min;
+
+    return path.map(function(a){
+      return [
+        (a[0] - x_min - ((x_max - x_min)/2)),
+        (a[1] - y_min - ((y_max - y_min)/2)),
+      ];
+    });
+  }
+
+  rotate_around_center(path) {
+    var theta = radians(this.config.rotate.value);
+    return path.map(function(a){
+      var x = a[0];
+      var y = a[1];
+      return [
+        x * cos(theta) - y * sin(theta),
+        x * sin(theta) + y * cos(theta)
+      ];
+    });
   }
 }

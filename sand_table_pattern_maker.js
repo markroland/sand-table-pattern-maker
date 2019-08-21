@@ -30,6 +30,7 @@ var draw_iteration = 0;
 var Patterns = {
   "circle": new Circle(),
   "fermatspiral": new FermatSpiral(),
+  "heart": new Heart(),
   "lindenmayer": new Lindenmayer(),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),

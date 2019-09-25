@@ -34,6 +34,7 @@ var Patterns = {
   "lindenmayer": new Lindenmayer(),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),
+  "shapemorph": new ShapeMorph(),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),
   "star": new Star()

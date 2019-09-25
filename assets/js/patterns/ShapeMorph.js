@@ -8,13 +8,15 @@ class ShapeMorph {
 
     // Define the shape to spin
 
-    this.sides = 64;
+    // 60 works well across many divisors (shape sides)
+    this.sides = 60;
 
     let radius = Math.min(max_x/2, max_y/2);
 
     // Define shapes
     this.circle = this.circleShape(this.sides, radius);
     this.heart = this.heartShape(this.sides, radius);
+    this.star = this.starShape(this.sides, radius);
     this.square = this.squareShape(this.sides, radius);
 
     // Define the parametric equations using text inputs
@@ -27,6 +29,7 @@ class ShapeMorph {
           "options": {
             "circle": "Circle",
             "heart": "Heart",
+            "star": "Star",
             "square": "Square"
           }
         }
@@ -39,6 +42,7 @@ class ShapeMorph {
           "options": {
             "circle": "Circle",
             "heart": "Heart",
+            "star": "Star",
             "square": "Square"
           }
         }
@@ -60,13 +64,13 @@ class ShapeMorph {
       },
       "twist": {
         "name": "Twist",
-        "value": 0.5,
+        "value": 0.0,
         "input": {
           "type": "createSlider",
           "params" : [
             -1.0,
             1.0,
-            0.5,
+            0.0,
             0.01
           ],
           "class": "slider",
@@ -296,6 +300,43 @@ class ShapeMorph {
       theta = ((i/array_size) * (2 * Math.PI)) + 0.5*Math.PI;
       x = 10 * (16 * Math.pow(Math.sin(theta), 3));
       y = 10 * (13 * Math.cos(theta) - 5 * Math.cos(2 * theta) - 2 * Math.cos(3 * theta) - Math.cos(4 * theta));
+      shape.push([x,y]);
+    }
+
+    return shape;
+  }
+
+  starShape(array_size, radius) {
+
+    let shape = [];
+
+    let x, y, theta, i_radius;
+
+    var star_points = 5;
+    var points_per_side = (array_size / star_points);
+    var minimum_radius = 0.4 * radius;
+
+    for (var i = 0; i <= array_size; i++) {
+      theta = (i/array_size) * (2 * Math.PI);
+
+      if (i % points_per_side == 0) {
+        // Star point (maximum)
+        i_radius = radius;
+      // } else if ((i + 6) % (array_size / star_points) == 0) {
+      } else if (i % (points_per_side/2) == 0) {
+        // Star inner minimum
+        i_radius = minimum_radius;
+      } else if (i % points_per_side < (points_per_side/2)) {
+        // Descend from point to anti-point
+        i_radius = radius - (((i % (points_per_side/2)) / (points_per_side/2)) * (radius - minimum_radius));
+      } else {
+        // Ascend from anti-point to point
+        i_radius = (minimum_radius) + (((i % (points_per_side/2)) / (points_per_side/2)) * (radius - (minimum_radius)));
+      }
+
+      x = i_radius * Math.cos(theta);
+      y = -i_radius * Math.sin(theta);
+
       shape.push([x,y]);
     }
 

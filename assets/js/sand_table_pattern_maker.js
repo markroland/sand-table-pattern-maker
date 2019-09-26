@@ -44,6 +44,7 @@ var Patterns = {
   "farris": new Farris(),
   "fermatspiral": new FermatSpiral(),
   "fibonacci": new Fibonacci(),
+  "fibonaccilollipops": new FibonacciLollipops(),
   "gcode": new Gcode(),
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(),

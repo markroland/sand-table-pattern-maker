@@ -37,7 +37,8 @@ var Patterns = {
   "shapemorph": new ShapeMorph(),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),
-  "star": new Star()
+  "star": new Star(),
+  "zigzag": new ZigZag()
 }
 
 // Processing standard function called once at beginning of Sketch
@@ -69,7 +70,6 @@ function setup() {
   pattern_select.option('Cycloid');
   pattern_select.option('Spiral - Modulated');
   pattern_select.option('Spokes');
-  pattern_select.option('Zig Zag');
   pattern_select.selected('Cycloid');
   pattern_select.changed(patternSelectEvent);
 
@@ -116,9 +116,6 @@ function draw() {
       break;
     case "Spokes":
       path = drawSpokes();
-      break;
-    case "Zig Zag":
-      path = drawZigZag();
       break;
     default:
       path = Patterns[pattern_select.value()].draw();
@@ -218,9 +215,6 @@ function patternSelectEvent() {
       break;
     case "Spokes":
       setupSpokes();
-      break;
-    case "Zig Zag":
-      setupZigZag();
       break;
     default:
       Patterns[pattern_select.value()].setup();

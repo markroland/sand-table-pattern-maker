@@ -7,9 +7,20 @@ class ZigZag {
 
     this.key = "zigzag";
 
-    this.name = "ZigZag";
+    this.name = "Zig Zag";
 
     this.config = {
+      "bound": {
+        "name": "Bounding Shape",
+        "value": 4,
+        "input": {
+          "type": "createSelect",
+          "options": {
+            "rectangle": "Max Rectangle",
+            "circle": "Max Circle"
+          }
+        }
+      },
       "spacing": {
         "name": "Spacing",
         "value": 1,
@@ -42,14 +53,13 @@ class ZigZag {
       },
       "border": {
         "name": "Border",
-        "value": 0,
+        "value": 1,
         "input": {
           "type": "createInput",
           "attributes" : [{
             "type" : "checkbox",
-            "checked" : null
+            "checked" : true
           }],
-          "params": [0, 1, 0],
           "displayValue": false
         }
       }
@@ -79,16 +89,26 @@ class ZigZag {
 
       // Create the control form input
       // TODO: make this dynamic
-      if (val.input.type == "createSlider") {
+      if (val.input.type == "createSelect") {
+        control.input = createSelect()
+          .attribute('name', key)
+          .parent(control.div)
+          .addClass(val.input.class);
+
+          const entries = Object.entries(val.input.options)
+          for (const [key, object] of entries) {
+            control.input.option(object, key);
+          }
+      } else if (val.input.type == "createSlider") {
         control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
           .attribute('name', key)
           .parent(control.div)
           .addClass(val.input.class);
       } else if (val.input.type == "createInput") {
-        control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
+        control.input = createInput(val.value, val.input.attributes[0])
           .attribute("type", "checkbox")
           .attribute('name', key)
-          .attribute('checkbox', null)
+          .attribute('checked', "checked")
           .parent(control.div);
       }
 
@@ -109,23 +129,25 @@ class ZigZag {
   draw() {
 
     // Read in selected value(s)
-    this.config.spacing.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.margin.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.bound.value = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
+    this.config.spacing.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.margin.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
     this.config.border.value = 0
-    if (document.querySelector('#pattern-controls > div:nth-child(3) > input[type=checkbox]').checked) {
+    if (document.querySelector('#pattern-controls > div:nth-child(4) > input[type=checkbox]').checked) {
       this.config.border.value = 1
     }
 
     // Display selected value(s)
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = nfc((max_y - min_y)/(-this.config.spacing.value), 1) + " " + units;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.margin.value + " mm";
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = nfc((max_y - min_y)/(-this.config.spacing.value), 1) + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.margin.value + " mm";
 
     // Calculate path
     let path = this.calc(
         (max_y - min_y) / (-this.config.spacing.value),
         parseInt(this.config.margin.value),
         0.0,
-        this.config.border.value
+        this.config.border.value,
+        this.config.bound.value
     );
 
     // Update object
@@ -144,7 +166,7 @@ class ZigZag {
    *
    * @return Array Path
    **/
-  calc(spacing, margin, angle, border) {
+  calc(spacing, margin, angle, border, bounding_shape) {
 
     // Set initial values
     var start_x = -((max_x/2) - margin);
@@ -162,15 +184,37 @@ class ZigZag {
     // Continue as long as the design stays within bounds of the plotter
     while ((y + spacing) <= ((max_y/2) - margin)) {
 
-      if (step % 4 == 0) {
-        // Move Right
-        x = (max_x - min_x)/2 - margin;
-      } else if (step % 4 == 2) {
-        // Move Left
-        x = -(max_x - min_x)/2 + margin;
+      if (bounding_shape == "circle") {
+
+        if (step % 4 == 0) {
+          // Move Right
+          x = Math.sqrt(Math.pow(190, 2) - (Math.pow(y, 2)))
+        } else if (step % 4 == 1) {
+          // Move Up
+          y = y + spacing;
+          x = Math.sqrt(Math.pow(190, 2) - (Math.pow(y, 2)))
+        } else if (step % 4 == 2) {
+          // Move Left
+          x = -Math.sqrt(Math.pow(190, 2) - (Math.pow(y, 2)))
+        } else if (step % 4 == 3) {
+          // Move Up
+          y = y + spacing;
+          x = -Math.sqrt(Math.pow(190, 2) - (Math.pow(y, 2)))
+        }
+
       } else {
-        // Move Up
-        y = y + spacing;
+
+        // Rectangular
+        if (step % 4 == 0) {
+          // Move Right
+          x = (max_x - min_x)/2 - margin;
+        } else if (step % 4 == 2) {
+          // Move Left
+          x = -(max_x - min_x)/2 + margin;
+        } else {
+          // Move Up
+          y = y + spacing;
+        }
       }
 
       // Add coordinates to shape array
@@ -182,17 +226,30 @@ class ZigZag {
 
     if (border) {
 
-      // Ends on left (min) side
-      if (x < 0) {
-        path.push([(max_x/2 - margin), y]);
-        path.push([(max_x/2 - margin), start_y]);
-        path.push([x, start_y]);
-        path.push([x, y]);
+      if (bounding_shape == "circle") {
+
+        // Loop through one revolution
+        for (var theta = 0.0; theta < 2 * Math.PI; theta += ((2 * Math.PI)/60)) {
+          path.push([
+            0.5 * (max_y - min_y) * cos(theta + (0.5 * Math.PI)),
+            0.5 * (max_y - min_y) * sin(theta + (0.5 * Math.PI))
+          ]);
+        }
+
       } else {
-        path.push([+((max_x-min_x)/2 - margin), start_y]);
-        path.push([-((max_x-min_x)/2 - margin), start_y]);
-        path.push([-((max_x-min_x)/2 - margin), y]);
-        path.push([x, y]);
+
+        // Ends on left (min) side
+        if (x < 0) {
+          path.push([(max_x/2 - margin), y]);
+          path.push([(max_x/2 - margin), start_y]);
+          path.push([x, start_y]);
+          path.push([x, y]);
+        } else {
+          path.push([+((max_x-min_x)/2 - margin), start_y]);
+          path.push([-((max_x-min_x)/2 - margin), start_y]);
+          path.push([-((max_x-min_x)/2 - margin), y]);
+          path.push([x, y]);
+        }
       }
 
     }

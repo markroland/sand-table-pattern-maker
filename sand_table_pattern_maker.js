@@ -28,6 +28,7 @@ var draw_iteration = 0;
 
 // Master Patterns object to hold patterns
 var Patterns = {
+  "coordinates": new Coordinates(),
   "circle": new Circle(),
   "fermatspiral": new FermatSpiral(),
   "heart": new Heart(),

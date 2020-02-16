@@ -26,10 +26,13 @@ var distance;
 // A counter for the draw loop
 var draw_iteration = 0;
 
+var path;
+
 // Master Patterns object to hold patterns
 var Patterns = {
   "coordinates": new Coordinates(),
   "circle": new Circle(),
+  "draw": new Draw(),
   "fermatspiral": new FermatSpiral(),
   "gcode": new Gcode(),
   "heart": new Heart(),

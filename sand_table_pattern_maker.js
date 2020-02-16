@@ -31,6 +31,7 @@ var Patterns = {
   "coordinates": new Coordinates(),
   "circle": new Circle(),
   "fermatspiral": new FermatSpiral(),
+  "gcode": new Gcode(),
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(),
   "parametric": new Parametric(),

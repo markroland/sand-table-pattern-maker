@@ -53,7 +53,6 @@ class Coordinates {
           .attribute('checkbox', null)
           .parent(control.div);
       } else if (val.input.type == "createTextarea") {
-        console.log(val.input.attributes.value)
         control.input = createElement("textarea", val.input.value)
           .attribute("rows", val.input.attributes.rows)
           .attribute("cols", val.input.attributes.cols)

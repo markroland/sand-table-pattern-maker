@@ -34,6 +34,7 @@ var Patterns = {
   "circle": new Circle(),
   "draw": new Draw(),
   "fermatspiral": new FermatSpiral(),
+  "fibonacci": new Fibonacci(),
   "gcode": new Gcode(),
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(),
@@ -71,7 +72,6 @@ function setup() {
     pattern_select.option(pattern_object.name, pattern_object.key);
   }
   pattern_select.option('Diameters');
-  pattern_select.option('Fibonacci');
   pattern_select.option('Cycloid');
   pattern_select.option('Spiral - Modulated');
   pattern_select.option('Spokes');
@@ -109,9 +109,6 @@ function draw() {
   switch(pattern_select.value()) {
     case "Diameters":
       path = drawDiameters();
-      break;
-    case "Fibonacci":
-      path = drawFibonacci();
       break;
     case "Cycloid":
       path = drawCycloid();
@@ -208,9 +205,6 @@ function patternSelectEvent() {
   switch(pattern_select.value()) {
     case "Diameters":
       setupDiameters();
-      break;
-    case "Fibonacci":
-      setupFibonacci();
       break;
     case "Cycloid":
       setupCycloid();

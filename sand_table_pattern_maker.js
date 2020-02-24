@@ -32,6 +32,8 @@ var path;
 var Patterns = {
   "coordinates": new Coordinates(),
   "circle": new Circle(),
+  "cycloid": new Cycloid(),
+  "diameters": new Diameters(),
   "draw": new Draw(),
   "fermatspiral": new FermatSpiral(),
   "fibonacci": new Fibonacci(),
@@ -43,7 +45,9 @@ var Patterns = {
   "shapemorph": new ShapeMorph(),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),
+  "spokes": new Spokes(),
   "star": new Star(),
+  "wigglyspiral": new WigglySpiral(),
   "zigzag": new ZigZag()
 }
 
@@ -71,11 +75,8 @@ function setup() {
   for (const [pattern_key, pattern_object] of entries) {
     pattern_select.option(pattern_object.name, pattern_object.key);
   }
-  pattern_select.option('Diameters');
-  pattern_select.option('Cycloid');
   pattern_select.option('Spiral - Modulated');
-  pattern_select.option('Spokes');
-  pattern_select.selected('Cycloid');
+  pattern_select.selected('Spiral - Modulated');
   pattern_select.changed(patternSelectEvent);
 
   // Select pattern from URL query string
@@ -105,23 +106,9 @@ function draw() {
   // Draw the background
   background(68);
 
-  // Calculate the pattern
-  switch(pattern_select.value()) {
-    case "Diameters":
-      path = drawDiameters();
-      break;
-    case "Cycloid":
-      path = drawCycloid();
-      break;
-    case "Spiral - Modulated":
-      path = drawWigglySpiral();
-      break;
-    case "Spokes":
-      path = drawSpokes();
-      break;
-    default:
-      path = Patterns[pattern_select.value()].draw();
-  }
+  // Draw selected pattern
+  var selected_pattern = pattern_select.value();
+  path = Patterns[selected_pattern].draw();
 
   // Optimize path
   // Remove step sizes less than a threshold ("units")
@@ -134,7 +121,7 @@ function draw() {
   drawPath(path, 2, true, true);
 
   // Calculate path length
-  distance = 0;
+  let distance = 0;
   for (i = 1; i < path.length; i++) {
     distance += sqrt(pow(path[i][0] - path[i-1][0], 2) + pow(path[i][1] - path[i-1][1], 2));
   }
@@ -146,9 +133,9 @@ function draw() {
 
   // Update the URL (and browser history)
   // https://zellwk.com/blog/looping-through-js-objects/
-  if (Patterns[pattern_select.value()] !== undefined) {
-    let query_string = '?pattern=' + pattern_select.value();
-    const entries = Object.entries(Patterns[pattern_select.value()].config)
+  if (Patterns[selected_pattern] !== undefined) {
+    let query_string = '?pattern=' + selected_pattern;
+    const entries = Object.entries(Patterns[selected_pattern].config)
     for (const [param, content] of entries) {
       query_string = query_string.concat(`&${param}=${content.value}`)
     }
@@ -202,22 +189,9 @@ function patternSelectEvent() {
   // Clear controls
   select('#pattern-controls').html('');
 
-  switch(pattern_select.value()) {
-    case "Diameters":
-      setupDiameters();
-      break;
-    case "Cycloid":
-      setupCycloid();
-      break;
-    case "Spiral - Modulated":
-      setupWigglySpiral();
-      break;
-    case "Spokes":
-      setupSpokes();
-      break;
-    default:
-      Patterns[pattern_select.value()].setup();
-  }
+  // Call setup on selected pattern
+  var selected_pattern = pattern_select.value();
+  Patterns[selected_pattern].setup();
 
   // Change document title
   document.title = 'Sand Pattern | ' + pattern_select.value();

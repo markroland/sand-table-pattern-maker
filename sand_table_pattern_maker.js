@@ -26,6 +26,9 @@ var distance;
 // A counter for the draw loop
 var draw_iteration = 0;
 
+// Set G-Code command, usually "GO" or "G1"
+var gCodeCommand = "G0";
+
 var path;
 
 // Master Patterns object to hold patterns
@@ -265,5 +268,5 @@ function download()
   saveCanvas(filename, "png")
 
   // Download pattern G-code
-  save(createGcode(path, "G0"), filename, "gcode");
+  save(createGcode(path, gCodeCommand), filename, "gcode");
 }

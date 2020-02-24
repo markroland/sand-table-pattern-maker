@@ -15,7 +15,7 @@ var max_y = 380.0;
 var plotter_exceeded = false;
 
 // Set motor speed in units/min
-var motor_speed = 6000.0;
+var motor_speed = 4000.0;
 
 // Width/Diameter of print head (steel ball) used for etching pattern (in "units")
 var ball_size = 19.0;

@@ -45,6 +45,7 @@ var Patterns = {
   "shapemorph": new ShapeMorph(),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),
+  "spokes": new Spokes(),
   "star": new Star(),
   "zigzag": new ZigZag()
 }
@@ -74,7 +75,6 @@ function setup() {
     pattern_select.option(pattern_object.name, pattern_object.key);
   }
   pattern_select.option('Spiral - Modulated');
-  pattern_select.option('Spokes');
   pattern_select.selected('Spiral - Modulated');
   pattern_select.changed(patternSelectEvent);
 
@@ -109,9 +109,6 @@ function draw() {
   switch(pattern_select.value()) {
     case "Spiral - Modulated":
       path = drawWigglySpiral();
-      break;
-    case "Spokes":
-      path = drawSpokes();
       break;
     default:
       path = Patterns[pattern_select.value()].draw();
@@ -199,9 +196,6 @@ function patternSelectEvent() {
   switch(pattern_select.value()) {
     case "Spiral - Modulated":
       setupWigglySpiral();
-      break;
-    case "Spokes":
-      setupSpokes();
       break;
     default:
       Patterns[pattern_select.value()].setup();

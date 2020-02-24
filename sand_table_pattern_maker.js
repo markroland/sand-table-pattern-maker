@@ -121,7 +121,7 @@ function draw() {
   drawPath(path, 2, true, true);
 
   // Calculate path length
-  let distance = 0;
+  distance = 0;
   for (i = 1; i < path.length; i++) {
     distance += sqrt(pow(path[i][0] - path[i-1][0], 2) + pow(path[i][1] - path[i-1][1], 2));
   }

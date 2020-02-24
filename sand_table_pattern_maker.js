@@ -33,6 +33,7 @@ var Patterns = {
   "coordinates": new Coordinates(),
   "circle": new Circle(),
   "cycloid": new Cycloid(),
+  "diameters": new Diameters(),
   "draw": new Draw(),
   "fermatspiral": new FermatSpiral(),
   "fibonacci": new Fibonacci(),
@@ -72,10 +73,9 @@ function setup() {
   for (const [pattern_key, pattern_object] of entries) {
     pattern_select.option(pattern_object.name, pattern_object.key);
   }
-  pattern_select.option('Diameters');
   pattern_select.option('Spiral - Modulated');
   pattern_select.option('Spokes');
-  pattern_select.selected('Diameters');
+  pattern_select.selected('Spiral - Modulated');
   pattern_select.changed(patternSelectEvent);
 
   // Select pattern from URL query string
@@ -107,9 +107,6 @@ function draw() {
 
   // Calculate the pattern
   switch(pattern_select.value()) {
-    case "Diameters":
-      path = drawDiameters();
-      break;
     case "Spiral - Modulated":
       path = drawWigglySpiral();
       break;
@@ -200,9 +197,6 @@ function patternSelectEvent() {
   select('#pattern-controls').html('');
 
   switch(pattern_select.value()) {
-    case "Diameters":
-      setupDiameters();
-      break;
     case "Spiral - Modulated":
       setupWigglySpiral();
       break;

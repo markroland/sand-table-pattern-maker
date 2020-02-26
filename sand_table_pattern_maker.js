@@ -70,7 +70,8 @@ function setup() {
   pattern_select_div = createDiv('<label>Pattern</label>')
     .parent('pattern-selector');
   pattern_select = createSelect()
-    .parent(pattern_select_div);
+    .parent(pattern_select_div)
+    .attribute("name", "pattern");
 
   // Add patterns from object
   var pattern_select_menu = document.querySelector('#pattern-selector > div > select');
@@ -78,8 +79,11 @@ function setup() {
   for (const [pattern_key, pattern_object] of entries) {
     pattern_select.option(pattern_object.name, pattern_object.key);
   }
-  pattern_select.option('Spiral - Modulated');
-  pattern_select.selected('Spiral - Modulated');
+
+  // Set default selected pattern
+  pattern_select.selected('spiral');
+
+  // Add change event handler
   pattern_select.changed(patternSelectEvent);
 
   // Select pattern from URL query string

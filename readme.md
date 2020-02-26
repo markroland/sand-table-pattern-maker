@@ -1,5 +1,7 @@
 # Sand Table Pattern Maker
 
+![Sand Table](sand_table_pattern_maker.jpg)
+
 [Demo](https://markroland.github.io/sand-table-pattern-maker/)
 
 This is part of my [Sand Table Build](https://markroland.github.io/sand-table-build/)

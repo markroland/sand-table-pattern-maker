@@ -2,9 +2,9 @@
 
 ![Sand Table](sand_table_pattern_maker.jpg)
 
-[Demo](https://markroland.github.io/sand-table-pattern-maker/)
+[Launch Pattern Maker on Github Pages](https://markroland.github.io/sand-table-pattern-maker/)
 
-This is part of my [Sand Table Build](https://markroland.github.io/sand-table-build/)
+This is part of my [Sand Table Build](https://markroland.com/portfolio/sand-table)
 
 Built with [p5.js](https://p5js.org)
 
@@ -18,7 +18,7 @@ In order to build a new pattern a few things must be done:
    This object must have a key that matches the class's `this.key` value and the object value
    must be a Class instantiation.
 
-Pattern classes are made up of at least 4 classes:
+Pattern classes are made up of at least 4 methods:
 
  - **constructor** - The class constructor defines a few aspect of the class including:
    - `this.key` - Used for identifying the class's properties in the main sketch file

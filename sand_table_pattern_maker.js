@@ -49,6 +49,7 @@ var Patterns = {
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),
   "spokes": new Spokes(),
+  "thr": new ThetaRho(),
   "star": new Star(),
   "wigglyspiral": new WigglySpiral(),
   "zigzag": new ZigZag()

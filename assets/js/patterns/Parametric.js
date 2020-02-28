@@ -12,8 +12,8 @@ class Parametric {
     // http://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008
     // http://www.sineofthetimes.org/the-art-of-parametric-equations-2/
     let farris = {
-      "x": "cos(1*t) + cos(6*t)/2 + sin(14*t)/3",
-      "y": "cos(1*t) + sin(6*t)/2 + cos(14*t)/3"
+      "x": "50 * cos(1*t) + 50 * cos(6*t)/2 + 50 * sin(14*t)/3",
+      "y": "50 * cos(1*t) + 50 * sin(6*t)/2 + 50 * cos(14*t)/3"
     }
 
     // Rhodonea
@@ -32,15 +32,8 @@ class Parametric {
     // Lissajouse Curve
     // https://en.wikipedia.org/wiki/Lissajous_curve
     let lissajous = {
-        "x": "2 * cos(5*t)",
-        "y": "3 * cos(6*t)"
-    };
-
-    // Heart Curve
-    // http://mathworld.wolfram.com/HeartCurve.html
-    let heart_curve = {
-        "x": "10 * (16 * pow(sin(t), 3))",
-        "y": "10 * (13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t))"
+        "x": "100 * cos(5*t)",
+        "y": "100 * cos(6*t)"
     };
 
     // Define the parametric equations using text inputs

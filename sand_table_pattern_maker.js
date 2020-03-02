@@ -46,6 +46,7 @@ var Patterns = {
   "lissajous": new Lissajous(),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),
+  "rhodonea": new Rhodonea(),
   "shapemorph": new ShapeMorph(),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),

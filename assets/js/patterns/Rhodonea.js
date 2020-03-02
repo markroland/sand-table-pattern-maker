@@ -1,48 +1,49 @@
 /*
-https://en.wikipedia.org/wiki/Parametric_equation
+ * Rhodonea Curve
+ * https://en.wikipedia.org/wiki/Rose_(mathematics)
 */
-class Parametric {
+class Rhodonea {
 
   constructor() {
 
-    this.key = "parametric";
+    this.key = "rhodonea";
 
-    this.name = "Parametric";
+    this.name = "Rhodonea (Rose) Curve";
 
-    // http://www.quantamagazine.org/how-to-create-art-with-mathematics-20151008
-    // http://www.sineofthetimes.org/the-art-of-parametric-equations-2/
-    let farris = {
-      "x": "50 * cos(1*t) + 50 * cos(6*t)/2 + 50 * sin(14*t)/3",
-      "y": "50 * cos(1*t) + 50 * sin(6*t)/2 + 50 * cos(14*t)/3"
-    }
+    // this.path_sampling_optimization = 1;
 
-    // Butterfly Curve
-    // https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)
-    let butterfly = {
-        "x": "40 * sin(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))",
-        "y": "40 * cos(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))"
-    };
+    let max_r = Math.min((max_x - min_x), (max_y - min_y))/2;
 
     // Define the parametric equations using text inputs
     this.config = {
-      "x": {
-        "name": "X",
-        "value": 0,
+      "amplitude": {
+        "name": "Amplitude",
+        "value": 1,
         "input": {
-          "type": "createInput",
+          "type": "createSlider",
           "params" : [
-            butterfly.x
-          ]
+            0,
+            max_r,
+            max_r,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
         }
       },
-      "y": {
-        "name": "Y",
-        "value": 0,
+      "petals": {
+        "name": "Petal Value (k)",
+        "value": 1,
         "input": {
-          "type": "createInput",
+          "type": "createSlider",
           "params" : [
-            butterfly.y
-          ]
+            0.5,
+            20,
+            5,
+            0.5
+          ],
+          "class": "slider",
+          "displayValue": true
         }
       }
     };
@@ -96,12 +97,16 @@ class Parametric {
   draw() {
 
     // Update object
-    this.config.x.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.y.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.amplitude.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.petals.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+
+    // Display selected value(s)
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.amplitude.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.petals.value;
 
     let path = this.calc(
-        this.config.x.value,
-        this.config.y.value
+        parseFloat(this.config.amplitude.value),
+        parseFloat(this.config.petals.value)
     );
 
     // Update object
@@ -115,12 +120,12 @@ class Parametric {
    *
    * @return Array Path
    **/
-  calc(x_equation, y_equation) {
+  calc(amplitude, petals) {
 
     // Set initial values
     var x;
     var y;
-    var t = 0.0;
+    var theta = 0.0;
 
     // Initialize return value - the path array
     // This stores the x,y coordinates for each step
@@ -129,18 +134,21 @@ class Parametric {
     // Iteration counter.
     var step = 0;
 
-    // The number of "sides" to the circle.
-    let steps_per_revolution = 120;
+    // Set period of full rotation
+    let period = 2 * Math.PI;
+
+    // Set the steps per revolution. Oversample and small distances can be optimized out afterward
+    let steps_per_revolution = 500;
 
     // Loop through one revolution
-    while (t < TWO_PI) {
+    while (theta < period) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      t = (step/steps_per_revolution) * TWO_PI;
+      theta = (step/steps_per_revolution) * period;
 
       // Run the parametric equations
-      x = eval(x_equation);
-      y = eval(y_equation);
+      x = amplitude * Math.sin(petals*theta) * Math.cos(theta);
+      y = amplitude * Math.sin(petals*theta) * Math.sin(theta);
 
       // Add coordinates to shape array
       path[step] = [x,y];

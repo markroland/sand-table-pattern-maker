@@ -29,13 +29,6 @@ class Parametric {
         "y": "40 * cos(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))"
     };
 
-    // Lissajouse Curve
-    // https://en.wikipedia.org/wiki/Lissajous_curve
-    let lissajous = {
-        "x": "100 * cos(5*t)",
-        "y": "100 * cos(6*t)"
-    };
-
     // Define the parametric equations using text inputs
     this.config = {
       "x": {

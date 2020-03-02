@@ -43,6 +43,7 @@ var Patterns = {
   "gcode": new Gcode(),
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(),
+  "lissajous": new Lissajous(),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(),
   "shapemorph": new ShapeMorph(),
@@ -120,7 +121,12 @@ function draw() {
 
   // Optimize path
   // Remove step sizes less than a threshold ("units")
-  // path = optimizePath(path, 5);
+  if (typeof Patterns[selected_pattern].path_sampling_optimization !== 'undefined') {
+    path = optimizePath(
+      path,
+      Patterns[selected_pattern].path_sampling_optimization
+    );
+}
 
   // Draw the table
   drawTable(path_exceeds_plotter(path));

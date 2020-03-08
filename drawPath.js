@@ -49,10 +49,12 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
 
     // Draw as disconnected line segments. Stroke color can change with each segment
 
+    let c = color(128, 24 * cos((i/path.length) * TWO_PI) + 164, 200);
+
     for (var i = 0; i < i_max; i++) {
 
       // Gradiated Stroke
-      stroke(128, 24 * cos((i/path.length) * TWO_PI) + 164, 200);
+      stroke(c);
 
       // Draw line segment
       line(path[i][0], path[i][1], path[i+1][0], path[i+1][1]);
@@ -82,7 +84,7 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
     // Draw current point
     noStroke();
     if (animated) {
-      fill(255,255,0,128);
+      fill(c);
       ellipse(path[i_max][0], path[i_max][1], ball_size/2, ball_size/2);
     }
 

@@ -58,27 +58,6 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
 
       // Draw line segment
       line(path[i][0], path[i][1], path[i+1][0], path[i+1][1]);
-
-      // Draw shadows
-      /*
-      stroke(255, 255, 255);
-      strokeWeight(1.0 * ball_size);
-      line(x_prev, y_prev, x, y);
-
-      stroke(0.8 * 255, 0.8 * 255, 0.8 * 255);
-      strokeWeight(0.6 * ball_size);
-      line(x_prev, y_prev, x, y);
-
-      stroke(0.7 * 255, 0.7 * 255, 0.7 * 255);
-      strokeWeight(0.3 * ball_size);
-      line(x_prev, y_prev, x, y);
-
-      stroke(0.6 * 255, 0.6 * 255, 0.6 * 255);
-      strokeWeight(0.1 * ball_size);
-      line(x_prev, y_prev, x, y);
-      //*/
-
-      vertex(path[i][0], path[i][1]);
     }
 
     // Draw current point

@@ -134,7 +134,7 @@ function draw() {
   drawTable(path_exceeds_plotter(path));
 
   // Draw the path [path, path width, connected path, animated]
-  drawPath(path, 2, true, true);
+  drawPath(path, 2, false, true);
 
   // Calculate path length
   distance = 0;

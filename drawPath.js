@@ -53,7 +53,15 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
 
     for (var i = 0; i < i_max; i++) {
 
+      // Background stroke
+      stroke(250);
+      strokeCap(SQUARE);
+      strokeWeight(pathWidth*4)
+      line(path[i][0], path[i][1], path[i+1][0], path[i+1][1]);
+
       // Gradiated Stroke
+      strokeCap(PROJECT);
+      strokeWeight(pathWidth)
       stroke(c);
 
       // Draw line segment

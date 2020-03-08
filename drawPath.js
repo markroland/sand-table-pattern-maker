@@ -33,7 +33,7 @@ function drawPath(path, pathWidth = 1, connected = true, animated = true) {
     // Draw animated path
     stroke(46, 200, 240);
     beginShape();
-    for (var i = 0; i < i_max; i++) {
+    for (var i = 0; i <= i_max; i++) {
       vertex(path[i][0], path[i][1]);
     }
     endShape();

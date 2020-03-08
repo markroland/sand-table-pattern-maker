@@ -147,22 +147,6 @@ function draw() {
   select("#pattern-distance").html(nfc(distance, 1) + " " + units);
   select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
 
-  // Update the URL (and browser history)
-  // https://zellwk.com/blog/looping-through-js-objects/
-  if (Patterns[selected_pattern] !== undefined) {
-    let query_string = '?pattern=' + selected_pattern;
-    const entries = Object.entries(Patterns[selected_pattern].config)
-    for (const [param, content] of entries) {
-      query_string = query_string.concat(`&${param}=${content.value}`)
-    }
-    history.replaceState({
-          id: 'homepage'
-      },
-      document.title,
-      query_string
-    );
-  }
-
   // Increment draw loop counter
   draw_iteration++;
 }

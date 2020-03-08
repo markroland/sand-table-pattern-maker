@@ -5,20 +5,20 @@
 */
 
 // Set the units, i.e. "mm", "in"
-var units = "mm";
+var units = env.table.units;
 
 // Plotter settings
-var min_x = 0.0;
-var max_x = 472.0;
-var min_y = 0.0;
-var max_y = 380.0;
+var min_x = env.table.x.min;
+var max_x = env.table.x.max;
+var min_y = env.table.y.min;
+var max_y = env.table.y.max;
 var plotter_exceeded = false;
 
 // Set motor speed in units/min
-var motor_speed = 4000.0;
+var motor_speed = env.motor.speed;
 
 // Width/Diameter of print head (steel ball) used for etching pattern (in "units")
-var ball_size = 19.0;
+var ball_size = env.ball.diameter;
 
 // Store the total path distance
 var distance;
@@ -27,7 +27,7 @@ var distance;
 var draw_iteration = 0;
 
 // Set G-Code command, usually "GO" or "G1"
-var gCodeCommand = "G0";
+var gCodeCommand = env.gcode.command;
 
 var path;
 

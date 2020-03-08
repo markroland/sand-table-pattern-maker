@@ -8,6 +8,10 @@ This is part of my [Sand Table Build](https://markroland.com/portfolio/sand-tabl
 
 Built with [p5.js](https://p5js.org)
 
+## Controls
+
+ - Press "o" to toggle an overlay of the pattern settings in the canvas
+
 ## How to Build a New Pattern
 
 In order to build a new pattern a few things must be done:

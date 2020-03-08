@@ -20,6 +20,9 @@ var motor_speed = env.motor.speed;
 // Width/Diameter of print head (steel ball) used for etching pattern (in "units")
 var ball_size = env.ball.diameter;
 
+// Show/Hiden pattern overlay in Canvas
+var pattern_config_overlay = true;
+
 // Store the total path distance
 var distance;
 
@@ -128,7 +131,7 @@ function draw() {
       path,
       Patterns[selected_pattern].path_sampling_optimization
     );
-}
+  }
 
   // Draw the table
   drawTable(path_exceeds_plotter(path));
@@ -147,8 +150,43 @@ function draw() {
   select("#pattern-distance").html(nfc(distance, 1) + " " + units);
   select("#pattern-time").html(nfc(distance / motor_speed, 1) + " minutes");
 
+  // Draw pattern configuration
+  if (pattern_config_overlay) {
+    draw_pattern_config(Patterns[selected_pattern]);
+  }
+
   // Increment draw loop counter
   draw_iteration++;
+}
+
+/**
+ * Draw selected specs for the pattern configuration
+ */
+function draw_pattern_config(pattern)
+{
+  var base_unit = 12;
+
+  noStroke();
+  fill(255);
+  textAlign(LEFT);
+
+  // Render text
+  push();
+  translate(0.25 * base_unit, 0.25 * base_unit);
+  text("Pattern: " + pattern.name, 0, base_unit)
+  var j = 2.25 * base_unit;
+  Object.keys(pattern.config).forEach(key => {
+    // TODO: Extract value for all input types (checkbox, select, etc.)
+    text(key + ": " + pattern.config[key].value, 0, j);
+    j = j + (1.25 * base_unit);
+  });
+  pop();
+
+  // Add footer with information about the site
+  noStroke();
+  fill(128,128,128);
+  textAlign(CENTER);
+  text('Created at https://markroland.github.io/sand-table-pattern-maker', width/2, height - 72);
 }
 
 /**
@@ -257,13 +295,22 @@ function download()
 
   // Set filename
   let filename = "pattern";
-  if (Patterns[pattern_select.value()] !== undefined) {
-    filename += "-" + Patterns[pattern_select.value()].key;
+  var selected_pattern = pattern_select.value();
+  if (Patterns[selected_pattern] !== undefined) {
+    filename += "-" + Patterns[selected_pattern].key;
   }
+
+  draw_pattern_config(Patterns[selected_pattern]);
 
   // Download pattern image
   saveCanvas(filename, "png")
 
   // Download pattern G-code
   save(createGcode(path, gCodeCommand), filename, "gcode");
+}
+
+function keyTyped() {
+  if (key === 'o') {
+    pattern_config_overlay = !pattern_config_overlay;
+  }
 }

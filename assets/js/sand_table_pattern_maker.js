@@ -21,7 +21,7 @@ var motor_speed = env.motor.speed;
 var ball_size = env.ball.diameter;
 
 // Show/Hiden pattern overlay in Canvas
-var pattern_config_overlay = true;
+var pattern_config_overlay = false;
 
 // Store the total path distance
 var distance;

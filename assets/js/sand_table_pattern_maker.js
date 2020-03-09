@@ -54,6 +54,7 @@ var Patterns = {
   "shapemorph": new ShapeMorph(),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(),
+  "logspiral": new LogarithmicSpiral(),
   "spokes": new Spokes(),
   "thr": new ThetaRho(),
   "star": new Star(),

@@ -19,6 +19,19 @@ class Coordinates {
           "value" : "100,0\n0,100\n-100,0\n0,-100\n100,0",
           "params" : []
         }
+      },
+      "reverse": {
+        "name": "Reverse",
+        "value": 0,
+        "input": {
+          "type": "createInput",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
       }
     };
 

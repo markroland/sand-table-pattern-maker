@@ -12,13 +12,13 @@ class Spiral {
     this.config = {
       "sides": {
         "name": "Sides",
-        "value": 6,
+        "value": 12,
         "input": {
           "type": "createSlider",
           "params" : [
             3,
             60,
-            6,
+            12,
             1
           ],
           "class": "slider",
@@ -27,13 +27,13 @@ class Spiral {
       },
       "offset": {
         "name": "offset",
-        "value": 20,
+        "value": 4,
         "input": {
           "type": "createSlider",
           "params" : [
             1,
             40,
-            20,
+            4,
             1
           ],
           "class": "slider",
@@ -42,13 +42,13 @@ class Spiral {
       },
       "twist": {
         "name": "Twist",
-        "value": 1.0,
+        "value": 1.0005,
         "input": {
           "type": "createSlider",
           "params" : [
             1,
             1.11,
-            1,
+            1.005,
             0.001
           ],
           "class": "slider",

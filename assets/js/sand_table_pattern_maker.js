@@ -125,6 +125,13 @@ function draw() {
   var selected_pattern = pattern_select.value();
   path = Patterns[selected_pattern].draw();
 
+  // Reverse the path
+  if (document.querySelector('#pattern-controls input[name=reverse]')) {
+    if (document.querySelector('#pattern-controls input[name=reverse]').checked) {
+      path.reverse();
+    }
+  }
+
   // Optimize path
   // Remove step sizes less than a threshold ("units")
   if (typeof Patterns[selected_pattern].path_sampling_optimization !== 'undefined') {

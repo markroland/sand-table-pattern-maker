@@ -71,6 +71,19 @@ class LogarithmicSpiral {
           "class": "slider",
           "displayValue": true
         }
+      },
+      "reverse": {
+        "name": "Reverse",
+        "value": 0,
+        "input": {
+          "type": "createInput",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
       }
     };
 

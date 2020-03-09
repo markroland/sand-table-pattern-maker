@@ -23,6 +23,19 @@ class Gcode {
             + "G0 X336.00 Y190.00",
           "params" : []
         }
+      },
+      "reverse": {
+        "name": "Reverse",
+        "value": 0,
+        "input": {
+          "type": "createInput",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
       }
     };
 

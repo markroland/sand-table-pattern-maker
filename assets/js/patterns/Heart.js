@@ -228,11 +228,6 @@ class Heart {
       this.config.twist.value
     );
 
-    // Reverse the path
-    if (document.querySelector('#pattern-controls > div:nth-child(9) > input[type=checkbox]').checked) {
-      path.reverse();
-    }
-
     // Update object
     this.path = path;
 

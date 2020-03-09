@@ -31,10 +31,10 @@ class Spokes {
         "input": {
           "type": "createSlider",
           "params" : [
-            1,
+            0.5,
             10,
             4,
-            1
+            0.5
           ],
           "class": "slider",
           "displayValue": true
@@ -133,7 +133,7 @@ class Spokes {
     // Calculate the path
     let path = this.calc(
       parseInt(this.config.spokes.value),
-      parseInt(this.config.waves.value),
+      parseFloat(this.config.waves.value),
       parseInt(this.config.amplitude.value)
     );
 

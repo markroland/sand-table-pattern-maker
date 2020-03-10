@@ -40,6 +40,19 @@ class Fibonacci {
           "displayValue": true
         }
       },
+      "rtc": {
+        "name": "Return to Center",
+        "value": 1,
+        "input": {
+          "type": "createInput",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
+      },
       "reverse": {
         "name": "Reverse",
         "value": 0,
@@ -108,6 +121,10 @@ class Fibonacci {
     // Update object
     this.config.turns.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.shrink.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.rtc.value = false;
+    if (document.querySelector('#pattern-controls > div:nth-child(3) > input[type=checkbox]').checked) {
+      this.config.rtc.value = true;
+    }
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.turns.value;
@@ -115,9 +132,9 @@ class Fibonacci {
 
     // Calculate the path
     let path = this.calc(
-      this.config.turns.value * TWO_PI,
+      this.config.turns.value * (2 * Math.PI),
       this.config.shrink.value,
-      false
+      this.config.rtc.value
     );
 
     // Update object
@@ -126,53 +143,45 @@ class Fibonacci {
     return path;
   }
 
-    /*
-    * Draw Fibonacci Spiral Spokes
-    *
-    * Type: Radial
-    **/
-    calc(max_theta, radius_shrink_factor, return_to_center)
-    {
-      var path = new Array();
-      var i = 0;
-      var r = min(max_x/2, max_y/2);
-      var theta = 0.0;
-      var x, y, loop;
-      while (r > 0 && theta < max_theta) {
+  /*
+  * Draw Fibonacci Spiral Spokes
+  *
+  * Type: Radial
+  **/
+  calc(max_theta, radius_shrink_factor, return_to_center)
+  {
+    var path = new Array();
+    var loop = 0;
+    var r_max = min(max_x - min_x, max_y - min_y) / 2;
+    var r = r_max;
+    var theta = 0.0;
+    var x, y;
+    while (r > 0 && theta < max_theta) {
 
-        loop = i;
+      // Increment theta by golden ratio each iteration
+      // https://en.wikipedia.org/wiki/Golden_angle
+      theta = loop * Math.PI * (3.0 - Math.sqrt(5));
 
-        // Go back to center on even loops
-        if (return_to_center) {
+      // Set the radius
+      // Decrease the radius a bit each cycle
+      r = (1 - radius_shrink_factor * loop) * r_max;
 
-          // Cut the loop count in half since half of the time
-          // the coordinates are return to the center
-          loop = i/2;
+      // Convert to cartesian
+      x = r * Math.cos(theta);
+      y = r * Math.sin(theta);
 
-          if (i % 2 == 0) {
-            x = 0.0;
-            y = 0.0;
-            continue;  // ?
-          }
-        }
+      // Add point to path
+      path.push([x,y]);
 
-        // Increment theta by golden ratio each iteration
-        // https://en.wikipedia.org/wiki/Golden_angle
-        theta = loop * PI * (3.0 - sqrt(5));
-
-        // Set the radius
-        // Decrease the radius a bit each cycle
-        r = (1 - radius_shrink_factor * i) * (0.5 * min(max_x, max_y));
-
-        // Convert to cartesian
-        x = r * cos(theta);
-        y = r * sin(theta);
-
-        path[i] = [x,y];
-
-        i++;
+      // Go back to center
+      if (return_to_center) {
+        path.push([0,0]);
       }
 
-      return path;
+      // Increment loop
+      loop++;
     }
+
+    return path;
+  }
 }

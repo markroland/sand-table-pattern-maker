@@ -10,6 +10,81 @@ class FibonacciLollipops {
     this.name = "Fibonacci Lollipops";
 
     this.config = {
+      "lollipopradius": {
+        "name": "Lollipop Radius",
+        "value": 30,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            10,
+            60,
+            30,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
+      "lollipopturns": {
+        "name": "Lollipop Turns",
+        "value": 3.5,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            1.5,
+            7.5,
+            3.5,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
+      "lollipopshrink": {
+        "name": "Lollipop Shrink",
+        "value": 3.5,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            0.001,
+            0.020,
+            0.007,
+            0.001
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
+      "rotations": {
+        "name": "Rotations",
+        "value": 30,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            1,
+            100,
+            30,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
+      "spiral_factor": {
+        "name": "Shrink Factor",
+        "value": 30,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            0.001,
+            0.010,
+            0.007,
+            0.001
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      }
     };
 
     this.path = [];
@@ -21,8 +96,43 @@ class FibonacciLollipops {
    * @return Null
    **/
   setup() {
+
     let controls = new Array();
     const configs = Object.entries(this.config);
+    for (const [key, val] of configs) {
+
+      // Create a new object
+      var control = new Object();
+
+      // Create the div that contains the control
+      control.div = createDiv('<label>' + val.name + '</label>')
+        .parent('pattern-controls')
+        .addClass('pattern-control');
+
+      // Create the control form input
+      // TODO: make this dynamic
+      if (val.input.type == "createSlider") {
+        control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
+          .attribute('name', key)
+          .parent(control.div)
+          .addClass(val.input.class);
+      } else if (val.input.type == "createInput") {
+        control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
+          .attribute("type", "checkbox")
+          .attribute('name', key)
+          .attribute('checkbox', null)
+          .parent(control.div);
+      }
+
+      // Create a span element to display the current input's value (useful for Sliders)
+      if (val.input.displayValue) {
+        let radius_value = createSpan('0')
+          .parent(control.div);
+      }
+
+      // Add to "controls" object
+      controls.push(control);
+    }
   }
 
   /**
@@ -30,8 +140,29 @@ class FibonacciLollipops {
    */
   draw() {
 
+    // Read in selected value(s)
+    this.config.lollipopradius.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.lollipopturns.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.lollipopshrink.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.rotations.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.spiral_factor.value = document.querySelector('#pattern-controls > div:nth-child(5) > input').value;
+
+    // Display selected value(s)
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.lollipopradius.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.lollipopturns.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.lollipopshrink.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.rotations.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.spiral_factor.value;
+
+
     // Calculate path
-    let path = this.calc();
+    let path = this.calc(
+      parseInt(this.config.lollipopradius.value),
+      parseFloat(this.config.lollipopturns.value),
+      parseFloat(this.config.lollipopshrink.value),
+      parseInt(this.config.rotations.value),
+      parseFloat(this.config.spiral_factor.value)
+    );
 
     // Update object
     this.path = path;
@@ -46,7 +177,7 @@ class FibonacciLollipops {
    *
    * @return Array Path
    **/
-  calc() {
+  calc(spiral_r_max, spiral_revolutions, lollipop_shrink, rotations, radius_shrink_factor) {
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
@@ -58,8 +189,7 @@ class FibonacciLollipops {
     var theta = 0.0;
     var x, y, loop;
 
-    var max_theta = 30 * (2 * Math.PI);
-    var radius_shrink_factor = 0.007;
+    var max_theta = rotations * (2 * Math.PI);
     var return_to_center = true;
 
     var x1, y1;
@@ -67,38 +197,22 @@ class FibonacciLollipops {
     var sub_path = new Array();
 
     var spiral_r, spiral_theta;
-    var spiral_r_max = 30;
-    var spiral_sides = 12;
-    var spiral_revolutions = 3.5;
+    var spiral_sides = 24;
 
+    // TODO: Refacator this so that it always ends in the center
     while (r > 0 && theta < max_theta) {
-
-      // Go back to center on even loops
-      if (return_to_center) {
-        if (i % 2 == 0) {
-          i++;
-          path.push([0.0, 0.0])
-          continue;
-        }
-      }
 
       // Increment theta by golden ratio each iteration
       // https://en.wikipedia.org/wiki/Golden_angle
-      if (return_to_center) {
-        theta = (i-1)/2 * Math.PI * (3.0 - sqrt(5));
-      } else {
-        theta = i * Math.PI * (3.0 - sqrt(5));
-      }
+      theta = i * Math.PI * (3.0 - sqrt(5));
 
       // Set the radius of the Fibonacci "petal" (lollipop height)
       // Decrease the radius a bit each cycle
-      r = (1 - radius_shrink_factor * i) * (0.5 * min(max_x, max_y) - 30);
+      r = (1 - radius_shrink_factor * i) * (0.5 * Math.min(max_x, max_y) - spiral_r_max);
 
-      // Calc subpath for end of lollipop
+      // Lollipop Spiral
       sub_path = [];
-
-      // Spiral
-      spiral_r_max = 0.99 * spiral_r_max;
+      spiral_r_max = (1 - lollipop_shrink) * spiral_r_max;
       for (var k = 0; k <= spiral_revolutions * spiral_sides; k++) {
         spiral_theta = (k/spiral_sides) * (2 * Math.PI);
         spiral_r = spiral_r_max * (k/(spiral_revolutions * spiral_sides));
@@ -113,6 +227,9 @@ class FibonacciLollipops {
 
       path = path.concat(this.rotationMatrix(sub_path, theta));
 
+      // Return to center;
+      path.push([0.0, 0.0]);
+
       // increment loop counter
       i++;
     }
@@ -120,6 +237,9 @@ class FibonacciLollipops {
     return path;
   }
 
+  /**
+   * Translate a path
+   **/
   translate_path(path, x_delta, y_delta) {
     return path.map(function(a){
       return [

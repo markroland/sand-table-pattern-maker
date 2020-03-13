@@ -10,30 +10,15 @@ class Fibonacci {
     this.name = "Fibonacci";
 
     this.config = {
-      "turns": {
-        "name": "Turns",
-        "value": 100,
+      "decay": {
+        "name": "Decay Factor",
+        "value": -0.2,
         "input": {
           "type": "createSlider",
           "params" : [
-            1,
-            300,
-            100,
-            1
-          ],
-          "class": "slider",
-          "displayValue": true
-        }
-      },
-      "shrink": {
-        "name": "Shrink",
-        "value": 100,
-        "input": {
-          "type": "createSlider",
-          "params" : [
-            0.001,
-            0.010,
-            0.001,
+            -0.020,
+            -0.001,
+            -0.004,
             0.0001
           ],
           "class": "slider",
@@ -119,21 +104,18 @@ class Fibonacci {
   draw() {
 
     // Update object
-    this.config.turns.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.shrink.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.decay.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.rtc.value = false;
-    if (document.querySelector('#pattern-controls > div:nth-child(3) > input[type=checkbox]').checked) {
+    if (document.querySelector('#pattern-controls > div:nth-child(2) > input[type=checkbox]').checked) {
       this.config.rtc.value = true;
     }
 
     // Display selected values
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.turns.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.shrink.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.decay.value;
 
     // Calculate the path
     let path = this.calc(
-      this.config.turns.value * (2 * Math.PI),
-      this.config.shrink.value,
+      parseFloat(this.config.decay.value),
       this.config.rtc.value
     );
 
@@ -148,23 +130,28 @@ class Fibonacci {
   *
   * Type: Radial
   **/
-  calc(max_theta, radius_shrink_factor, return_to_center)
+  calc(radius_shrink_factor, return_to_center)
   {
     var path = new Array();
-    var loop = 0;
     var r_max = min(max_x - min_x, max_y - min_y) / 2;
-    var r = r_max;
-    var theta = 0.0;
+    var r;
+    var theta;
     var x, y;
-    while (r > 0 && theta < max_theta) {
+
+    // Calculate the number of iterations required to decay
+    // to a minimum value;
+    var r_min = ball_size / 2;
+    var i_max = Math.log(r_min/r_max) / radius_shrink_factor;
+
+    // Loop through iterations
+    for (var i = 0; i < i_max; i++) {
 
       // Increment theta by golden ratio each iteration
       // https://en.wikipedia.org/wiki/Golden_angle
-      theta = loop * Math.PI * (3.0 - Math.sqrt(5));
+      theta = i * Math.PI * (3.0 - Math.sqrt(5));
 
       // Set the radius
-      // Decrease the radius a bit each cycle
-      r = (1 - radius_shrink_factor * loop) * r_max;
+      r = r_max * Math.exp(radius_shrink_factor * i)
 
       // Convert to cartesian
       x = r * Math.cos(theta);
@@ -177,9 +164,11 @@ class Fibonacci {
       if (return_to_center) {
         path.push([0,0]);
       }
+    }
 
-      // Increment loop
-      loop++;
+    // End in center
+    if (!return_to_center) {
+      path.push([0,0]);
     }
 
     return path;

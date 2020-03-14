@@ -221,7 +221,7 @@ class ShapeMorph {
     let lerp_amount;
 
     // Theta values
-    const max_t = revolutions * TWO_PI;
+    const max_t = revolutions * (2 * Math.PI);
     const min_t = (1.0 - completion) * max_t;
     let t = min_t;
 
@@ -229,10 +229,10 @@ class ShapeMorph {
     while (t < max_t) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      t = (step/steps_per_revolution) * TWO_PI + min_t;
+      t = (step/steps_per_revolution) * (2 * Math.PI) + min_t;
 
       // Calculate current rotation
-      current_revolution = Math.floor(t/TWO_PI);
+      current_revolution = Math.floor(t/(2 * Math.PI));
 
       // Calculate x,y coordinates
       // TODO: http://www.gizma.com/easing/#quint2
@@ -266,8 +266,8 @@ class ShapeMorph {
    **/
   rotationMatrix(x, y, theta) {
       return [
-        x * cos(theta) - y * sin(theta),
-        x * sin(theta) + y * cos(theta)
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
       ];
   }
 

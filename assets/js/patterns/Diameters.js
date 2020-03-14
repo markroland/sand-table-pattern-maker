@@ -142,7 +142,7 @@ class Diameters {
     var theta = 0;
 
     // Calculate the maximum radius
-    var max_r = min(max_x/2, max_y/2);
+    var max_r = Math.min(max_x/2, max_y/2);
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
@@ -169,7 +169,7 @@ class Diameters {
       for (var j = 0; j <= sub_steps; j++) {
 
         // Sine Wave
-        x = direction * (min(max_x, max_y)/2) * ((j - (sub_steps/2))/(sub_steps/2));
+        x = direction * (Math.min(max_x, max_y)/2) * ((j - (sub_steps/2))/(sub_steps/2));
         y = wave_amplitude * sin((j/sub_steps) * num_waves * (2*Math.PI));
 
         // Rotate [x,y] coordinates around [0,0] by angle theta, and then append to path

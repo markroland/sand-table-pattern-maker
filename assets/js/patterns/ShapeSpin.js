@@ -149,13 +149,13 @@ class ShapeSpin {
 
     let growth_factor;
 
-    const max_t = TWO_PI;
+    const max_t = (2 * Math.PI);
 
     // Loop through one revolution
     while (t < max_t) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      t = (step/steps_per_revolution) * TWO_PI;
+      t = (step/steps_per_revolution) * (2 * Math.PI);
 
       // Loop through base shape
       base_shape.forEach(function(element) {
@@ -164,7 +164,7 @@ class ShapeSpin {
         path.push(
           this.rotationMatrix(
             // this.translate(element[0], 100 - (2 * 20 * (t/max_t))),
-            // this.translate(element[0], min(max_x/2, max_y/2) - 50),
+            // this.translate(element[0], Math.min(max_x/2, max_y/2) - 50),
             element[0],
             element[1],
             t
@@ -185,8 +185,8 @@ class ShapeSpin {
    **/
   rotationMatrix(x, y, theta) {
       return [
-        x * cos(theta) - y * sin(theta),
-        x * sin(theta) + y * cos(theta)
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
       ];
   }
 

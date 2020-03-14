@@ -195,8 +195,8 @@ class FibonacciLollipops {
       for (var k = 0; k <= spiral_revolutions * spiral_sides; k++) {
         spiral_theta = (k/spiral_sides) * (2 * Math.PI);
         spiral_r = (spiral_r_max * (1 - 0.5 * (i/i_max))) * (k/(spiral_revolutions * spiral_sides));
-        x1 = spiral_r * cos(spiral_theta);
-        y1 = spiral_r * sin(spiral_theta);
+        x1 = spiral_r * Math.cos(spiral_theta);
+        y1 = spiral_r * Math.sin(spiral_theta);
         sub_path.push([x1,y1]);
       }
 
@@ -231,8 +231,8 @@ class FibonacciLollipops {
   rotationMatrix(path, theta) {
     return path.map(function(a){
       return [
-        a[0] * cos(theta) - a[1] * sin(theta),
-        a[0] * sin(theta) + a[1] * cos(theta)
+        a[0] * Math.cos(theta) - a[1] * Math.sin(theta),
+        a[0] * Math.sin(theta) + a[1] * Math.cos(theta)
       ]
     });
   }

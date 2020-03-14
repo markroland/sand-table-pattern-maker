@@ -12,8 +12,8 @@ class Parametric {
     // Butterfly Curve
     // https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)
     let butterfly = {
-        "x": "40 * sin(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))",
-        "y": "40 * cos(t) * (pow(Math.E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5))"
+        "x": "40 * Math.sin(t) * (Math.pow(Math.E, Math.cos(t)) - 2 * Math.cos(4*t) - Math.pow(Math.sin(t/12), 5))",
+        "y": "40 * Math.cos(t) * (Math.pow(Math.E, Math.cos(t)) - 2 * Math.cos(4*t) - Math.pow(Math.sin(t/12), 5))"
     };
 
     // Define the parametric equations using text inputs
@@ -126,10 +126,10 @@ class Parametric {
     let steps_per_revolution = 120;
 
     // Loop through one revolution
-    while (t < TWO_PI) {
+    while (t < (2 * Math.PI)) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      t = (step/steps_per_revolution) * TWO_PI;
+      t = (step/steps_per_revolution) * (2 * Math.PI);
 
       // Run the parametric equations
       x = eval(x_equation);

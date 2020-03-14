@@ -113,7 +113,7 @@ class Circle {
       0,
       0,
       this.config.radius.value,
-      (this.config.angle.value / 360) * TWO_PI
+      (this.config.angle.value / 360) * (2 * Math.PI)
     );
     //*/
 
@@ -141,7 +141,7 @@ class Circle {
    * @param float start_x Starting X position (in G-code coordinates)
    * @param float start_y Starting Y position (in G-code coordinates)
    * @param float start_r Starting radius, where 0 is [x,y]
-   * @param float start_theta Starting theta angle, between 0 and TWO_PI.
+   * @param float start_theta Starting theta angle, between 0 and (2 * Math.PI).
    *   0-degrees corresponds to the positive X direction and rotates counter clockwise
    *   (i.e. PI/2 is the positive y direction)
    * @param int rotation_direction Set 1 to move counterclockwise, -1 to move clockwise
@@ -164,19 +164,19 @@ class Circle {
 
     // The number of "sides" to the circle.
     // A larger number makes the circle more smooth
-    // let max_r = min((max_x - min_x), (max_y - min_y))/2;
+    // let max_r = Math.min((max_x - min_x), (max_y - min_y))/2;
     // let sides = 30 + (radius/max_r) * 30;
     let sides = 60;
 
     // Loop through one revolution
-    while (theta < start_theta + TWO_PI) {
+    while (theta < start_theta + (2 * Math.PI)) {
 
        // Rotational Angle (steps per rotation in the denominator)
-      theta = rotation_direction * (start_theta + (step/sides) * TWO_PI);
+      theta = rotation_direction * (start_theta + (step/sides) * (2 * Math.PI));
 
       // Convert polar position to rectangular coordinates
-      x = start_x + (radius * cos(theta));
-      y = start_y + (radius * sin(theta));
+      x = start_x + (radius * Math.cos(theta));
+      y = start_y + (radius * Math.sin(theta));
 
       // Add coordinates to shape array
       path[step] = [x,y];

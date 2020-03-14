@@ -258,15 +258,15 @@ class Heart {
     let steps_per_revolution = 80;
 
     // Loop through one revolution
-    // while (t < 100 * TWO_PI) {
+    // while (t < 100 * (2 * Math.PI)) {
     while (r > 0) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      t = (step/steps_per_revolution) * TWO_PI;
+      t = (step/steps_per_revolution) * (2 * Math.PI);
 
       // Run the parametric equations
-      x = r * scale * (a * pow(sin(t), 3));
-      y = r * scale * (b * cos(t) - c * cos(2 * t) - d * cos(3 * t) - e * cos(4 * t));
+      x = r * scale * (a * Math.pow(sin(t), 3));
+      y = r * scale * (b * Math.cos(t) - c * Math.cos(2 * t) - d * Math.cos(3 * t) - e * Math.cos(4 * t));
 
       // Add coordinates to shape array
       path[step] = this.rotationMatrix(x, y, twist * t/steps_per_revolution);
@@ -286,8 +286,8 @@ class Heart {
    **/
   rotationMatrix(x, y, theta) {
       return [
-        x * cos(theta) - y * sin(theta),
-        x * sin(theta) + y * cos(theta)
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
       ];
   }
 

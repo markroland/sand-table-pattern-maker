@@ -155,7 +155,7 @@ class Spokes {
     var theta = 0;
 
     // Calculate the maximum radius
-    var max_r = min(max_x/2, max_y/2);
+    var max_r = Math.min(max_x/2, max_y/2);
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
@@ -183,9 +183,9 @@ class Spokes {
 
         // Sine Wave
         if (direction > 0) {
-          x = direction * (min(max_x, max_y)/2) * (j/sub_steps);
+          x = direction * (Math.min(max_x, max_y)/2) * (j/sub_steps);
         } else {
-          x = -direction * (min(max_x, max_y)/2) * ((sub_steps - j)/sub_steps);
+          x = -direction * (Math.min(max_x, max_y)/2) * ((sub_steps - j)/sub_steps);
         }
         y = direction * wave_amplitude * sin((j/sub_steps) * num_waves * (2 * Math.PI));
 
@@ -211,8 +211,8 @@ class Spokes {
    **/
   rotationMatrix(x, y, theta) {
     return [
-      x * cos(theta) - y * sin(theta),
-      x * sin(theta) + y * cos(theta)
+      x * Math.cos(theta) - y * Math.sin(theta),
+      x * Math.sin(theta) + y * Math.cos(theta)
     ];
   }
 }

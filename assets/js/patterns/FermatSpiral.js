@@ -89,7 +89,9 @@ class FermatSpiral {
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.revolutions.value;
 
     // Calculate path
-    let path = this.calc(this.config.revolutions.value);
+    let path = this.calc(
+      parseInt(this.config.revolutions.value)
+    );
 
     // Update object
     this.path = path;
@@ -137,15 +139,15 @@ class FermatSpiral {
 
     // Loop through one revolution
     const t_min = revolutions * 0;
-    const t_max = revolutions * TWO_PI;
+    const t_max = revolutions * (2 * Math.PI);
     const t_step = (t_max - t_min) / (revolutions * steps_per_revolution);
 
     // Negative Radius
     for (var t = t_max; t >= t_min; t -= t_step) {
 
       // Run the parametric equations
-      x = -a * pow(t, pow_n) * cos(t);
-      y = -a * pow(t, pow_n) * sin(t);
+      x = -a * Math.pow(t, pow_n) * Math.cos(t);
+      y = -a * Math.pow(t, pow_n) * Math.sin(t);
 
       // Add coordinates to shape array
       path.push([x,y]);
@@ -155,8 +157,8 @@ class FermatSpiral {
     for (var t = t_min; t <= t_max + t_step; t += t_step) {
 
       // Run the parametric equations
-      x = a * pow(t, pow_n) * cos(t);
-      y = a * pow(t, pow_n) * sin(t);
+      x = a * Math.pow(t, pow_n) * Math.cos(t);
+      y = a * Math.pow(t, pow_n) * Math.sin(t);
 
       // Add coordinates to shape array
       path.push([x,y]);

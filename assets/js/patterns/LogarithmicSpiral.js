@@ -190,7 +190,7 @@ class LogarithmicSpiral {
     var theta = 0.0;
 
     // Calculate the maximum radius
-    var max_r = min(max_x - min_x, max_y - min_y) / 2;
+    var max_r = Math.min(max_x - min_x, max_y - min_y) / 2;
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
@@ -206,8 +206,8 @@ class LogarithmicSpiral {
     for (var theta = 0; theta < theta_max; theta += delta_theta) {
 
       // Convert polar position to rectangular coordinates
-      x = max_r * a * exp(b * theta) * cos(theta);
-      y = max_r * a * exp(b * theta) * sin(theta);
+      x = max_r * a * Math.exp(b * theta) * Math.cos(theta);
+      y = max_r * a * Math.exp(b * theta) * Math.sin(theta);
 
       // Add coordinates to shape array
       path.push([x,y]);
@@ -217,13 +217,13 @@ class LogarithmicSpiral {
   }
 
   rotate_around_center(path) {
-    var theta = radians(this.config.rotate.value);
+    var theta = this.config.rotate.value * (Math.PI/180);
     return path.map(function(a){
       var x = a[0];
       var y = a[1];
       return [
-        x * cos(theta) - y * sin(theta),
-        x * sin(theta) + y * cos(theta)
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
       ];
     });
   }

@@ -183,8 +183,8 @@ class Cycloid {
       theta = radians(step_scale * step);
 
       // Cycloid parametric equations
-      x = (radius_a + radius_b) * cos(theta) + arm_length * cos(((radius_a + radius_b)/radius_b) * theta);
-      y = (radius_a + radius_b) * sin(theta) + arm_length * sin(((radius_a + radius_b)/radius_b) * theta);
+      x = (radius_a + radius_b) * Math.cos(theta) + arm_length * Math.cos(((radius_a + radius_b)/radius_b) * theta);
+      y = (radius_a + radius_b) * Math.sin(theta) + arm_length * Math.sin(((radius_a + radius_b)/radius_b) * theta);
 
       // Add coordinates to shape array
       path[step] = [x,y];

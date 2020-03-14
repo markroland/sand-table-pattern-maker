@@ -184,7 +184,7 @@ class Spiral {
     var theta = start_theta;
 
     // Calculate the maximum radius
-    var max_r = min(max_x/2, max_y/2);
+    var max_r = Math.min(max_x/2, max_y/2);
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
@@ -199,14 +199,14 @@ class Spiral {
     while (r < max_r) {
 
        // Rotational Angle (steps per rotation in the denominator)
-      theta = start_theta + (step/sides) * TWO_PI;
+      theta = start_theta + (step/sides) * (2 * Math.PI);
 
       // Increment radius
-      r = start_r + offset * (theta/TWO_PI) - (noise * Math.random());
+      r = start_r + offset * (theta/(2 * Math.PI)) - (noise * Math.random());
 
       // Convert polar position to rectangular coordinates
-      x = start_x + (r * cos(theta * twist));
-      y = start_y + (r * sin(theta * twist));
+      x = start_x + (r * Math.cos(theta * twist));
+      y = start_y + (r * Math.sin(theta * twist));
 
       // Add coordinates to shape array
       path[step] = [x,y];

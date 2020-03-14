@@ -264,8 +264,8 @@ class Lindenmayer {
         // Draw forward
 
         // polar to cartesian based on step and current_angle:
-        let x1 = x + segment_length * cos(radians(current_angle));
-        let y1 = y + segment_length * sin(radians(current_angle));
+        let x1 = x + segment_length * Math.cos(radians(current_angle));
+        let y1 = y + segment_length * Math.sin(radians(current_angle));
 
         path.push([x1, y1]);
 
@@ -362,8 +362,8 @@ class Lindenmayer {
       var x = a[0];
       var y = a[1];
       return [
-        x * cos(theta) - y * sin(theta),
-        x * sin(theta) + y * cos(theta)
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
       ];
     });
   }

@@ -105,7 +105,7 @@ class ThetaRho {
     let y;
 
     // Calculate the maximum radius of the machine based on its dimensions
-    let max_r = min((max_x - min_x), (max_y - min_y))/2;
+    let max_r = Math.min((max_x - min_x), (max_y - min_y))/2;
 
     let thr_commands = new Array();
 
@@ -129,8 +129,8 @@ class ThetaRho {
 
     // Convert starting point from Theta-Rho to XY
     path.push([
-        thr_commands[0][1] * cos(thr_commands[0][0]),
-        thr_commands[0][1] * sin(thr_commands[0][0])
+        thr_commands[0][1] * Math.cos(thr_commands[0][0]),
+        thr_commands[0][1] * Math.sin(thr_commands[0][0])
     ]);
 
     // Loop through subsequent commands
@@ -170,8 +170,8 @@ class ThetaRho {
             // The negative sign on the Y Coordinate is there to reflect how I believe
             // Theta-Rho is interpreted, but I don't have a machine to verify this.
             path.push([
-                radius_delta * cos(theta_delta),
-                - radius_delta * sin(theta_delta)
+                radius_delta * Math.cos(theta_delta),
+                - radius_delta * Math.sin(theta_delta)
             ]);
         }
     }

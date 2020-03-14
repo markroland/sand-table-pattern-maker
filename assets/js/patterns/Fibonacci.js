@@ -133,7 +133,7 @@ class Fibonacci {
   calc(radius_shrink_factor, return_to_center)
   {
     var path = new Array();
-    var r_max = min(max_x - min_x, max_y - min_y) / 2;
+    var r_max = Math.min(max_x - min_x, max_y - min_y) / 2;
     var r;
     var theta;
     var x, y;

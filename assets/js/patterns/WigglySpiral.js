@@ -153,7 +153,7 @@ class WigglySpiral {
     var theta = start_theta;
 
     // Calculate the maximum radius
-    var max_r = min(max_x/2, max_y/2);
+    var max_r = Math.min(max_x/2, max_y/2);
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
@@ -169,10 +169,10 @@ class WigglySpiral {
     // This isn't quite right yet. I need to look into the coordinate translations
     // while (r < max_r && x > width/2-max_x/2 && x < width/2+max_x/2 && y > height/2-max_y/2 && y < height/2-max_y/2) {
     while (r > 0) {
-    // while (theta < 100 * TWO_PI) {
+    // while (theta < 100 * (2 * Math.PI)) {
 
       // Rotational Angle (steps per rotation in the denominator)
-      theta = step * theta_per_step * TWO_PI;
+      theta = step * theta_per_step * (2 * Math.PI);
 
       // Decrement the radius by a set amount per rotation
       // Every full rotation the radius is reduced by the offset (distance_between_turns)
@@ -184,11 +184,11 @@ class WigglySpiral {
 
       // Add a wiggle with a constant amplitude
       // Subtract from radius so that drawing area will not be exceeded
-      r = r - wiggle_amplitude * sin(wiggle_frequency * theta);
+      r = r - wiggle_amplitude * Math.sin(wiggle_frequency * theta);
 
       // Convert polar position to rectangular coordinates
-      x = start_x + (r * cos(theta));
-      y = start_y + (r * sin(theta));
+      x = start_x + (r * Math.cos(theta));
+      y = start_y + (r * Math.sin(theta));
 
       // Add coordinates to shape array
       path[step] = [x,y];

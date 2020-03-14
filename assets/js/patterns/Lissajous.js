@@ -259,8 +259,8 @@ class Lissajous {
    **/
   rotationMatrix(x, y, theta) {
       return [
-        x * cos(theta) - y * sin(theta),
-        x * sin(theta) + y * cos(theta)
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
       ];
   }
 }

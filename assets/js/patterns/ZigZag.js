@@ -244,8 +244,8 @@ class ZigZag {
         // Loop through one revolution
         for (var theta = 0.0; theta < 2 * Math.PI; theta += ((2 * Math.PI)/60)) {
           path.push([
-            0.5 * (max_y - min_y) * cos(theta + (0.5 * Math.PI)),
-            0.5 * (max_y - min_y) * sin(theta + (0.5 * Math.PI))
+            0.5 * (max_y - min_y) * Math.cos(theta + (0.5 * Math.PI)),
+            0.5 * (max_y - min_y) * Math.sin(theta + (0.5 * Math.PI))
           ]);
         }
 

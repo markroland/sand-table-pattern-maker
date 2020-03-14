@@ -55,31 +55,16 @@ class FibonacciLollipops {
           "displayValue": true
         }
       },
-      "rotations": {
-        "name": "Rotations",
-        "value": 30,
-        "input": {
-          "type": "createSlider",
-          "params" : [
-            1,
-            100,
-            30,
-            1
-          ],
-          "class": "slider",
-          "displayValue": true
-        }
-      },
       "spiral_factor": {
         "name": "Shrink Factor",
-        "value": 30,
+        "value": -0.2,
         "input": {
           "type": "createSlider",
           "params" : [
-            0.001,
-            0.010,
-            0.007,
-            0.001
+            -0.020,
+            -0.003,
+            -0.010,
+            0.0001
           ],
           "class": "slider",
           "displayValue": true
@@ -144,15 +129,13 @@ class FibonacciLollipops {
     this.config.lollipopradius.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.lollipopturns.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
     this.config.lollipopshrink.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.rotations.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
-    this.config.spiral_factor.value = document.querySelector('#pattern-controls > div:nth-child(5) > input').value;
+    this.config.spiral_factor.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.lollipopradius.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.lollipopturns.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.lollipopshrink.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.rotations.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.spiral_factor.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.spiral_factor.value;
 
 
     // Calculate path
@@ -160,7 +143,6 @@ class FibonacciLollipops {
       parseInt(this.config.lollipopradius.value),
       parseFloat(this.config.lollipopturns.value),
       parseFloat(this.config.lollipopshrink.value),
-      parseInt(this.config.rotations.value),
       parseFloat(this.config.spiral_factor.value)
     );
 
@@ -177,42 +159,42 @@ class FibonacciLollipops {
    *
    * @return Array Path
    **/
-  calc(spiral_r_max, spiral_revolutions, lollipop_shrink, rotations, radius_shrink_factor) {
+  calc(spiral_r_max, spiral_revolutions, lollipop_shrink, radius_shrink_factor) {
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step
     var path = new Array();
-
-    var i = 0;
     var r_max = Math.min(max_x-min_x, max_y-min_y) / 2;
-    var r = r_max;
-    var theta = 0.0;
-    var x, y, loop;
+    var r;
+    var theta;
+    var x, y;
 
-    var max_theta = rotations * (2 * Math.PI);
-    var return_to_center = true;
+    // Calculate the number of iterations required to decay
+    // to a minimum value;
+    var r_min = ball_size / 2;
+    var i_max = Math.log(r_min/r_max) / radius_shrink_factor;
 
-    var x1, y1;
-
+    // "Lollipop" Spiral
     var sub_path = new Array();
-
+    var x1, y1;
     var spiral_r, spiral_theta;
     var spiral_sides = 24;
 
-    // TODO: Refacator this so that it always ends in the center
-    while (r > 0 && theta < max_theta) {
+    // Loop through iterations
+    for (var i = 0; i < i_max; i++) {
 
       // Increment theta by golden ratio each iteration
       // https://en.wikipedia.org/wiki/Golden_angle
-      theta = i * Math.PI * (3.0 - sqrt(5));
+      theta = i * Math.PI * (3.0 - Math.sqrt(5));
 
       // Set the radius of the Fibonacci "petal" (lollipop height)
       // Decrease the radius a bit each cycle
-      r = (1 - radius_shrink_factor * i) * (0.5 * Math.min(max_x, max_y) - spiral_r_max);
+      r = (r_max - spiral_r_max) * Math.exp(radius_shrink_factor * i);
 
       // Lollipop Spiral
       sub_path = [];
       spiral_r_max = (1 - lollipop_shrink) * spiral_r_max;
+      // spiral_r_max = r_max * Math.exp(radius_shrink_factor * i);
       for (var k = 0; k <= spiral_revolutions * spiral_sides; k++) {
         spiral_theta = (k/spiral_sides) * (2 * Math.PI);
         spiral_r = spiral_r_max * (k/(spiral_revolutions * spiral_sides));
@@ -229,10 +211,10 @@ class FibonacciLollipops {
 
       // Return to center;
       path.push([0.0, 0.0]);
-
-      // increment loop counter
-      i++;
     }
+
+    // End in center
+    path.push([0,0]);
 
     return path;
   }

@@ -10,6 +10,21 @@ class Text {
     this.char_width = this.line_height / 2;
 
     this.config = {
+      "height": {
+        "name": "Line Height",
+        "value": 40,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            10,
+            80,
+            40,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
       "text": {
         "name": "Text",
         "value": null,
@@ -22,7 +37,7 @@ class Text {
           "value" : "Hello World",
           "params" : []
         }
-      },
+      }
     };
 
     this.path = [];
@@ -86,7 +101,11 @@ class Text {
     let path = new Array();
 
     // Update object
-    this.config.text.value = document.querySelector('#pattern-controls > div:nth-child(1) > textarea').value;
+    this.line_height = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.text.value = document.querySelector('#pattern-controls > div:nth-child(2) > textarea').value;
+
+    // Display
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.line_height + " " + units;
 
     // Return single-point path if string is empty
     // This prevents the main "draw" function from breaking
@@ -106,7 +125,7 @@ class Text {
       // Add connector if not the last letter
       if (i != i_max) {
         x += (0.4 * this.char_width);
-        path = path.concat([x, 0]);
+        path = path.concat([[x, 0]]);
       }
     }
 
@@ -161,4 +180,5 @@ class Text {
     }, path);
     return path;
   }
+
 }

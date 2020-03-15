@@ -110,6 +110,10 @@ class Text {
       }
     }
 
+    // Center path
+    var text_width = Math.max(...path.map(function(value, index) { return value[0]; }));
+    path = this.translate_path(path, -text_width/2, -this.line_height/2);
+
     return path;
   }
 

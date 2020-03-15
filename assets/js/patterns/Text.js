@@ -115,31 +115,46 @@ class Text {
 
   draw_character(x, y, character) {
 
+    let path = new Array();
+
     switch(character) {
       case " ":
-        return [
-          [x + this.char_width, 0]
+        path = [
+          [this.char_width, 0]
         ];
         break;
       case "A":
-        return [
-          [x + 0,0],
-          [x + this.char_width/2, this.line_height],
-          [x + 0.75 * this.char_width, this.line_height/2],
-          [x + 0.25 * this.char_width, this.line_height/2],
-          [x + 0.75 * this.char_width, this.line_height/2],
-          [x + this.char_width, 0]
+        path = [
+          [0,0],
+          [this.char_width/2, this.line_height],
+          [0.75 * this.char_width, this.line_height/2],
+          [0.25 * this.char_width, this.line_height/2],
+          [0.75 * this.char_width, this.line_height/2],
+          [this.char_width, 0]
         ];
         break;
       default:
-        return [
-          [x + 0, 0],
-          [x + 0, this.line_height],
-          [x + this.char_width, this.line_height],
-          [x + this.char_width, 0],
-          [x + 0, 0],
-          [x + this.char_width, 0]
+        path = [
+          [0, 0],
+          [0, this.line_height],
+          [this.char_width, this.line_height],
+          [this.char_width, 0],
+          [0, 0],
+          [this.char_width, 0]
         ];
     }
+
+    // Move each character coordinate over
+    path = this.translate_path(path, x, 0);
+
+    return path;
+  }
+
+  translate_path(path, x, y) {
+    path.forEach(function(part, index) {
+      this[index][0] += x;
+      this[index][1] += y;
+    }, path);
+    return path;
   }
 }

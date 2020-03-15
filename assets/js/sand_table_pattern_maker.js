@@ -60,6 +60,7 @@ var Patterns = {
   "spokes": new Spokes(),
   "thr": new ThetaRho(),
   "star": new Star(),
+  "text": new Text(),
   "wigglyspiral": new WigglySpiral(),
   "zigzag": new ZigZag()
 }

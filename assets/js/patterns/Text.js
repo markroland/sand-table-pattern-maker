@@ -34,7 +34,7 @@ class Text {
             "rows": 11,
             "cols": 22,
           },
-          "value" : "Hello World",
+          "value" : "Hello\nWorld",
           "params" : []
         }
       }
@@ -118,20 +118,39 @@ class Text {
     let x = 0;
     let y = 0;
     let i_max = this.config.text.value.length;
+    var text_height = this.line_height;
+    var line_count = 1;
     for (var i = 0; i < i_max; i++) {
+
+      // Get the path for the current character
       path = path.concat(this.draw_character(x, y, this.config.text.value.charAt(i)));
+
+      // Start a new line
+      if (this.config.text.value.charAt(i) == "\n") {
+        line_count++;
+        path = path.concat([
+          [x, y + -0.25 * this.line_height],
+          [-this.char_width/2, y + -0.25 * this.line_height],
+          [-this.char_width/2, y + -1.5 * this.line_height]
+        ]);
+        x = 0;
+        y -= 1.5 * this.line_height;
+        continue;
+      }
+
+      // Increment the x position by the character width
       x += this.char_width;
 
       // Add connector if not the last letter
       if (i != i_max) {
         x += (0.4 * this.char_width);
-        path = path.concat([[x, 0]]);
+        path = path.concat([[x, y]]);
       }
     }
 
     // Center path
     var text_width = Math.max(...path.map(function(value, index) { return value[0]; }));
-    path = this.translate_path(path, -text_width/2, -this.line_height/2);
+    path = this.translate_path(path, -text_width/2, -this.line_height/2 + ((line_count-1) * 1.5 * this.line_height)/2);
 
     return path;
   }
@@ -154,6 +173,9 @@ class Text {
         path = [
           [width, 0]
         ];
+        break;
+      case "\n":
+        path = [];
         break;
       case "A":
         path = [
@@ -473,7 +495,7 @@ class Text {
     }
 
     // Move each character coordinate over
-    path = this.translate_path(path, x, 0);
+    path = this.translate_path(path, x, y);
 
     return path;
   }

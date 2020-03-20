@@ -38,6 +38,7 @@ var path;
 var Patterns = {
   "coordinates": new Coordinates(),
   "circle": new Circle(),
+  "cross": new Cross(),
   "cycloid": new Cycloid(),
   "diameters": new Diameters(),
   "draw": new Draw(),

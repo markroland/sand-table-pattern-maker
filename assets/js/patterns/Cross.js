@@ -15,7 +15,7 @@ class Cross {
           "params" : [
             1,
             (max_x - min_x),
-            (max_x - min_x) / 2,
+            0.3 * (max_x - min_x),
             1
           ],
           "class": "slider",
@@ -134,6 +134,11 @@ class Cross {
       parseFloat(this.config.intersect.value/100)
     );
 
+    // If pattern is reversed, then remove first (which will be last) point from path
+    if (document.querySelector('#pattern-controls input[name=reverse]').checked) {
+      path.shift();
+    }
+
     // Update object
     this.path = path;
 
@@ -153,22 +158,36 @@ class Cross {
 
     // Initialize return value - the path array
     // This stores the x,y coordinates for each step
-    var path = new Array();
+    var path = new Array([0,0]);
 
     let y_center = (cross_intersect * cross_height) - (cross_height/2);
 
-    path = [
-      [0,0],
-      [0, y_center],
-      [-cross_width/2, y_center],
-      [0, y_center],
-      [0, cross_height/2],
-      [0, y_center],
-      [cross_width/2, y_center],
-      [0, y_center],
-      [0, -cross_height/2],
-      [0, y_center]
-    ];
+    let increment = ball_size/2;
+    let rotations = 3;
+    var offset;
+
+    for (var i = 0; i < rotations; i++) {
+      offset = i * increment;
+      path = path.concat([
+        [0 - offset, y_center - offset],
+        [-cross_width/2 - offset, y_center - offset],
+        [-cross_width/2 - offset, y_center + offset],
+        [0 - offset, y_center + offset],
+        [0 - offset, cross_height/2 + offset],
+        [0 + offset, cross_height/2 + offset],
+        [0 + offset, y_center + offset],
+        [cross_width/2 + offset, y_center + offset],
+        [cross_width/2 + offset, y_center - offset],
+        [0 + offset, y_center - offset],
+        [0 + offset, -cross_height/2 - offset],
+        [0 - offset, -cross_height/2 - offset],
+        [0 - offset, y_center - offset]
+      ]);
+
+    }
+
+    // Return to center
+    // path.push([0, y_center]);
 
     return path;
   }

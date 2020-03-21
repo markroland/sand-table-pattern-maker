@@ -82,14 +82,6 @@ class ZigZag {
     this.path = [];
   }
 
-  /**
-   * Setup the controls for the pattern.
-   *
-   * @return Null
-   **/
-  setup() {
-    return null;
-  }
 
   /**
    * Draw path - Use class's "calc" method to convert inputs to a draw path

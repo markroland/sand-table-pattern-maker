@@ -237,10 +237,8 @@ function patternSelectEvent() {
   // Clear controls
   select('#pattern-controls').html('');
 
-  // Call setup on selected pattern
+  // Create HTML elements for each pattern configuration option
   var selected_pattern = pattern_select.value();
-  Patterns[selected_pattern].setup();
-
   let controls = new Array();
   const configs = Object.entries(Patterns[selected_pattern].config);
   for (const [key, val] of configs) {

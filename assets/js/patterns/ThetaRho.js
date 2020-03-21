@@ -31,10 +31,6 @@ class ThetaRho {
     this.path = [];
   }
 
-  setup() {
-    return null;
-  }
-
   draw() {
 
     // Update object

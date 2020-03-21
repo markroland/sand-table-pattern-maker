@@ -110,15 +110,6 @@ class ShapeMorph {
     this.path = [];
   }
 
-  /**
-   * Setup the controls for the pattern.
-   *
-   * @return Null
-   **/
-  setup() {
-    return null;
-  }
-
   draw() {
 
     // Update object

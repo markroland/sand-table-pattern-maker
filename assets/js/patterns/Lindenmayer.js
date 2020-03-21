@@ -128,7 +128,7 @@ class Lindenmayer {
         "name": "Reverse",
         "value": 0,
         "input": {
-          "type": "createInput",
+          "type": "createCheckbox",
           "attributes" : [{
             "type" : "checkbox",
             "checked" : null

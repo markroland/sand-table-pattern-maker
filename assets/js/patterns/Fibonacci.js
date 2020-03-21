@@ -29,7 +29,7 @@ class Fibonacci {
         "name": "Return to Center",
         "value": 1,
         "input": {
-          "type": "createInput",
+          "type": "createCheckbox",
           "attributes" : [{
             "type" : "checkbox",
             "checked" : null
@@ -42,7 +42,7 @@ class Fibonacci {
         "name": "Reverse",
         "value": 0,
         "input": {
-          "type": "createInput",
+          "type": "createCheckbox",
           "attributes" : [{
             "type" : "checkbox",
             "checked" : null

@@ -260,11 +260,15 @@ function patternSelectEvent() {
         .attribute('name', key)
         .parent(control.div)
         .addClass(val.input.class);
-    } else if (val.input.type == "createInput") {
+    } else if (val.input.type == "createCheckbox") {
       control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
         .attribute("type", "checkbox")
         .attribute('name', key)
         .attribute('checkbox', null)
+        .parent(control.div);
+    } else if (val.input.type == "createInput") {
+      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
+        .attribute('name', key)
         .parent(control.div);
     } else if (val.input.type == "createTextarea") {
       control.input = createElement("textarea", val.input.value)

@@ -55,11 +55,12 @@ class ZigZag {
         "name": "Border",
         "value": 1,
         "input": {
-          "type": "createInput",
+          "type": "createCheckbox",
           "attributes" : [{
             "type" : "checkbox",
             "checked" : true
           }],
+          "params": [0, 1, 0],
           "displayValue": false
         }
       },
@@ -67,7 +68,7 @@ class ZigZag {
         "name": "Reverse",
         "value": 0,
         "input": {
-          "type": "createInput",
+          "type": "createCheckbox",
           "attributes" : [{
             "type" : "checkbox",
             "checked" : null

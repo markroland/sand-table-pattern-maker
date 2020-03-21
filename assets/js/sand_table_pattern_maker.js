@@ -237,9 +237,62 @@ function patternSelectEvent() {
   // Clear controls
   select('#pattern-controls').html('');
 
-  // Call setup on selected pattern
+  // Create HTML elements for each pattern configuration option
   var selected_pattern = pattern_select.value();
-  Patterns[selected_pattern].setup();
+  let controls = new Array();
+  const configs = Object.entries(Patterns[selected_pattern].config);
+  for (const [key, val] of configs) {
+
+    // Create a new object
+    var control = new Object();
+
+    // Create the div that contains the control
+    control.div = createDiv('<label>' + val.name + '</label>')
+      .parent('pattern-controls')
+      .addClass('pattern-control');
+
+    // Create the control form input
+    if (val.input.type == "createSelect") {
+        control.input = createSelect()
+          .attribute('name', key)
+          .parent(control.div)
+          .addClass(val.input.class);
+        const entries = Object.entries(val.input.options)
+        for (const [key, object] of entries) {
+          control.input.option(object, key);
+        }
+      } else if (val.input.type == "createSlider") {
+      control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
+        .attribute('name', key)
+        .parent(control.div)
+        .addClass(val.input.class);
+    } else if (val.input.type == "createCheckbox") {
+      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
+        .attribute("type", "checkbox")
+        .attribute('name', key)
+        .attribute('checkbox', null)
+        .parent(control.div);
+    } else if (val.input.type == "createInput") {
+      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
+        .attribute('name', key)
+        .parent(control.div);
+    } else if (val.input.type == "createTextarea") {
+      control.input = createElement("textarea", val.input.value)
+        .attribute("rows", val.input.attributes.rows)
+        .attribute("cols", val.input.attributes.cols)
+        .attribute('name', key)
+        .parent(control.div);
+    }
+
+    // Create a span element to display the current input's value (useful for Sliders)
+    if (val.input.displayValue) {
+      let radius_value = createSpan('0')
+        .parent(control.div);
+    }
+
+    // Add to "controls" object
+    controls.push(control);
+  }
 
   // Change document title
   document.title = 'Sand Pattern | ' + pattern_select.value();

@@ -37,24 +37,24 @@ class Rectangle {
           "displayValue": true
         }
       },
-      "lock": {
-        "name": "Lock Proportions",
-        "value": 0,
-        "input": {
-          "type": "createInput",
-          "attributes" : [{
-            "type" : "checkbox",
-            "checked" : null
-          }],
-          "params": [0, 1, 0],
-          "displayValue": false
-        }
-      },
+      // "lock": {
+      //   "name": "Lock Proportions",
+      //   "value": 0,
+      //   "input": {
+      //     "type": "createCheckbox",
+      //     "attributes" : [{
+      //       "type" : "checkbox",
+      //       "checked" : null
+      //     }],
+      //     "params": [0, 1, 0],
+      //     "displayValue": false
+      //   }
+      // },
       "reverse": {
         "name": "Reverse",
         "value": 0,
         "input": {
-          "type": "createInput",
+          "type": "createCheckbox",
           "attributes" : [{
             "type" : "checkbox",
             "checked" : null
@@ -66,51 +66,6 @@ class Rectangle {
     };
 
     this.path = [];
-  }
-
-  /**
-   * Setup the controls for the pattern.
-   *
-   * @return Null
-   **/
-  setup() {
-
-    let controls = new Array();
-    const configs = Object.entries(this.config);
-    for (const [key, val] of configs) {
-
-      // Create a new object
-      var control = new Object();
-
-      // Create the div that contains the control
-      control.div = createDiv('<label>' + val.name + '</label>')
-        .parent('pattern-controls')
-        .addClass('pattern-control');
-
-      // Create the control form input
-      // TODO: make this dynamic
-      if (val.input.type == "createSlider") {
-        control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
-          .attribute('name', key)
-          .parent(control.div)
-          .addClass(val.input.class);
-      } else if (val.input.type == "createInput") {
-        control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
-          .attribute("type", "checkbox")
-          .attribute('name', key)
-          .attribute('checkbox', null)
-          .parent(control.div);
-      }
-
-      // Create a span element to display the current input's value (useful for Sliders)
-      if (val.input.displayValue) {
-        let radius_value = createSpan('0')
-          .parent(control.div);
-      }
-
-      // Add to "controls" object
-      controls.push(control);
-    }
   }
 
   draw() {

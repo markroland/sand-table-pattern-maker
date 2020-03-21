@@ -320,6 +320,8 @@ function patternSelectEvent() {
     control.input.changed(function(){
       recalculate_pattern = true;
     });
+    // Save settings to browser cookie
+    // setCookie("pattern.circle.angle", angle.value())
 
     // Create a span element to display the current input's value (useful for Sliders)
     if (val.input.displayValue) {

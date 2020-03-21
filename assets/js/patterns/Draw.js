@@ -9,12 +9,9 @@ class Draw {
     this.config = {
     };
 
-    this.path = [];
+    this.path = [[0,0]];
   }
 
-  setup() {
-    path = [[0,0]]
-  }
 
   draw() {
 
@@ -37,13 +34,13 @@ class Draw {
 
             // On first press replace [0,0] initial value with x,y
             if (path.length == 1 && path[0][0] == 0 && path[0][1] == 0) {
-                path = [[x,y]];
+                this.path = [[x,y]];
             } else {
-                path.push([x,y]);
+                this.path.push([x,y]);
             }
         }
     }
 
-    return path;
+    return this.path;
   }
 }

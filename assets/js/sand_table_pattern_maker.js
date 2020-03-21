@@ -253,15 +253,15 @@ function patternSelectEvent() {
 
     // Create the control form input
     if (val.input.type == "createSelect") {
-        control.input = createSelect()
-          .attribute('name', key)
-          .parent(control.div)
-          .addClass(val.input.class);
-        const entries = Object.entries(val.input.options)
-        for (const [key, object] of entries) {
-          control.input.option(object, key);
-        }
-      } else if (val.input.type == "createSlider") {
+      control.input = createSelect()
+        .attribute('name', key)
+        .parent(control.div)
+        .addClass(val.input.class);
+      const entries = Object.entries(val.input.options)
+      for (const [key, object] of entries) {
+        control.input.option(object, key);
+      }
+    } else if (val.input.type == "createSlider") {
       control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
         .attribute('name', key)
         .parent(control.div)

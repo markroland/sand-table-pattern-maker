@@ -2,7 +2,7 @@
 
 ![Sand Table](sand_table_pattern_maker.jpg)
 
-[Launch Pattern Maker on Github Pages](https://markroland.github.io/sand-table-pattern-maker/)
+[Launch Pattern Maker](https://markroland.github.io/sand-table-pattern-maker/)
 
 This is part of my [Sand Table Build](https://markroland.com/portfolio/sand-table)
 
@@ -35,3 +35,11 @@ Pattern classes are made up of at least 4 methods:
    updates the UI input values and sends the input to the class's `calc` method.
  - **calc** - This is where the algorithm for the pattern is implemented. Using the selected
    inputs, the method returns the coordinates for the complete path.
+
+## License
+
+[![Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://i.creativecommons.org/l/by-nd/2.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+This work is licensed under a [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) License.
+
+This work makes use of [p5.js](https://p5js.org), which carries a [GNU Lesser General Public License](https://p5js.org/copyright.html).

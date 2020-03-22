@@ -6,19 +6,20 @@ class Text {
 
     this.name = "Text";
 
-    this.line_height = 40;
-    this.char_width = this.line_height / 2;
+    this.char_width = 1.5 * ball_size;
+    this.char_height = this.char_width * 2;
+    this.line_height = 2 * this.char_height;
 
     this.config = {
       "height": {
         "name": "Line Height",
-        "value": 40,
+        "value": this.char_height,
         "input": {
           "type": "createSlider",
           "params" : [
             10,
             80,
-            40,
+            this.char_height,
             1
           ],
           "class": "slider",
@@ -50,11 +51,11 @@ class Text {
     let path = new Array();
 
     // Update object
-    this.line_height = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.char_height = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
     this.config.text.value = document.querySelector('#pattern-controls > div:nth-child(2) > textarea').value;
 
     // Display
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.line_height + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.char_height + " " + units;
 
     // Return single-point path if string is empty
     // This prevents the main "draw" function from breaking
@@ -67,9 +68,9 @@ class Text {
     let x = 0;
     let y = 0;
     let i_max = this.config.text.value.length;
-    var text_height = this.line_height;
     var line_count = 1;
     for (var i = 0; i < i_max; i++) {
+    let text_height = this.char_height;
 
       // Get the path for the current character
       path = path.concat(this.draw_character(x, y, this.config.text.value.charAt(i)));
@@ -78,12 +79,12 @@ class Text {
       if (this.config.text.value.charAt(i) == "\n") {
         line_count++;
         path = path.concat([
-          [x, y + -0.25 * this.line_height],
-          [-this.char_width/2, y + -0.25 * this.line_height],
-          [-this.char_width/2, y + -1.5 * this.line_height]
+          [x, y + -0.5 * this.char_height],
+          [-this.char_width/2, y + -0.5 * this.char_height],
+          [-this.char_width/2, y - this.line_height]
         ]);
         x = 0;
-        y -= 1.5 * this.line_height;
+        y -= this.line_height;
         continue;
       }
 
@@ -99,7 +100,7 @@ class Text {
 
     // Center path
     var text_width = Math.max(...path.map(function(value, index) { return value[0]; }));
-    path = this.translate_path(path, -text_width/2, -this.line_height/2 + ((line_count-1) * 1.5 * this.line_height)/2);
+    path = this.translate_path(path, -text_width/2, -this.char_height/2 + ((lines.length-1) * this.line_height)/2);
 
     return path;
   }
@@ -110,7 +111,7 @@ class Text {
     let path = new Array();
 
     // Shorten variables
-    let height = this.line_height;
+    let height = this.char_height;
     let width = this.char_width;
 
     // Convert to upper case

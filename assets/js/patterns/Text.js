@@ -127,7 +127,7 @@ class Text {
     switch(character) {
       case " ":
         path = [
-          [width, 0]
+          [1.0, 0]
         ];
         break;
       case "\n":
@@ -136,356 +136,361 @@ class Text {
       case "A":
         path = [
           [0, 0],
-          [width/2, height],
-          [0.75 * width, height/2],
-          [0.25 * width, height/2],
-          [0.75 * width, height/2],
-          [width, 0]
+          [0.5, 1.0],
+          [0.75, 0.5],
+          [0.25, 0.5],
+          [0.75, 0.5],
+          [1.0, 0]
         ];
         break;
       case "B":
         path = [
           [0, 0],
-          [0, height],
-          [(3/4) * width, height],
-          [width, (7/8) * height],
-          [width, (5/8) * height],
-          [(3/4) * width, (1/2) * height],
-          [0, (1/2) * height],
-          [(3/4) * width, (1/2) * height],
-          [width, (3/8) * height],
-          [width, (1/8) * height],
-          [(3/4) * width, 0],
+          [0, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.875],
+          [1.0, 0.625],
+          [0.75, 0.5],
+          [0, 0.5],
+          [0.75, 0.5],
+          [1.0, 0.325],
+          [1.0, 0.125],
+          [0.75, 0],
           [0, 0]
         ];
         break;
       case "C":
         path = [
           [0, 0],
-          [(1/4) * width, 0],
-          [0, height/4],
-          [0, (3/4) * height],
-          [(1/4) * width, height],
-          [(3/4) * width, height],
-          [width, (3/4) * height],
-          [(3/4) * width, height],
-          [(1/4) * width, height],
-          [0, (3/4) * height],
-          [0, height/4],
-          [(1/4) * width, 0],
-          [(3/4) * width, 0],
-          [width, height/4],
-          [(3/4) * width, 0]
+          [0.25, 0],
+          [0, 0.25],
+          [0, 0.75],
+          [0.25, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.75],
+          [0.75, 1.0],
+          [0.25, 1.0],
+          [0, 0.75],
+          [0, 0.25],
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0.25],
+          [0.75, 0]
         ];
         break;
       case "D":
         path = [
           [0, 0],
-          [0, height],
-          [width/4, height],
-          [(3/4) * width, height],
-          [width, (3/4) * height],
-          [width, (1/4) * height],
-          [(3/4) * width, 0],
+          [0, 1.0],
+          [0.25, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.75],
+          [1.0, 0.25],
+          [0.75, 0],
           [0, 0],
-          [(3/4) * width, 0]
+          [0.75, 0]
         ];
         break;
       case "E":
         path = [
           [0, 0],
-          [0, height],
-          [width, height],
-          [0, height],
-          [0, height/2],
-          [width, height/2],
-          [0, height/2],
+          [0, 1.0],
+          [1.0, 1.0],
+          [0, 1.0],
+          [0, 0.5],
+          [1.0, 0.5],
+          [0, 0.5],
           [0, 0],
-          [width, 0]
+          [1.0, 0]
         ];
         break;
       case "F":
         path = [
           [0, 0],
-          [0, height],
-          [width, height],
-          [0, height],
-          [0, height/2],
-          [width, height/2],
-          [0, height/2],
+          [0, 1.0],
+          [1.0, 1.0],
+          [0, 1.0],
+          [0, 0.5],
+          [1.0, 0.5],
+          [0, 0.5],
           [0, 0]
         ];
         break;
       case "G":
         path = [
           [0, 0],
-          [(1/4) * width, 0],
-          [0, height/4],
-          [0, (3/4) * height],
-          [(1/4) * width, height],
-          [(3/4) * width, height],
-          [width, (3/4) * height],
-          [(3/4) * width, height],
-          [(1/4) * width, height],
-          [0, (3/4) * height],
-          [0, height/4],
-          [(1/4) * width, 0],
-          [(3/4) * width, 0],
-          [width, height/4],
-          [width, height/2],
-          [(3/4) * width, height/2],
-          [width, height/2],
-          [width, height/4],
-          [(3/4) * width, 0]
+          [0.25, 0],
+          [0, 0.25],
+          [0, 0.75],
+          [0.25, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.75],
+          [0.75, 1.0],
+          [0.25, 1.0],
+          [0, 0.75],
+          [0, 0.25],
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0.25],
+          [1.0, 0.5],
+          [0.75, 0.5],
+          [1.0, 0.5],
+          [1.0, 0.25],
+          [0.75, 0]
         ];
         break;
       case "H":
         path = [
           [0, 0],
-          [0, height],
-          [0, height/2],
-          [width, height/2],
-          [width, height],
-          [width, 0]
+          [0, 1.0],
+          [0, 0.5],
+          [1.0, 0.5],
+          [1.0, 1.0],
+          [1.0, 0]
         ];
         break;
       case "I":
         path = [
-          [width/4, 0],
-          [width/2, 0],
-          [width/2, height],
-          [width/4, height],
-          [(3/4) * width, height],
-          [width/2, height],
-          [width/2, 0],
-          [width/4, 0],
-          // [width, 0]
+          [0.25, 0],
+          [0.5, 0],
+          [0.5, 1.0],
+          [0.25, 1.0],
+          [0.75, 1.0],
+          [0.5, 1.0],
+          [0.5, 0],
+          [0.25, 0]
         ];
         break;
       case "J":
         path = [
           [0, 0],
-          [0, height/4],
+          [0, 0.25],
           [0, 0],
-          [width, 0],
-          [width, height],
-          [(3/4) * width, height],
-          [width, height],
-          [width, 0]
+          [1.0, 0],
+          [1.0, 1.0],
+          [0.75, 1.0],
+          [1.0, 1.0],
+          [1.0, 0]
         ];
         break;
       case "K":
         path = [
           [0, 0],
-          [0, height],
-          [0, height/2],
-          [width, height],
-          [0, height/2],
-          [width, 0],
+          [0, 1.0],
+          [0, 0.5],
+          [1.0, 1.0],
+          [0, 0.5],
+          [1.0, 0],
         ];
         break;
       case "L":
         path = [
           [0, 0],
-          [0, height],
+          [0, 1.0],
           [0, 0],
-          [width, 0]
+          [1.0, 0]
         ];
         break;
       case "M":
         path = [
           [0, 0],
-          [0, height],
-          [width/2, height/2],
-          [width, height],
-          [width, 0]
+          [0, 1.0],
+          [0.5, 0.5],
+          [1.0, 1.0],
+          [1.0, 0]
         ];
         break;
       case "N":
         path = [
           [0, 0],
-          [0, height],
-          [width, 0],
-          [width, height],
-          [width, 0]
+          [0, 1.0],
+          [1.0, 0],
+          [1.0, 1.0],
+          [1.0, 0]
         ];
         break;
       case "O":
         path = [
           [0, 0],
-          [(1/4) * width, 0],
-          [(3/4) * width, 0],
-          [width, (1/4) * height],
-          [width, (3/4) * height],
-          [(3/4) * width, height],
-          [width/4, height],
-          [0, (3/4) * height],
-          [0, height/4],
-          [width/4, 0],
-          [(3/4) * width, 0],
-          [width, 0]
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0.25],
+          [1.0, 0.75],
+          [0.75, 1.0],
+          [0.25, 1.0],
+          [0, 0.75],
+          [0, 0.25],
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0]
         ];
         break;
       case "P":
         path = [
           [0, 0],
-          [0, height],
-          [(3/4) * width, height],
-          [width, (7/8) * height],
-          [width, (5/8) * height],
-          [(3/4) * width, (1/2) * height],
-          [0, (1/2) * height],
+          [0, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.875],
+          [1.0, 0.625],
+          [0.75, 0.5],
+          [0, 0.5],
           [0, 0]
         ];
         break;
       case "Q":
         path = [
           [0, 0],
-          [(1/4) * width, 0],
-          [(3/4) * width, 0],
-          [width, (1/4) * height],
-          [width, (3/4) * height],
-          [(3/4) * width, height],
-          [width/4, height],
-          [0, (3/4) * height],
-          [0, height/4],
-          [width/4, 0],
-          [(3/4) * width, 0],
-          [(1/2) * width, (1/4) * height],
-          [width, -height/4],
-          [(3/4) * width, 0],
-          [width, 0]
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0.25],
+          [1.0, 0.75],
+          [0.75, 1.0],
+          [0.25, 1.0],
+          [0, 0.75],
+          [0, 0.25],
+          [0.25, 0],
+          [0.75, 0],
+          [0.5, 0.25],
+          [1.0, -0.25],
+          [0.75, 0],
+          [1.0, 0]
         ];
         break;
       case "R":
         path = [
           [0, 0],
-          [0, height],
-          [(3/4) * width, height],
-          [width, (7/8) * height],
-          [width, (5/8) * height],
-          [(3/4) * width, (1/2) * height],
-          [0, (1/2) * height],
-          [(3/4) * width, (1/2) * height],
-          [width, 0]
+          [0, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.875],
+          [1.0, 0.625],
+          [0.75, 0.5],
+          [0, 0.5],
+          [0.75, 0.5],
+          [1.0, 0]
         ];
         break;
       case "S":
         path = [
-          [width/4, 0],
-          [0, (1/8) * height],
-          [width/4, 0],
-          [(3/4) * width, 0],
-          [width, (1/8) * height],
-          [width, (3/8) * height],
-          [(3/4) * width, (1/2) * height],
-          [width/4, (1/2) * height],
-          [0, (5/8) * height],
-          [0, (7/8) * height],
-          [width/4, height],
-          [(3/4) * width, height],
-          [width, (7/8) * height],
-          [(3/4) * width, height],
-          [width/4, height],
-          [0, (7/8) * height],
-          [0, (5/8) * height],
-          [width/4, (1/2) * height],
-          [(3/4) * width, (1/2) * height],
-          [width, (3/8) * height],
-          [width, (1/8) * height],
-          [(3/4) * width, 0],
+          [0.25, 0],
+          [0, 0.125],
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0.125],
+          [1.0, 0.325],
+          [0.75, 0.5],
+          [0.25, 0.5],
+          [0, 0.625],
+          [0, 0.875],
+          [0.25, 1.0],
+          [0.75, 1.0],
+          [1.0, 0.875],
+          [0.75, 1.0],
+          [0.25, 1.0],
+          [0, 0.875],
+          [0, 0.625],
+          [0.25, 0.5],
+          [0.75, 0.5],
+          [1.0, 0.325],
+          [1.0, 0.125],
+          [0.75, 0],
         ];
         break;
       case "T":
         path = [
           [0, 0],
-          [width/2, 0],
-          [width/2, height],
-          [0, height],
-          [width, height],
-          [width/2, height],
-          [width/2, 0]
+          [0.5, 0],
+          [0.5, 1.0],
+          [0, 1.0],
+          [1.0, 1.0],
+          [0.5, 1.0],
+          [0.5, 0]
         ];
         break;
       case "U":
         path = [
           [0, 0],
-          [width/4, 0],
-          [0, height/4],
-          [0, height],
-          [0, height/4],
-          [width/4, 0],
-          [(3/4) * width, 0],
-          [width, (1/4) * height],
-          [width, height],
-          [width, (1/4) * height],
-          [(3/4) * width, 0]
+          [0.25, 0],
+          [0, 0.25],
+          [0, 1.0],
+          [0, 0.25],
+          [0.25, 0],
+          [0.75, 0],
+          [1.0, 0.25],
+          [1.0, 1.0],
+          [1.0, 0.25],
+          [0.75, 0]
         ];
         break;
       case "V":
         path = [
           [0, 0],
-          [width/2, 0],
-          [0, height],
-          [width/2, 0],
-          [width, height],
-          [width/2, 0]
+          [0.5, 0],
+          [0, 1.0],
+          [0.5, 0],
+          [1.0, 1.0],
+          [0.5, 0]
         ];
         break;
       case "W":
         path = [
           [0, 0],
-          [0, height],
+          [0, 1.0],
           [0, 0],
-          [width/2, height/2],
-          [width, 0],
-          [width, height],
-          [width, 0]
+          [0.5, 0.5],
+          [1.0, 0],
+          [1.0, 1.0],
+          [1.0, 0]
         ];
         break;
       case "X":
         path = [
           [0, 0],
-          [width/2, height/2],
-          [0, height],
-          [width/2, height/2],
-          [width, height],
-          [width/2, height/2],
-          [width, 0]
+          [0.5, 0.5],
+          [0, 1.0],
+          [0.5, 0.5],
+          [1.0, 1.0],
+          [0.5, 0.5],
+          [1.0, 0]
         ];
         break;
       case "Y":
         path = [
           [0, 0],
-          [width/2, 0],
-          [width/2, height/2],
-          [0, height],
-          [width/2, height/2],
-          [width, height],
-          [width/2, height/2],
-          [width/2, 0]
+          [0.5, 0],
+          [0.5, 0.5],
+          [0, 1.0],
+          [0.5, 0.5],
+          [1.0, 1.0],
+          [0.5, 0.5],
+          [0.5, 0]
         ];
         break;
       case "Z":
         path = [
           [0, 0],
-          [width, height],
-          [0, height],
-          [width, height],
+          [1.0, 1.0],
+          [0, 1.0],
+          [1.0, 1.0],
           [0, 0],
-          [width, 0]
+          [1.0, 0]
         ];
         break;
       default:
         path = [
           [0, 0],
-          [0, height],
-          [width, height],
-          [width, 0],
+          [0, 1.0],
+          [1.0, 1.0],
+          [1.0, 0],
           [0, 0],
-          [width, 0]
+          [1.0, 0]
         ];
     }
+
+    // Scale character
+    path.forEach(function(coordinate, index, path) {
+      path[index][0] = coordinate[0] * this.char_width;
+      path[index][1] = coordinate[1] * this.char_height;
+    }, this);
 
     // Move each character coordinate over
     path = this.translate_path(path, x, y);

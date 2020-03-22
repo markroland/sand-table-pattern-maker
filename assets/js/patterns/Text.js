@@ -147,23 +147,35 @@ class Text {
         path = [
           [0, 0],
           [0, height],
-          [width, height],
-          [width, height/2],
-          [0, height/2],
-          [width, height/2],
-          [width, 0],
+          [(3/4) * width, height],
+          [width, (7/8) * height],
+          [width, (5/8) * height],
+          [(3/4) * width, (1/2) * height],
+          [0, (1/2) * height],
+          [(3/4) * width, (1/2) * height],
+          [width, (3/8) * height],
+          [width, (1/8) * height],
+          [(3/4) * width, 0],
           [0, 0]
         ];
         break;
       case "C":
         path = [
           [0, 0],
-          [0, height],
-          [width, height],
-          [0, height],
-          [0, 0],
-          [width, 0],
-          [0, 0]
+          [(1/4) * width, 0],
+          [0, height/4],
+          [0, (3/4) * height],
+          [(1/4) * width, height],
+          [(3/4) * width, height],
+          [width, (3/4) * height],
+          [(3/4) * width, height],
+          [(1/4) * width, height],
+          [0, (3/4) * height],
+          [0, height/4],
+          [(1/4) * width, 0],
+          [(3/4) * width, 0],
+          [width, height/4],
+          [(3/4) * width, 0]
         ];
         break;
       case "D":
@@ -207,16 +219,24 @@ class Text {
       case "G":
         path = [
           [0, 0],
-          [0, height],
-          [width, height],
-          [0, height],
-          [0, 0],
-          [width, 0],
+          [(1/4) * width, 0],
+          [0, height/4],
+          [0, (3/4) * height],
+          [(1/4) * width, height],
+          [(3/4) * width, height],
+          [width, (3/4) * height],
+          [(3/4) * width, height],
+          [(1/4) * width, height],
+          [0, (3/4) * height],
+          [0, height/4],
+          [(1/4) * width, 0],
+          [(3/4) * width, 0],
+          [width, height/4],
           [width, height/2],
-          [width/2, height/2],
+          [(3/4) * width, height/2],
           [width, height/2],
-          [width, 0],
-          [0, 0]
+          [width, height/4],
+          [(3/4) * width, 0]
         ];
         break;
       case "H":
@@ -331,6 +351,7 @@ class Text {
           [0, height/4],
           [width/4, 0],
           [(3/4) * width, 0],
+          [(1/2) * width, (1/4) * height],
           [width, -height/4],
           [(3/4) * width, 0],
           [width, 0]
@@ -377,6 +398,7 @@ class Text {
         break;
       case "T":
         path = [
+          [0, 0],
           [width/2, 0],
           [width/2, height],
           [0, height],
@@ -387,6 +409,7 @@ class Text {
         break;
       case "U":
         path = [
+          [0, 0],
           [width/4, 0],
           [0, height/4],
           [0, height],
@@ -401,6 +424,7 @@ class Text {
         break;
       case "V":
         path = [
+          [0, 0],
           [width/2, 0],
           [0, height],
           [width/2, 0],
@@ -432,6 +456,7 @@ class Text {
         break;
       case "Y":
         path = [
+          [0, 0],
           [width/2, 0],
           [width/2, height/2],
           [0, height],

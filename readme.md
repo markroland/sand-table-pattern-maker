@@ -29,8 +29,6 @@ Pattern classes are made up of at least 4 methods:
    - `this.name` - Used for referencing the pattern in the UI.
    - `this.config` - This is an object that defines the pattern's input configuration options.
    - `this.path` - Initializes the pattern's output path coordinates
- - **setup** - This class is called by the main sketch and is used to define the options
-   available to the pattern.
  - **draw** - This class is called by the main sketch to draw the pattern. It reads and
    updates the UI input values and sends the input to the class's `calc` method.
  - **calc** - This is where the algorithm for the pattern is implemented. Using the selected

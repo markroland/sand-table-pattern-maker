@@ -64,20 +64,35 @@ class Text {
       return path;
     }
 
-    // Loop through text string and build each character
+    // Split string by line
+    let lines = this.config.text.value.split("\n");
     let x = 0;
     let y = 0;
-    let i_max = this.config.text.value.length;
-    var line_count = 1;
-    for (var i = 0; i < i_max; i++) {
     let text_height = this.char_height;
 
-      // Get the path for the current character
-      path = path.concat(this.draw_character(x, y, this.config.text.value.charAt(i)));
+    // Loop through lines and split by comma
+    for (var i = 0; i < lines.length; i++) {
+
+      // Loop through text string and build each character
+      let j_max = lines[i].length;
+
+      for (var j = 0; j < j_max; j++) {
+
+        // Get the path for the current character
+        path = path.concat(this.draw_character(x, y, lines[i].charAt(j)));
+
+        // Increment the x position by the character width
+        x += this.char_width;
+
+        // Add connector if not the last letter
+        if (j != (j_max-1)) {
+          x += (0.4 * this.char_width);
+          path = path.concat([[x, y]]);
+        }
+      }
 
       // Start a new line
-      if (this.config.text.value.charAt(i) == "\n") {
-        line_count++;
+      if (i < lines.length-1) {
         path = path.concat([
           [x, y + -0.5 * this.char_height],
           [-this.char_width/2, y + -0.5 * this.char_height],
@@ -85,17 +100,8 @@ class Text {
         ]);
         x = 0;
         y -= this.line_height;
-        continue;
       }
 
-      // Increment the x position by the character width
-      x += this.char_width;
-
-      // Add connector if not the last letter
-      if (i != i_max) {
-        x += (0.4 * this.char_width);
-        path = path.concat([[x, y]]);
-      }
     }
 
     // Center path
@@ -169,7 +175,8 @@ class Text {
           [width, (3/4) * height],
           [width, (1/4) * height],
           [(3/4) * width, 0],
-          [0, 0]
+          [0, 0],
+          [(3/4) * width, 0]
         ];
         break;
       case "E":
@@ -224,9 +231,15 @@ class Text {
         break;
       case "I":
         path = [
+          [width/4, 0],
           [width/2, 0],
           [width/2, height],
-          [width/2, 0]
+          [width/4, height],
+          [(3/4) * width, height],
+          [width/2, height],
+          [width/2, 0],
+          [width/4, 0],
+          // [width, 0]
         ];
         break;
       case "J":
@@ -279,15 +292,18 @@ class Text {
         break;
       case "O":
         path = [
-          [width/4, 0],
-          [0, height/4],
-          [0, (3/4) * height],
-          [width/4, height],
-          [(3/4) * width, height],
-          [width, (3/4) * height],
-          [width, (1/4) * height],
+          [0, 0],
+          [(1/4) * width, 0],
           [(3/4) * width, 0],
-          [0, 0]
+          [width, (1/4) * height],
+          [width, (3/4) * height],
+          [(3/4) * width, height],
+          [width/4, height],
+          [0, (3/4) * height],
+          [0, height/4],
+          [width/4, 0],
+          [(3/4) * width, 0],
+          [width, 0]
         ];
         break;
       case "P":
@@ -304,18 +320,20 @@ class Text {
         break;
       case "Q":
         path = [
-          [width/4, 0],
-          [0, height/4],
-          [0, (3/4) * height],
-          [width/4, height],
-          [(3/4) * width, height],
-          [width, (3/4) * height],
-          [width, (1/4) * height],
-          [(3/4) * width, 0],
           [0, 0],
+          [(1/4) * width, 0],
+          [(3/4) * width, 0],
+          [width, (1/4) * height],
+          [width, (3/4) * height],
+          [(3/4) * width, height],
+          [width/4, height],
+          [0, (3/4) * height],
+          [0, height/4],
+          [width/4, 0],
           [(3/4) * width, 0],
           [width, -height/4],
-          [(3/4) * width, 0]
+          [(3/4) * width, 0],
+          [width, 0]
         ];
         break;
       case "R":

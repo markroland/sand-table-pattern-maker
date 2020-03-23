@@ -11,16 +11,16 @@ class Text {
     this.line_height = 2 * this.char_height;
 
     this.config = {
-      "height": {
-        "name": "Line Height",
+      "scale": {
+        "name": "Scale",
         "value": this.char_height,
         "input": {
           "type": "createSlider",
           "params" : [
-            10,
-            80,
-            this.char_height,
-            1
+            0.8,
+            1.2,
+            1.0,
+            0.1
           ],
           "class": "slider",
           "displayValue": true
@@ -35,7 +35,7 @@ class Text {
             "rows": 11,
             "cols": 22,
           },
-          "value" : "Hello\nWorld",
+          "value" : "HELLO\nWORLD",
           "params" : []
         }
       }
@@ -51,11 +51,11 @@ class Text {
     let path = new Array();
 
     // Update object
-    this.char_height = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.scale.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
     this.config.text.value = document.querySelector('#pattern-controls > div:nth-child(2) > textarea').value;
 
     // Display
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.char_height + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = Math.round(this.config.scale.value * 100) + "%";
 
     // Return single-point path if string is empty
     // This prevents the main "draw" function from breaking
@@ -63,6 +63,11 @@ class Text {
       path = [[0,0]];
       return path;
     }
+
+    // Adjust size
+    this.char_width = (1.5 * ball_size) * this.config.scale.value;
+    this.char_height = 2 * this.char_width;
+    this.line_height = 2 * this.char_height;
 
     // Split string by line
     let lines = this.config.text.value.split("\n");
@@ -75,7 +80,6 @@ class Text {
 
       // Loop through text string and build each character
       let j_max = lines[i].length;
-
       for (var j = 0; j < j_max; j++) {
 
         // Get the path for the current character
@@ -86,22 +90,24 @@ class Text {
 
         // Add connector if not the last letter
         if (j != (j_max-1)) {
-          x += (0.4 * this.char_width);
-          path = path.concat([[x, y]]);
+          path.push([x, y]);
+          x += this.char_width;
+          path.push([x, y]);
         }
       }
 
       // Start a new line
       if (i < lines.length-1) {
         path = path.concat([
-          [x, y + -0.5 * this.char_height],
-          [-this.char_width/2, y + -0.5 * this.char_height],
-          [-this.char_width/2, y - this.line_height]
+          [x + 0.75 * this.char_width, y],
+          [x + 0.75 * this.char_width, y - 0.5 * this.char_height],
+          [-0.75 * this.char_width, y - 0.5 * this.char_height],
+          [-0.75 * this.char_width, y - this.line_height],
+          [0, y - this.line_height]
         ]);
         x = 0;
         y -= this.line_height;
       }
-
     }
 
     // Center path
@@ -127,6 +133,7 @@ class Text {
     switch(character) {
       case " ":
         path = [
+          [0, 0],
           [1.0, 0]
         ];
         break;
@@ -196,11 +203,15 @@ class Text {
           [0, 0],
           [0, 1.0],
           [1.0, 1.0],
+          [1.0, 0.875],
+          [1.0, 1.0],
           [0, 1.0],
           [0, 0.5],
-          [1.0, 0.5],
+          [0.75, 0.5],
           [0, 0.5],
           [0, 0],
+          [1.0, 0],
+          [1.0, 0.125],
           [1.0, 0]
         ];
         break;
@@ -209,9 +220,14 @@ class Text {
           [0, 0],
           [0, 1.0],
           [1.0, 1.0],
+          [1.0, 0.875],
+          [1.0, 1.0],
           [0, 1.0],
           [0, 0.5],
-          [1.0, 0.5],
+          [0.75, 0.5],
+          [0.75, 0.625],
+          [0.75, 0.375],
+          [0.75, 0.5],
           [0, 0.5],
           [0, 0]
         ];
@@ -264,12 +280,18 @@ class Text {
       case "J":
         path = [
           [0, 0],
+          [0.25, 0],
           [0, 0.25],
+          [0.25, 0],
           [0, 0],
-          [1.0, 0],
+          [0.5, 0],
+          [0.75, 0.25],
+          [0.75, 1.0],
+          [0.5, 1.0],
           [1.0, 1.0],
           [0.75, 1.0],
-          [1.0, 1.0],
+          [0.75, 0.25],
+          [0.5, 0],
           [1.0, 0]
         ];
         break;
@@ -288,6 +310,8 @@ class Text {
           [0, 0],
           [0, 1.0],
           [0, 0],
+          [1.0, 0],
+          [1.0, 0.125],
           [1.0, 0]
         ];
         break;

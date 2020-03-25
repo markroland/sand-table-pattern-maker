@@ -47,6 +47,7 @@ var Patterns = {
   "fibonacci": new Fibonacci(),
   "fibonaccilollipops": new FibonacciLollipops(),
   "gcode": new Gcode(),
+  "gravity": new Gravity(),
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(),
   "lissajous": new Lissajous(),

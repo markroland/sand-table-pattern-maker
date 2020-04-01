@@ -53,13 +53,26 @@ class Superellipse {
         "input": {
           "type": "createSlider",
           "params" : [
-            0,
+            0.1,
             10,
-            2,
+            1.5,
             0.1
           ],
           "class": "slider",
           "displayValue": true
+        }
+      },
+      "spiralize": {
+        "name": "Spiralize",
+        "value": 0,
+        "input": {
+          "type": "createCheckbox",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : true
+          }],
+          "params": [0, 1, 1],
+          "displayValue": false
         }
       },
       "reverse": {
@@ -86,6 +99,11 @@ class Superellipse {
     this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
     this.config.n.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.spiralize.value = false;
+    if (document.querySelector('#pattern-controls > div:nth-child(4) > input[type=checkbox]').checked) {
+      this.config.spiralize.value = true;
+    }
+
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.width.value;
@@ -96,7 +114,8 @@ class Superellipse {
     let path = this.calc(
       this.config.width.value,
       this.config.height.value,
-      this.config.n.value
+      this.config.n.value,
+      this.config.spiralize.value
     );
 
     // Update object
@@ -111,9 +130,10 @@ class Superellipse {
    * @param float width
    * @param float height
    * @param float n
+   * @param float spiralize
    *
    **/
-  calc(width, height, n) {
+  calc(width, height, n, spiralize) {
 
     // Set initial values
     var x;
@@ -129,11 +149,31 @@ class Superellipse {
     // A larger number makes the shape more smooth
     let sides = 60;
 
-    // Loop through one revolution
-    for (var theta = 0; theta <= 2 * Math.PI; theta += (2 * Math.PI) / sides) {
-      x = Math.pow(Math.abs(Math.cos(theta)), (2/n)) * a * this.sgn(Math.cos(theta));
-      y = Math.pow(Math.abs(Math.sin(theta)), (2/n)) * b * this.sgn(Math.sin(theta));
-      path.push([x,y]);
+    if (spiralize) {
+      a = 0;
+      b = 0;
+      var n_base = n;
+      var max_loops = 30;
+      for (var loop = 0; loop < max_loops; loop++) {
+        var a_base = (loop / max_loops) * width;
+        var b_base = (loop / max_loops) * height;
+        n = (loop / max_loops) * n_base + 0.1;
+        for (var theta = 0; theta <= 2 * Math.PI; theta += (2 * Math.PI) / sides) {
+          a = a_base + (theta/(2 * Math.PI)) * (width/max_loops)
+          b = b_base + (theta/(2 * Math.PI)) * (height/max_loops)
+          x = Math.pow(Math.abs(Math.cos(theta)), (2/n)) * a * this.sgn(Math.cos(theta));
+          y = Math.pow(Math.abs(Math.sin(theta)), (2/n)) * b * this.sgn(Math.sin(theta));
+          path.push([x,y]);
+        }
+      }
+    } else {
+
+      // Loop through one revolution
+      for (var theta = 0; theta <= 2 * Math.PI; theta += (2 * Math.PI) / sides) {
+        x = Math.pow(Math.abs(Math.cos(theta)), (2/n)) * a * this.sgn(Math.cos(theta));
+        y = Math.pow(Math.abs(Math.sin(theta)), (2/n)) * b * this.sgn(Math.sin(theta));
+        path.push([x,y]);
+      }
     }
 
     return path;

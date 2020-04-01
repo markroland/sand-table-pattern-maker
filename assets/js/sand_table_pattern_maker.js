@@ -275,6 +275,9 @@ function patternSelectEvent() {
         .attribute('name', key)
         .attribute('checkbox', null)
         .parent(control.div);
+      if (val.input.params[2] == 1) {
+        control.input.attribute('checked', 'checked');
+      }
     } else if (val.input.type == "createInput") {
       control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
         .attribute('name', key)

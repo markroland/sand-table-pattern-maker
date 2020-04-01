@@ -59,10 +59,10 @@ var Patterns = {
   "spiral": new Spiral(),
   "logspiral": new LogarithmicSpiral(),
   "spokes": new Spokes(),
-  "thr": new ThetaRho(),
   "star": new Star(),
   "superellipse": new Superellipse(),
   "text": new Text(),
+  "thr": new ThetaRho(),
   "wigglyspiral": new WigglySpiral(),
   "zigzag": new ZigZag()
 }

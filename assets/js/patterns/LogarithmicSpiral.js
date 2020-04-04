@@ -110,10 +110,10 @@ class LogarithmicSpiral {
 
     // Calculate path
     let path = this.calc(
-        parseFloat(this.config.a.value),
-        parseFloat(this.config.b.value),
-        parseFloat(this.config.revolutions.value),
-        60
+      parseFloat(this.config.a.value),
+      parseFloat(this.config.b.value),
+      parseFloat(this.config.revolutions.value),
+      60
     );
 
     // Update object

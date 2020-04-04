@@ -26,6 +26,32 @@ class FermatSpiral {
           "class": "slider",
           "displayValue": true
         }
+      },
+      "return": {
+        "name": "Return Home",
+        "value": 0,
+        "input": {
+          "type": "createCheckbox",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
+      },
+      "reverse": {
+        "name": "Reverse",
+        "value": 0,
+        "input": {
+          "type": "createCheckbox",
+          "attributes" : [{
+            "type" : "checkbox",
+            "checked" : null
+          }],
+          "params": [0, 1, 0],
+          "displayValue": false
+        }
       }
     };
 
@@ -44,9 +70,16 @@ class FermatSpiral {
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.revolutions.value;
 
+    // Return to home
+    this.config.return.value = false;
+    if (document.querySelector('#pattern-controls > div:nth-child(2) > input[type=checkbox]').checked) {
+      this.config.return.value = true;
+    }
+
     // Calculate path
     let path = this.calc(
-      parseInt(this.config.revolutions.value)
+      parseInt(this.config.revolutions.value),
+      this.config.return.value
     );
 
     // Update object
@@ -62,7 +95,7 @@ class FermatSpiral {
    *
    * @return Array Path
    **/
-  calc(revolutions) {
+  calc(revolutions, return_to_home) {
 
     /*
         Recommended settings:
@@ -102,8 +135,8 @@ class FermatSpiral {
     for (var t = t_max; t >= t_min; t -= t_step) {
 
       // Run the parametric equations
-      x = -a * Math.pow(t, pow_n) * Math.cos(t);
-      y = -a * Math.pow(t, pow_n) * Math.sin(t);
+      x = a * Math.pow(t, pow_n) * Math.cos(t);
+      y = a * Math.pow(t, pow_n) * Math.sin(t);
 
       // Add coordinates to shape array
       path.push([x,y]);
@@ -113,11 +146,23 @@ class FermatSpiral {
     for (var t = t_min; t <= t_max + t_step; t += t_step) {
 
       // Run the parametric equations
-      x = a * Math.pow(t, pow_n) * Math.cos(t);
-      y = a * Math.pow(t, pow_n) * Math.sin(t);
+      x = -a * Math.pow(t, pow_n) * Math.cos(t);
+      y = -a * Math.pow(t, pow_n) * Math.sin(t);
 
       // Add coordinates to shape array
       path.push([x,y]);
+    }
+
+    if (return_to_home) {
+      var i_max = 24;
+      let r = Math.min(max_x - min_x, max_y - min_y) / 2;
+      for (var i = 1; i <= i_max; i++) {
+        path.push([
+          r * Math.cos(i/i_max * Math.PI + Math.PI),
+          r * Math.sin(i/i_max * Math.PI + Math.PI),
+        ]);
+      }
+      path.push([r, 0]);
     }
 
     return path;

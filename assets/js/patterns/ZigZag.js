@@ -51,6 +51,21 @@ class ZigZag {
           "displayValue": true
         }
       },
+      "rotation": {
+        "name": "Rotation",
+        "value": 1,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            -180,
+            180,
+            0,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
       "border": {
         "name": "Border",
         "value": 1,
@@ -92,8 +107,9 @@ class ZigZag {
     this.config.bound.value = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
     this.config.spacing.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
     this.config.margin.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.rotation.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
     this.config.border.value = 0
-    if (document.querySelector('#pattern-controls > div:nth-child(4) > input[type=checkbox]').checked) {
+    if (document.querySelector('#pattern-controls > div:nth-child(5) > input[type=checkbox]').checked) {
       this.config.border.value = 1
     }
 
@@ -109,6 +125,11 @@ class ZigZag {
         this.config.border.value,
         this.config.bound.value
     );
+
+    // Rotate
+    path = path.map(function(element) {
+        return this.rotationMatrix(element[0], element[1], this.config.rotation.value * (Math.PI/180))
+    }, this);
 
     // Update object
     this.path = path;
@@ -215,5 +236,16 @@ class ZigZag {
     }
 
     return path;
+  }
+
+  /**
+   * Rotate points x and y by angle theta about center point (0,0)
+   * https://en.wikipedia.org/wiki/Rotation_matrix
+   **/
+  rotationMatrix(x, y, theta) {
+      return [
+        x * Math.cos(theta) - y * Math.sin(theta),
+        x * Math.sin(theta) + y * Math.cos(theta)
+      ];
   }
 }

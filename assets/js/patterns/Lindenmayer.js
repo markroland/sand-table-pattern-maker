@@ -103,7 +103,7 @@ class Lindenmayer {
             1,
             50,
             10,
-            1
+            0.1
           ],
           "class": "slider",
           "displayValue": true

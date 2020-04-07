@@ -22,6 +22,7 @@ var ball_size = env.ball.diameter;
 
 // Show/Hiden pattern overlay in Canvas
 var pattern_config_overlay = false;
+var coordinate_overlay = true;
 
 // Store the total path distance
 var distance;
@@ -31,6 +32,8 @@ var draw_iteration = 0;
 
 // Set G-Code command, usually "GO" or "G1"
 var gCodeCommand = env.gcode.command;
+
+var plotter_format_select;
 
 var path;
 
@@ -106,11 +109,16 @@ function setup() {
     pattern_select.selected(url_params.pattern);
   }
 
-  // Display config values
-  select("#plotter-max_x").html(max_x + " " + units);
-  select("#plotter-max_y").html(max_y + " " + units);
-  select("#plotter-motor_speed").html(motor_speed + " " + units + "/min");
-  select("#plotter-ball_size").html(ball_size + " " + units);
+  // Add select for Table format (Cartesian or Polar)
+  plotter_format_select = createSelect()
+    .attribute('name', key)
+    .parent('#plotter-format')
+  plotter_format_select.option("Cartesian", "cartesian");
+  plotter_format_select.option("Polar", "polar");
+  plotter_format_select.selected(env.table.format);
+  plotter_format_select.changed(display_config_values);
+
+  display_config_values();
 
   // Download controls
   downloadButton = createButton('Download')
@@ -151,7 +159,7 @@ function draw() {
   drawTable(path_exceeds_plotter(path));
 
   // Draw the path [path, path width, connected path, animated]
-  drawPath(path, 2, false, true);
+  drawPath(path, 2, false, true, coordinate_overlay);
 
   // Calculate path length
   distance = 0;
@@ -327,6 +335,25 @@ function patternSelectEvent() {
 }
 
 /**
+ * Trigger actions when the pattern is changed
+ */
+function display_config_values() {
+
+  env.table.format = plotter_format_select.value();
+
+  // Display config values
+  if (env.table.format == "cartesian") {
+    select("#plotter-max_x").html(min_x + " - " + max_x + " " + units);
+    select("#plotter-max_y").html(min_y + " - " + max_y + " " + units);
+  } else {
+    select("#plotter-max_x").html("NA");
+    select("#plotter-max_y").html("NA");
+  }
+  select("#plotter-motor_speed").html(motor_speed + " " + units + "/min");
+  select("#plotter-ball_size").html(ball_size + " " + units);
+}
+
+/**
  * Optimize the path to remove insignificant steps
  */
 function optimizePath(path, min_distance)
@@ -379,8 +406,13 @@ function download()
   save(createGcode(path, gCodeCommand), filename, "gcode");
 }
 
+/**
+ * Process key presses
+ */
 function keyTyped() {
-  if (key === 'o') {
+  if (key === 'c') {
+    coordinate_overlay = !coordinate_overlay;
+  } else if (key === 'o') {
     pattern_config_overlay = !pattern_config_overlay;
   }
 }

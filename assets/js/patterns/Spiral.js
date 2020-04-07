@@ -25,15 +25,15 @@ class Spiral {
           "displayValue": true
         }
       },
-      "offset": {
-        "name": "offset",
+      "revolutions": {
+        "name": "Revolutions",
         "value": 4,
         "input": {
           "type": "createSlider",
           "params" : [
             1,
-            40,
-            4,
+            60,
+            20,
             1
           ],
           "class": "slider",
@@ -96,13 +96,13 @@ class Spiral {
 
     // Read in selected value(s)
     this.config.sides.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.offset.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.revolutions.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
     this.config.twist.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
     this.config.noise.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.sides.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.offset.value + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.revolutions.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.twist.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.noise.value;
 
@@ -112,7 +112,7 @@ class Spiral {
         0,
         0,
         0,
-        this.config.offset.value,
+        this.config.revolutions.value,
         this.config.sides.value,
         this.config.twist.value,
         this.config.noise.value
@@ -131,7 +131,7 @@ class Spiral {
    *
    * @return Array Path
    **/
-  calc(start_x, start_y, start_r, start_theta, offset, sides, twist, noise) {
+  calc(start_x, start_y, start_r, start_theta, revolutions, sides, twist, noise) {
 
     // Set initial values
     var x;
@@ -139,36 +139,28 @@ class Spiral {
     var r = start_r;
     var theta = start_theta;
 
-    // Calculate the maximum radius
-    var max_r = Math.min(max_x/2, max_y/2);
-
     // Initialize shape path array
-    // This stores the x,y coordinates for each step
     var path = new Array();
 
-    // Iteration counter.
-    var step = 0;
+    // Maximum radius
+    var max_r = Math.min(max_x - min_x, max_y - min_y) / 2;
 
-    // Continue as long as the design stays within bounds of the plotter
-    // This isn't quite right yet. I need to look into the coordinate translations
-    // while (r < max_r && x > width/2-max_x/2 && x < width/2+max_x/2 && y > height/2-max_y/2 && y < height/2-max_y/2) {
-    while (r < max_r) {
+    // Loop through revolutions
+    var i_max = sides * revolutions;
+    for (var i = 0; i <= i_max; i++) {
 
-       // Rotational Angle (steps per rotation in the denominator)
-      theta = start_theta + (step/sides) * (2 * Math.PI);
+      // Rotational Angle
+      theta = start_theta + (i/sides) * (2 * Math.PI);
 
       // Increment radius
-      r = start_r + offset * (theta/(2 * Math.PI)) - (noise * Math.random());
+      r = start_r + (max_r * (i/(i_max)) - (noise * Math.random()));
 
       // Convert polar position to rectangular coordinates
-      x = start_x + (r * Math.cos(theta * twist));
-      y = start_y + (r * Math.sin(theta * twist));
+      x = start_x + (r * Math.cos(theta));
+      y = start_y + (r * Math.sin(theta));
 
       // Add coordinates to shape array
-      path[step] = [x,y];
-
-      // Increment iteration counter
-      step++;
+      path.push([x,y]);
     }
 
     return path;

@@ -42,14 +42,14 @@ class Spiral {
       },
       "twist": {
         "name": "Twist",
-        "value": 1.0005,
+        "value": 1.00,
         "input": {
           "type": "createSlider",
           "params" : [
+            -1,
             1,
-            1.11,
-            1.005,
-            0.001
+            0,
+            0.01
           ],
           "class": "slider",
           "displayValue": true
@@ -147,13 +147,21 @@ class Spiral {
 
     // Loop through revolutions
     var i_max = sides * revolutions;
+    var theta_max = (2 * Math.PI) * revolutions;
+    var theta_twist;
     for (var i = 0; i <= i_max; i++) {
 
       // Rotational Angle
-      theta = start_theta + (i/sides) * (2 * Math.PI);
+      theta_twist = ((i_max - i) / i_max) * twist * (2 * Math.PI);
+      theta = (i/i_max) * theta_max - theta_twist;
 
       // Increment radius
-      r = start_r + (max_r * (i/(i_max)) - (noise * Math.random()));
+      r = start_r + (max_r * (i/i_max));
+
+      // Add noise, except to the beginning and end points
+      if (noise > 0 && i > 0 && i < i_max) {
+        r -= noise * Math.random();
+      }
 
       // Convert polar position to rectangular coordinates
       x = start_x + (r * Math.cos(theta));

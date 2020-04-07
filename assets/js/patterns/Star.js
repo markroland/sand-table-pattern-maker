@@ -57,14 +57,14 @@ class Star {
       },
       "twist": {
         "name": "Twist",
-        "value": 1.0,
+        "value": 1.00,
         "input": {
           "type": "createSlider",
           "params" : [
+            -1,
             1,
-            1.11,
-            1,
-            0.001
+            0,
+            0.01
           ],
           "class": "slider",
           "displayValue": true
@@ -150,17 +150,19 @@ class Star {
     var sides = 2 * points;
     var i_max = sides * revolutions;
     var theta_max = (2 * Math.PI) * revolutions;
+    var theta_twist;
     for (var i = 0; i <= i_max; i++) {
 
       // Rotational Angle
-      theta = (i/i_max) * theta_max;
+      theta_twist = ((i_max - i) / i_max) * twist * (2 * Math.PI);
+      theta = (i/i_max) * theta_max - theta_twist;
 
       // Increment radius
       r = start_r + (1 - ((i % 2) * pointiness)) * (max_r * (i/i_max));
 
       // Convert polar position to rectangular coordinates
-      x = start_x + (r * Math.cos(theta * twist));
-      y = start_y + (r * Math.sin(theta * twist));
+      x = start_x + (r * Math.cos(theta));
+      y = start_y + (r * Math.sin(theta));
 
       // Add coordinates to shape array
       path.push([x,y]);

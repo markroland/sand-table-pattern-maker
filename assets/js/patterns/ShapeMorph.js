@@ -184,7 +184,7 @@ class ShapeMorph {
       y = (t/max_t) * lerp(base_shape[step % steps_per_revolution][1], end_shape[step % steps_per_revolution][1], lerp_amount);
 
       // Rotate [x,y] coordinates around [0,0] by angle theta, and then append to path
-      path[step] = this.rotationMatrix(x, y, twist * t/steps_per_revolution);
+      path.push(this.rotationMatrix(x, y, twist * t/steps_per_revolution));
 
       path.push([x,y]);
 

@@ -147,7 +147,7 @@ class WigglySpiral {
       y = start_y + (r * Math.sin(theta));
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

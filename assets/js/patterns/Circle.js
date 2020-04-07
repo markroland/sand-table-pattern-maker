@@ -139,7 +139,7 @@ class Circle {
       y = start_y + (radius * Math.sin(theta));
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

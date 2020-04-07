@@ -224,7 +224,7 @@ class Heart {
       y = r * scale * (b * Math.cos(t) - c * Math.cos(2 * t) - d * Math.cos(3 * t) - e * Math.cos(4 * t));
 
       // Add coordinates to shape array
-      path[step] = this.rotationMatrix(x, y, twist * t/steps_per_revolution);
+      path.push(this.rotationMatrix(x, y, twist * t/steps_per_revolution));
 
       r -= shrink;
 

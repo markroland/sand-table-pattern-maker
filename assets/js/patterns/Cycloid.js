@@ -142,7 +142,7 @@ class Cycloid {
       y = (radius_a + radius_b) * Math.sin(theta) + arm_length * Math.sin(((radius_a + radius_b)/radius_b) * theta);
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

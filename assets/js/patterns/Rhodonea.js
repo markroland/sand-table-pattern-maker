@@ -108,7 +108,7 @@ class Rhodonea {
       y = amplitude * Math.sin(petals*theta) * Math.sin(theta);
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

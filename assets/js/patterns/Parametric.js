@@ -93,7 +93,7 @@ class Parametric {
       y = eval(y_equation);
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

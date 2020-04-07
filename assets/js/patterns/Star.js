@@ -165,7 +165,7 @@ class Star {
       y = start_y + (r * Math.sin(theta * twist));
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

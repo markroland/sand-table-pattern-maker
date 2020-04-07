@@ -181,7 +181,7 @@ class Lissajous {
       y = B * Math.cos(b1*theta);
 
       // Add coordinates to shape array
-      path[step] = [x,y];
+      path.push([x,y]);
 
       // Increment iteration counter
       step++;

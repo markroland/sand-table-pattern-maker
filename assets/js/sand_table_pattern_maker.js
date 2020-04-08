@@ -38,7 +38,7 @@ var plotter_format_select;
 var path;
 
 // Flag for setting whether the pattern coordinates should be recalculated
-var recalculate_pattern = true;
+var recalculate_pattern = env.recalculate_pattern;
 
 // Master Patterns object to hold patterns
 var Patterns = {
@@ -147,7 +147,7 @@ function draw() {
 
   if (recalculate_pattern) {
     path = Patterns[selected_pattern].draw();
-    recalculate_pattern = false;
+    recalculate_pattern = env.recalculate_pattern;
   }
 
   // Reverse the path

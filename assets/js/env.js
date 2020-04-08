@@ -19,5 +19,6 @@ var env = {
     },
     "gcode": {
         "command": "G0"
-    }
+    },
+    "recalculate_pattern": true
 }

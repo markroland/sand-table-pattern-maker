@@ -37,6 +37,9 @@ var plotter_format_select;
 
 var path;
 
+// Flag for setting whether the pattern coordinates should be recalculated
+var recalculate_pattern = env.recalculate_pattern;
+
 // Master Patterns object to hold patterns
 var Patterns = {
   "coordinates": new Coordinates(),
@@ -137,7 +140,15 @@ function draw() {
 
   // Draw selected pattern
   var selected_pattern = pattern_select.value();
-  path = Patterns[selected_pattern].draw();
+
+  if (selected_pattern == "draw") {
+    recalculate_pattern = true;
+  }
+
+  if (recalculate_pattern) {
+    path = Patterns[selected_pattern].draw();
+    recalculate_pattern = env.recalculate_pattern;
+  }
 
   // Reverse the path
   if (document.querySelector('#pattern-controls input[name=reverse]')) {
@@ -246,6 +257,9 @@ function path_exceeds_plotter(path)
  */
 function patternSelectEvent() {
 
+  // Set flag to recalculate pattern
+  recalculate_pattern = true;
+
   // Clear controls
   select('#pattern-controls').html('');
 
@@ -298,6 +312,13 @@ function patternSelectEvent() {
         .attribute('name', key)
         .parent(control.div);
     }
+
+    // Add change event handler
+    // TODO: This doesn't work well for Textareas
+    // TODO: This breaks the "Free Draw" pattern
+    control.input.changed(function(){
+      recalculate_pattern = true;
+    });
 
     // Create a span element to display the current input's value (useful for Sliders)
     if (val.input.displayValue) {

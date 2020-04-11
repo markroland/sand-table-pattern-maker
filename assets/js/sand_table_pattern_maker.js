@@ -48,6 +48,7 @@ var Patterns = {
   "cycloid": new Cycloid(),
   "diameters": new Diameters(),
   "draw": new Draw(),
+  "egg": new Egg(),
   "farris": new Farris(),
   "fermatspiral": new FermatSpiral(),
   "fibonacci": new Fibonacci(),

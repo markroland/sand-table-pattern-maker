@@ -40,6 +40,36 @@ class Spiral {
           "displayValue": true
         }
       },
+      "start_r": {
+        "name": "Start Radius",
+        "value": 4,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            0,
+            1.00,
+            0,
+            0.01
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
+      "start_theta": {
+        "name": "Start Theta",
+        "value": 4,
+        "input": {
+          "type": "createSlider",
+          "params" : [
+            0,
+            360,
+            0,
+            1
+          ],
+          "class": "slider",
+          "displayValue": true
+        }
+      },
       "twist": {
         "name": "Twist",
         "value": 1.00,
@@ -97,25 +127,27 @@ class Spiral {
     // Read in selected value(s)
     this.config.sides.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
     this.config.revolutions.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.twist.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.noise.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.start_r.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.start_theta.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.twist.value = document.querySelector('#pattern-controls > div:nth-child(5) > input').value;
+    this.config.noise.value = document.querySelector('#pattern-controls > div:nth-child(6) > input').value;
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.sides.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.revolutions.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.twist.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.noise.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.start_r.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.start_theta.value + "°";
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.twist.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(6) > span').innerHTML = this.config.noise.value;
 
     // Calculate path
     let path = this.calc(
-        0,
-        0,
-        0,
-        0,
-        this.config.revolutions.value,
-        this.config.sides.value,
-        this.config.twist.value,
-        this.config.noise.value
+      parseFloat(this.config.start_r.value),
+      parseFloat(this.config.start_theta.value),
+      this.config.revolutions.value,
+      this.config.sides.value,
+      this.config.twist.value,
+      this.config.noise.value
     );
 
     // Update object
@@ -131,19 +163,19 @@ class Spiral {
    *
    * @return Array Path
    **/
-  calc(start_x, start_y, start_r, start_theta, revolutions, sides, twist, noise) {
+  calc(start_r, start_theta, revolutions, sides, twist, noise) {
 
     // Set initial values
     var x;
     var y;
-    var r = start_r;
-    var theta = start_theta;
+    var r;
+    var theta;
+    var max_r = Math.min(max_x - min_x, max_y - min_y) / 2;
+    var start_x = start_r * max_r * Math.cos(start_theta * (Math.PI/180));
+    var start_y = start_r * max_r * Math.sin(start_theta * (Math.PI/180));
 
     // Initialize shape path array
     var path = new Array();
-
-    // Maximum radius
-    var max_r = Math.min(max_x - min_x, max_y - min_y) / 2;
 
     // Loop through revolutions
     var i_max = sides * revolutions;
@@ -156,7 +188,7 @@ class Spiral {
       theta = (i/i_max) * theta_max - theta_twist;
 
       // Increment radius
-      r = start_r + (max_r * (i/i_max));
+      r = max_r * (i/i_max);
 
       // Add noise, except to the beginning and end points
       if (noise > 0 && i > 0 && i < i_max) {
@@ -164,8 +196,12 @@ class Spiral {
       }
 
       // Convert polar position to rectangular coordinates
-      x = start_x + (r * Math.cos(theta));
-      y = start_y + (r * Math.sin(theta));
+      x = r * Math.cos(theta);
+      y = r * Math.sin(theta);
+
+      // Move the focus point of the spiral
+      x += (-start_x * (i/i_max)) + start_x;
+      y += (-start_y * (i/i_max)) + start_y;
 
       // Add coordinates to shape array
       path.push([x,y]);

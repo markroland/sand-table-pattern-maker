@@ -15,6 +15,15 @@ npm install
 npm run dev
 ```
 
+## Run using NPM
+
+I'm beginning to test support of a [Node JS](https://nodejs.dev) command line interface for this application
+so that it can be run that way.
+
+```
+node pattern.js
+```
+
 ## Controls
 
  - Press "o" to toggle an overlay of the pattern settings in the canvas

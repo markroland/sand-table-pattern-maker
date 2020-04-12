@@ -17,11 +17,14 @@ npm run dev
 
 ## Run using NPM
 
-I'm beginning to test support of a [Node JS](https://nodejs.dev) command line interface for this application
-so that it can be run that way.
+```
+node sand-pattern.mjs --pattern=circle > circle.json
+```
+
+Or using the `bin` command:
 
 ```
-node pattern.js
+sand-pattern --pattern=circle > circle.json
 ```
 
 ## Controls

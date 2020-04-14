@@ -107,7 +107,8 @@ function setup() {
   // Add change event handler
   pattern_select.changed(patternSelectEvent);
 
-  // Select pattern from URL query string
+  // Select pattern from URL query string.
+  // This will intentionally overwrite any saved configuration
   let url_params = getURLParams();
   if (url_params.pattern) {
     pattern_select.selected(url_params.pattern);
@@ -337,25 +338,9 @@ function patternSelectEvent() {
   document.title = 'Sand Pattern | ' + pattern_select.value();
 
   // Update the URL
-  // https://zellwk.com/blog/looping-through-js-objects/
-  //*
   if (Patterns[pattern_select.value()] !== undefined) {
-    let query_string = '?pattern=' + pattern_select.value();
-    const entries = Object.entries(Patterns[pattern_select.value()].config)
-
-    for (const [param, content] of entries) {
-      query_string = query_string.concat(`&${param}=${content.value}`)
-    }
-
-    // Update the browser history
-    history.replaceState({
-          id: 'homepage'
-      },
-      document.title,
-      query_string
-    );
+    updateURL(pattern_select.value())
   }
-  //*/
 }
 
 /**
@@ -439,4 +424,29 @@ function keyTyped() {
   } else if (key === 'o') {
     pattern_config_overlay = !pattern_config_overlay;
   }
+}
+
+/**
+ * Save state to the URL
+ * https://zellwk.com/blog/looping-through-js-objects/
+ */
+function updateURL(selected_pattern)
+{
+  let query_string = '?pattern=' + selected_pattern;
+  const entries = Object.entries(Patterns[selected_pattern].config)
+
+  // Loop through configuration and create query string
+  // Uncommenting for now because these are not being read in
+  /*
+  for (const [param, content] of entries) {
+    query_string = query_string.concat(`&${param}=${content.value}`)
+  }
+  //*/
+
+  // Update the browser history
+  history.replaceState(
+    {id: 'homepage'},
+    document.title,
+    query_string
+  );
 }

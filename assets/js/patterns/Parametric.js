@@ -20,7 +20,7 @@ class Parametric {
     this.config = {
       "x": {
         "name": "X",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createInput",
           "params" : [
@@ -30,7 +30,7 @@ class Parametric {
       },
       "y": {
         "name": "Y",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createInput",
           "params" : [

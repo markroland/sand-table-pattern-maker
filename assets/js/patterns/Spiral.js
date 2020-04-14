@@ -12,7 +12,7 @@ class Spiral {
     this.config = {
       "sides": {
         "name": "Sides",
-        "value": 12,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Spiral {
       },
       "revolutions": {
         "name": "Revolutions",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Spiral {
       },
       "start_r": {
         "name": "Start Radius",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Spiral {
       },
       "start_theta": {
         "name": "Start Theta",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -72,7 +72,7 @@ class Spiral {
       },
       "twist": {
         "name": "Twist",
-        "value": 1.00,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -87,7 +87,7 @@ class Spiral {
       },
       "noise": {
         "name": "Noise",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -102,7 +102,7 @@ class Spiral {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

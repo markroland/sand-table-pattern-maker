@@ -12,7 +12,7 @@ class ZigZag {
     this.config = {
       "bound": {
         "name": "Bounding Shape",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSelect",
           "options": {
@@ -23,7 +23,7 @@ class ZigZag {
       },
       "spacing": {
         "name": "Spacing",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -38,7 +38,7 @@ class ZigZag {
       },
       "margin": {
         "name": "Margin",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -53,7 +53,7 @@ class ZigZag {
       },
       "rotation": {
         "name": "Rotation",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -68,7 +68,7 @@ class ZigZag {
       },
       "border": {
         "name": "Border",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -81,7 +81,7 @@ class ZigZag {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

@@ -18,13 +18,13 @@ class Lissajous {
     this.config = {
       "A": {
         "name": "X Amplitude",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
             0,
-            max_r,
-            max_r/2,
+            (max_x - min_x)/2,
+            (max_x - min_x)/2,
             1
           ],
           "class": "slider",
@@ -33,7 +33,7 @@ class Lissajous {
       },
       "a1": {
         "name": "X Frequency (a)",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -48,13 +48,13 @@ class Lissajous {
       },
       "B": {
         "name": "Y Amplitude",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
             0,
-            max_r,
-            max_r/2,
+            (max_y - min_y)/2,
+            (max_y - min_y)/2,
             1
           ],
           "class": "slider",
@@ -63,7 +63,7 @@ class Lissajous {
       },
       "b1": {
         "name": "Y Frequency (b)",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -78,7 +78,7 @@ class Lissajous {
       },
       "phase": {
         "name": "Phase Offset",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -93,7 +93,7 @@ class Lissajous {
       },
       "rotation": {
         "name": "Rotation",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

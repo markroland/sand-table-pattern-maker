@@ -9,7 +9,7 @@ class Rectangle {
     this.config = {
       "width": {
         "name": "Width",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -24,7 +24,7 @@ class Rectangle {
       },
       "height": {
         "name": "Height",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -37,19 +37,6 @@ class Rectangle {
           "displayValue": true
         }
       },
-      // "lock": {
-      //   "name": "Lock Proportions",
-      //   "value": 0,
-      //   "input": {
-      //     "type": "createCheckbox",
-      //     "attributes" : [{
-      //       "type" : "checkbox",
-      //       "checked" : null
-      //     }],
-      //     "params": [0, 1, 0],
-      //     "displayValue": false
-      //   }
-      // },
       "reverse": {
         "name": "Reverse",
         "value": 0,

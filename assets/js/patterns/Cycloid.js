@@ -12,7 +12,7 @@ class Cycloid {
     this.config = {
       "radius_a": {
         "name": "Fixed Radius (A)",
-        "value": Math.floor(0.5 * Math.min(max_x,max_y)),
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Cycloid {
       },
       "radius_b": {
         "name": "Fixed Radius (B)",
-        "value": -1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Cycloid {
       },
       "arm_length": {
         "name": "Arm Length",
-        "value": 100,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Cycloid {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

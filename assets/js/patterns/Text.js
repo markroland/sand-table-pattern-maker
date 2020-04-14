@@ -13,7 +13,7 @@ class Text {
     this.config = {
       "scale": {
         "name": "Scale",
-        "value": this.char_height,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

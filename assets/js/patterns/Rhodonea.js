@@ -18,7 +18,7 @@ class Rhodonea {
     this.config = {
       "amplitude": {
         "name": "Amplitude",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -33,7 +33,7 @@ class Rhodonea {
       },
       "petals": {
         "name": "Petal Value (k)",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

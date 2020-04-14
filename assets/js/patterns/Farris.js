@@ -17,7 +17,7 @@ class Farris {
     this.config = {
       "A": {
         "name": "A Coefficient",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -32,7 +32,7 @@ class Farris {
       },
       "B": {
         "name": "B Coefficient",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -47,7 +47,7 @@ class Farris {
       },
       "C": {
         "name": "C Coefficient",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -62,7 +62,7 @@ class Farris {
       },
       "scale": {
         "name": "Scale",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -77,7 +77,7 @@ class Farris {
       },
       "rotation": {
         "name": "Rotation",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

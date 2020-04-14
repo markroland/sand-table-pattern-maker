@@ -14,7 +14,7 @@ class LogarithmicSpiral {
     this.config = {
       "a": {
         "name": "a",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -29,7 +29,7 @@ class LogarithmicSpiral {
       },
       "b": {
         "name": "b",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -44,7 +44,7 @@ class LogarithmicSpiral {
       },
       "revolutions": {
         "name": "Revolutions",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -59,7 +59,7 @@ class LogarithmicSpiral {
       },
       "rotate": {
         "name": "Rotate",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -74,7 +74,7 @@ class LogarithmicSpiral {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

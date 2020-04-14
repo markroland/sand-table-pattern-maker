@@ -46,7 +46,7 @@ class ShapeSpin {
     this.config = {
       "steps": {
         "name": "Steps",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

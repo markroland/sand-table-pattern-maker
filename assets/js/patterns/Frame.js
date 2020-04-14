@@ -12,7 +12,7 @@ class Frame {
     this.config = {
       "num_spiral": {
         "name": "Spirals",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Frame {
       },
       "a": {
         "name": "a",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Frame {
       },
       "b": {
         "name": "b",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Frame {
       },
       "revolutions": {
         "name": "Revolutions",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -72,7 +72,7 @@ class Frame {
       },
       "rotate": {
         "name": "Rotate",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [

@@ -14,7 +14,7 @@ class FermatSpiral {
     this.config = {
       "revolutions": {
         "name": "Revolutions",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -29,7 +29,7 @@ class FermatSpiral {
       },
       "return": {
         "name": "Return Home",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -42,7 +42,7 @@ class FermatSpiral {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

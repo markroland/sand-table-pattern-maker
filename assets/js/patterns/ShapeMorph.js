@@ -49,7 +49,7 @@ class ShapeMorph {
       },
       "revolutions": {
         "name": "Revolutions",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -64,7 +64,7 @@ class ShapeMorph {
       },
       "twist": {
         "name": "Twist",
-        "value": 0.0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -79,7 +79,7 @@ class ShapeMorph {
       },
       "completion": {
         "name": "Completion",
-        "value": 0.5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -94,7 +94,7 @@ class ShapeMorph {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

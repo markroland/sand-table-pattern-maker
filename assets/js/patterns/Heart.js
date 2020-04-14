@@ -12,7 +12,7 @@ class Heart {
     this.config = {
       "a": {
         "name": "X cof. a",
-        "value": 16,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Heart {
       },
       "b": {
         "name": "Y cof. b",
-        "value": 13,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Heart {
       },
       "c": {
         "name": "Y cof. c",
-        "value": 5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Heart {
       },
       "d": {
         "name": "Y cof. d",
-        "value": 2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -72,7 +72,7 @@ class Heart {
       },
       "e": {
         "name": "Y cof. e",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -87,7 +87,7 @@ class Heart {
       },
       "scale": {
         "name": "scale",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -102,7 +102,7 @@ class Heart {
       },
       "shrink": {
         "name": "shrink",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -117,7 +117,7 @@ class Heart {
       },
       "twist": {
         "name": "Twist",
-        "value": 1.0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -132,7 +132,7 @@ class Heart {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

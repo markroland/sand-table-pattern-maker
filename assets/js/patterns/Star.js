@@ -12,7 +12,7 @@ class Star {
     this.config = {
       "points": {
         "name": "Points",
-        "value": 5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Star {
       },
       "pointiness": {
         "name": "Pointiness",
-        "value": 5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Star {
       },
       "revolutions": {
         "name": "Revolutions",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Star {
       },
       "twist": {
         "name": "Twist",
-        "value": 1.00,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -72,7 +72,7 @@ class Star {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

@@ -11,7 +11,7 @@ class Egg {
     this.config = {
       "radius": {
         "name": "Size",
-        "value": max_r/2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -26,7 +26,7 @@ class Egg {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

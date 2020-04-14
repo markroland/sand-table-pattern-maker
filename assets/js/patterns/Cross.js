@@ -9,7 +9,7 @@ class Cross {
     this.config = {
       "width": {
         "name": "Width",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -24,7 +24,7 @@ class Cross {
       },
       "height": {
         "name": "Height",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -39,7 +39,7 @@ class Cross {
       },
       "intersect": {
         "name": "Intersect Height",
-        "value": 75,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -54,7 +54,7 @@ class Cross {
       },
       "starburst": {
         "name": "Starburst",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

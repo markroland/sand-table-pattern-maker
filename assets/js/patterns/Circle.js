@@ -11,7 +11,7 @@ class Circle {
     this.config = {
       "radius": {
         "name": "Radius (r)",
-        "value": max_r/2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -26,7 +26,7 @@ class Circle {
       },
       "angle": {
         "name": "Start Angle (𝜃)",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -41,7 +41,7 @@ class Circle {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

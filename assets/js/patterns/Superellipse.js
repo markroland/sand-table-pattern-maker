@@ -19,7 +19,7 @@ class Superellipse {
     this.config = {
       "width": {
         "name": "Width",
-        "value": max_r,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -34,7 +34,7 @@ class Superellipse {
       },
       "height": {
         "name": "Height",
-        "value": max_r,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -49,7 +49,7 @@ class Superellipse {
       },
       "n": {
         "name": "n-value",
-        "value": 2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -64,7 +64,7 @@ class Superellipse {
       },
       "spiralize": {
         "name": "Spiralize",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -77,7 +77,7 @@ class Superellipse {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

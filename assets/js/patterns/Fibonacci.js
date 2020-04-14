@@ -12,7 +12,7 @@ class Fibonacci {
     this.config = {
       "decay": {
         "name": "Decay Factor",
-        "value": -0.2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Fibonacci {
       },
       "rtc": {
         "name": "Return to Center",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -40,7 +40,7 @@ class Fibonacci {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

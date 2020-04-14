@@ -12,7 +12,7 @@ class FibonacciLollipops {
     this.config = {
       "lollipopradius": {
         "name": "Lollipop Radius",
-        "value": 30,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class FibonacciLollipops {
       },
       "lollipopsides": {
         "name": "Lollipop Sides",
-        "value": 6,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class FibonacciLollipops {
       },
       "lollipopturns": {
         "name": "Lollipop Turns",
-        "value": 3.5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class FibonacciLollipops {
       },
       "spiral_factor": {
         "name": "Shrink Factor",
-        "value": -0.2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

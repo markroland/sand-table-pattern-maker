@@ -12,7 +12,7 @@ class Spokes {
     this.config = {
       "spokes": {
         "name": "Spokes",
-        "value": 60,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Spokes {
       },
       "waves": {
         "name": "Waves",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Spokes {
       },
       "amplitude": {
         "name": "Amplitude",
-        "value": 10,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Spokes {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

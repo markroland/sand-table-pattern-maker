@@ -12,7 +12,7 @@ class WigglySpiral {
     this.config = {
       "offset": {
         "name": "Offset",
-        "value": 20,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class WigglySpiral {
       },
       "amplitude": {
         "name": "Amplitude",
-        "value": 5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class WigglySpiral {
       },
       "wiggles": {
         "name": "Wiggles/Rev",
-        "value": 20,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

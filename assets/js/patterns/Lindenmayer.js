@@ -69,7 +69,7 @@ class Lindenmayer {
     this.config = {
       "curve": {
         "name": "Curve",
-        "value": 5,
+        "value": null,
         "input": {
           "type": "createSelect",
           "options": {
@@ -81,7 +81,7 @@ class Lindenmayer {
       },
       "iterations": {
         "name": "Iterations",
-        "value": 3,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -96,7 +96,7 @@ class Lindenmayer {
       },
       "length": {
         "name": "Line Length",
-        "value": 10,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -111,7 +111,7 @@ class Lindenmayer {
       },
       "rotate": {
         "name": "Rotate",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -126,7 +126,7 @@ class Lindenmayer {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{

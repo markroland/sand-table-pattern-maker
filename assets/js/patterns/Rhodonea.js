@@ -54,16 +54,16 @@ class Rhodonea {
   draw() {
 
     // Update object
-    this.config.amplitude.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.petals.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.amplitude.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.petals.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.amplitude.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.petals.value;
 
     let path = this.calc(
-        parseFloat(this.config.amplitude.value),
-        parseFloat(this.config.petals.value)
+      this.config.amplitude.value,
+      this.config.petals.value
     );
 
     // Update object

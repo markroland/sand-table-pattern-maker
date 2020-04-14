@@ -58,8 +58,8 @@ class Rectangle {
   draw() {
 
     // Update object
-    this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
+    this.config.width.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.height.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.width.value;
@@ -67,8 +67,8 @@ class Rectangle {
 
     // Calculate path for Circle at center
     let path = this.calc(
-      parseFloat(this.config.width.value),
-      parseFloat(this.config.height.value)
+      this.config.width.value,
+      this.config.height.value
     );
 
     // Update object

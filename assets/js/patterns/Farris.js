@@ -98,26 +98,26 @@ class Farris {
   draw() {
 
     // Update object
-    this.config.A.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.B.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.C.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.scale.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
-    this.config.rotation.value = document.querySelector('#pattern-controls > div:nth-child(5) > input').value;
+    this.config.A.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.B.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.C.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
+    this.config.scale.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
+    this.config.rotation.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(5) > input').value);
 
     // Display selected value(s)
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.A.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.B.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.C.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.scale.value + "%";
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.rotation.value + "°";
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.A.value.toFixed(0);
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.B.value.toFixed(0);
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.C.value.toFixed(0);
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.scale.value.toFixed(0) + "%";
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.rotation.value.toFixed(0) + "°";
 
     let path = this.calc(
       Math.min((max_x - min_x), (max_y - min_y)),
-      parseFloat(this.config.A.value),
-      parseFloat(this.config.B.value),
-      parseFloat(this.config.C.value),
-      parseFloat(this.config.scale.value),
-      parseFloat(this.config.rotation.value)
+      this.config.A.value,
+      this.config.B.value,
+      this.config.C.value,
+      this.config.scale.value,
+      this.config.rotation.value
     );
 
     // Update object

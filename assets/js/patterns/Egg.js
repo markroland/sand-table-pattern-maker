@@ -45,7 +45,7 @@ class Egg {
   draw() {
 
     // Update object
-    this.config.radius.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.radius.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.radius.value;

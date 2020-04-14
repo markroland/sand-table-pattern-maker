@@ -153,14 +153,14 @@ class Heart {
     // Update object
 
     // Read in selected value(s)
-    this.config.a.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.b.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.c.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.d.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
-    this.config.e.value = document.querySelector('#pattern-controls > div:nth-child(5) > input').value;
-    this.config.scale.value = document.querySelector('#pattern-controls > div:nth-child(6) > input').value;
-    this.config.shrink.value = document.querySelector('#pattern-controls > div:nth-child(7) > input').value;
-    this.config.twist.value = document.querySelector('#pattern-controls > div:nth-child(8) > input').value;
+    this.config.a.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.b.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.c.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
+    this.config.d.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
+    this.config.e.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(5) > input').value);
+    this.config.scale.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(6) > input').value);
+    this.config.shrink.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(7) > input').value);
+    this.config.twist.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(8) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.a.value;
@@ -168,9 +168,9 @@ class Heart {
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.c.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.d.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.e.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(6) > span').innerHTML = this.config.scale.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(7) > span').innerHTML = this.config.shrink.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(8) > span').innerHTML = this.config.twist.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(6) > span').innerHTML = this.config.scale.value.toFixed(1);
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(7) > span').innerHTML = this.config.shrink.value.toFixed(4);
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(8) > span').innerHTML = this.config.twist.value.toFixed(2);
 
     let path = this.calc(
       this.config.a.value,

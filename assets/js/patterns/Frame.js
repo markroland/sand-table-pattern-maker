@@ -96,25 +96,25 @@ class Frame {
   draw() {
 
     // Read in selected value(s)
-    this.config.num_spiral.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.a.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.b.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.revolutions.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.num_spiral.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.a.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.b.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
+    this.config.revolutions.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
     this.config.rotate.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(5) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.num_spiral.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.a.value + " * r<sub>max</sub>";
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.b.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.revolutions.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.a.value.toFixed(2) + " * r<sub>max</sub>";
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.b.value.toFixed(2);
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.revolutions.value.toFixed(1);
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = this.config.rotate.value + "°";
 
     // Calculate path
     let path = this.calc(
-      parseInt(this.config.num_spiral.value),
-      parseFloat(this.config.a.value),
-      parseFloat(this.config.b.value),
-      parseFloat(this.config.revolutions.value),
+      this.config.num_spiral.value,
+      this.config.a.value,
+      this.config.b.value,
+      this.config.revolutions.value,
       60
     );
 

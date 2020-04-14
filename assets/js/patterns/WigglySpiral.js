@@ -67,13 +67,13 @@ class WigglySpiral {
   draw() {
 
     // Read in selected value(s)
-    this.config.offset.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.amplitude.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.wiggles.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.offset.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.amplitude.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.wiggles.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.offset.value + " " + units;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.amplitude.value + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.amplitude.value.toFixed(1) + " " + units;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.wiggles.value;
 
     // Calculate path

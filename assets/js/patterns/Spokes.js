@@ -76,20 +76,20 @@ class Spokes {
   draw() {
 
     // Update object
-    this.config.spokes.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.waves.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.amplitude.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.spokes.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.waves.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.amplitude.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.spokes.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.waves.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.waves.value.toFixed(1);
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.amplitude.value;
 
     // Calculate the path
     let path = this.calc(
-      parseInt(this.config.spokes.value),
-      parseFloat(this.config.waves.value),
-      parseInt(this.config.amplitude.value)
+      this.config.spokes.value,
+      this.config.waves.value,
+      this.config.amplitude.value
     );
 
     // Update object

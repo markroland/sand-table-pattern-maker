@@ -105,9 +105,9 @@ class ZigZag {
 
     // Read in selected value(s)
     this.config.bound.value = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
-    this.config.spacing.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.margin.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.rotation.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.spacing.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.margin.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
+    this.config.rotation.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
     this.config.border.value = 0
     if (document.querySelector('#pattern-controls > div:nth-child(5) > input[type=checkbox]').checked) {
       this.config.border.value = 1
@@ -116,11 +116,12 @@ class ZigZag {
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = nfc((max_y - min_y)/(-this.config.spacing.value), 1) + " " + units;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.margin.value + " mm";
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.rotation.value + "°";
 
     // Calculate path
     let path = this.calc(
         (max_y - min_y) / (-this.config.spacing.value),
-        parseInt(this.config.margin.value),
+        this.config.margin.value,
         0.0,
         this.config.border.value,
         this.config.bound.value
@@ -128,7 +129,7 @@ class ZigZag {
 
     // Rotate
     path = path.map(function(element) {
-        return this.rotationMatrix(element[0], element[1], this.config.rotation.value * (Math.PI/180))
+      return this.rotationMatrix(element[0], element[1], this.config.rotation.value * (Math.PI/180))
     }, this);
 
     // Update object

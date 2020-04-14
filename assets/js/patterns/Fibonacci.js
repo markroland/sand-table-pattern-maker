@@ -59,18 +59,18 @@ class Fibonacci {
   draw() {
 
     // Update object
-    this.config.decay.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.decay.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
     this.config.rtc.value = false;
     if (document.querySelector('#pattern-controls > div:nth-child(2) > input[type=checkbox]').checked) {
       this.config.rtc.value = true;
     }
 
     // Display selected values
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.decay.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.decay.value.toFixed(4);
 
     // Calculate the path
     let path = this.calc(
-      parseFloat(this.config.decay.value),
+      this.config.decay.value,
       this.config.rtc.value
     );
 

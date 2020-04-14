@@ -96,19 +96,18 @@ class Superellipse {
   draw() {
 
     // Update object
-    this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.n.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.width.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.height.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.n.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
     this.config.spiralize.value = false;
     if (document.querySelector('#pattern-controls > div:nth-child(4) > input[type=checkbox]').checked) {
       this.config.spiralize.value = true;
     }
 
-
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.width.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.height.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.n.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.n.value.toFixed(1);
 
     // Calculate path
     let path = this.calc(

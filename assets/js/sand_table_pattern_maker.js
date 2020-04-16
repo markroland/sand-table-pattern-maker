@@ -88,7 +88,7 @@ function setup() {
   var canvas = createCanvas(648, 648).parent('canvas-holder');
 
   // Pattern selector
-  pattern_select_div = createDiv('<label>Pattern</label>')
+  var pattern_select_div = createDiv('<label>Pattern</label>')
     .parent('pattern-selector');
   pattern_select = createSelect()
     .parent(pattern_select_div)
@@ -123,6 +123,7 @@ function setup() {
   plotter_format_select.selected(env.table.format);
   plotter_format_select.changed(display_config_values);
 
+  // Display plotter configuration values
   display_config_values();
 
   // Download controls
@@ -140,13 +141,15 @@ function draw() {
   // Draw the background
   background(68);
 
-  // Draw selected pattern
+  // Save the selected pattern to a local variable
   var selected_pattern = pattern_select.value();
 
+  // Some patterns, like a free-drawing, must be recalculated on every draw loop
   if (selected_pattern == "draw") {
     recalculate_pattern = true;
   }
 
+  // Recalculate the pattern if required (depending on env.recalculate_pattern)
   if (recalculate_pattern) {
     path = Patterns[selected_pattern].draw();
     recalculate_pattern = env.recalculate_pattern;
@@ -265,8 +268,9 @@ function patternSelectEvent() {
   // Clear controls
   select('#pattern-controls').html('');
 
-  // Create HTML elements for each pattern configuration option
+  // Save the selected pattern to a local variable
   var selected_pattern = pattern_select.value();
+  // Create HTML elements for each pattern configuration option
   let controls = new Array();
   const configs = Object.entries(Patterns[selected_pattern].config);
   for (const [key, val] of configs) {
@@ -321,8 +325,6 @@ function patternSelectEvent() {
     control.input.changed(function(){
       recalculate_pattern = true;
     });
-    // Save settings to browser cookie
-    // setCookie("pattern.circle.angle", angle.value())
 
     // Create a span element to display the current input's value (useful for Sliders)
     if (val.input.displayValue) {
@@ -335,7 +337,7 @@ function patternSelectEvent() {
   }
 
   // Change document title
-  document.title = 'Sand Pattern | ' + pattern_select.value();
+  document.title = 'Sand Pattern | ' + Patterns[selected_pattern].name;
 
   // Update the URL
   if (Patterns[pattern_select.value()] !== undefined) {

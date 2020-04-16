@@ -293,30 +293,51 @@ function patternSelectEvent() {
       for (const [key, object] of entries) {
         control.input.option(object, key);
       }
+      if (val.value) {
+        control.input.selected(val.value);
+      }
     } else if (val.input.type == "createSlider") {
-      control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
-        .attribute('name', key)
-        .parent(control.div)
-        .addClass(val.input.class);
+      control.input = createSlider(
+        val.input.params[0],
+        val.input.params[1],
+        val.value ? val.value : val.input.params[2],
+        val.input.params[3]
+      )
+      .attribute('name', key)
+      .parent(control.div)
+      .addClass(val.input.class);
     } else if (val.input.type == "createCheckbox") {
-      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
-        .attribute("type", "checkbox")
-        .attribute('name', key)
-        .attribute('checkbox', null)
-        .parent(control.div);
+      // control.input = createInput(val.input.params[0], "checkbox") // Should it be this?
+      control.input = createInput(
+        val.input.params[0],
+        val.input.params[1],
+        val.input.params[2]
+      )
+      .attribute("type", "checkbox")
+      .attribute('name', key)
+      .attribute('checkbox', null)
+      .parent(control.div);
       if (val.input.params[2] == 1) {
+        control.input.attribute('checked', 'checked');
+      } else if (val.value) {
         control.input.attribute('checked', 'checked');
       }
     } else if (val.input.type == "createInput") {
-      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
-        .attribute('name', key)
-        .parent(control.div);
+      control.input = createInput(
+        val.value ? val.value : val.input.params[0],
+        val.input.params[1]
+      )
+      .attribute('name', key)
+      .parent(control.div);
     } else if (val.input.type == "createTextarea") {
-      control.input = createElement("textarea", val.input.value)
-        .attribute("rows", val.input.attributes.rows)
-        .attribute("cols", val.input.attributes.cols)
-        .attribute('name', key)
-        .parent(control.div);
+      control.input = createElement(
+        "textarea",
+        val.value ? val.value : val.input.value,
+      )
+      .attribute("rows", val.input.attributes.rows)
+      .attribute("cols", val.input.attributes.cols)
+      .attribute('name', key)
+      .parent(control.div);
     }
 
     // Add change event handler

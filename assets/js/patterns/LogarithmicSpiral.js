@@ -9,7 +9,7 @@ class LogarithmicSpiral {
 
     this.key = "logspiral";
 
-    this.name = "Spiral (Logarthimic)";
+    this.name = "Spiral (Logarithmic)";
 
     this.config = {
       "a": {

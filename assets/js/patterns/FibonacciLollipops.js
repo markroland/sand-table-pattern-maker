@@ -1,5 +1,5 @@
 /**
- * FibonacciLollipops
+ * Fibonacci Lollipops
  */
 class FibonacciLollipops {
 

@@ -11,6 +11,7 @@ Built with [p5.js](https://p5js.org)
 ## Controls
 
  - Press "o" to toggle an overlay of the pattern settings in the canvas
+ - Press "c" to toggle the live coordinates and plotter mechanism view
 
 ## How to Build a New Pattern
 
@@ -33,6 +34,41 @@ Pattern classes are made up of at least 4 methods:
    updates the UI input values and sends the input to the class's `calc` method.
  - **calc** - This is where the algorithm for the pattern is implemented. Using the selected
    inputs, the method returns the coordinates for the complete path.
+
+
+## Patterns
+
+- XY Coordinates
+- Circle
+- Cross
+- Cycloid ([Epicycloid](https://en.wikipedia.org/wiki/Epicycloid), [Hypocycloid](https://en.wikipedia.org/wiki/Hypocycloid), [Hypotrochoid](https://en.wikipedia.org/wiki/Hypotrochoid))
+- Diameters
+- Free Draw
+- Easter Eggs ([Reference](https://math.stackexchange.com/questions/3375853/parametric-equations-for-a-true-egg-shape))
+- Farris Curve ([Reference](http://www.sineofthetimes.org/the-art-of-parametric-equations-2/))
+- Fermat's Spiral ([Reference](https://en.wikipedia.org/wiki/Fermat%27s_spiral))
+- Fibonacci
+- Fibonacci Lollipops
+- Frames (Border Patterns)
+- G-Code
+- Gravity
+- Heart ([Reference](http://mathworld.wolfram.com/HeartCurve.html))
+- Space Filling Curves \[[1](https://p5js.org/examples/simulate-l-systems.html)\] \[[2](https://en.wikipedia.org/wiki/Space-filling_curve)\] \[[3](https://fedimser.github.io/l-systems.html)\]
+- Lissajous Curve ([Lissajous Curves](https://en.wikipedia.org/wiki/Lissajous_curve))
+- Parametric ([Butterfly Curve](https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)))
+- Rectangle
+- Rhodonea (Rose) Curve ([Rose Curve](https://en.wikipedia.org/wiki/Rose_(mathematics)))
+- Shape Morph
+- Shape Spin
+- Spiral
+- Spiral (Logarithmic) ([Reference](https://en.wikipedia.org/wiki/Logarithmic_spiral))
+- Spokes
+- Star
+- Superellipse \[[1](https://en.wikipedia.org/wiki/Superellipse)\] \[[2](https://mathworld.wolfram.com/Superellipse.html)\] \[[3](https://thecodingtrain.com/CodingChallenges/019-superellipse.html)\]
+- Text
+- Theta Rho Coordinates
+- Wiggly Spiral
+- Zig Zag
 
 ## License
 

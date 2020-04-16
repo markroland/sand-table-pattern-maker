@@ -12,7 +12,7 @@ class FibonacciLollipops {
     this.config = {
       "lollipopradius": {
         "name": "Lollipop Radius",
-        "value": 30,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class FibonacciLollipops {
       },
       "lollipopsides": {
         "name": "Lollipop Sides",
-        "value": 6,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class FibonacciLollipops {
       },
       "lollipopturns": {
         "name": "Lollipop Turns",
-        "value": 3.5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class FibonacciLollipops {
       },
       "spiral_factor": {
         "name": "Shrink Factor",
-        "value": -0.2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -82,24 +82,24 @@ class FibonacciLollipops {
   draw() {
 
     // Read in selected value(s)
-    this.config.lollipopradius.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.lollipopsides.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.lollipopturns.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.spiral_factor.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.lollipopradius.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.lollipopsides.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.lollipopturns.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
+    this.config.spiral_factor.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.lollipopradius.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.lollipopsides.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.lollipopturns.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.spiral_factor.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.spiral_factor.value.toFixed(4);
 
 
     // Calculate path
     let path = this.calc(
-      parseInt(this.config.lollipopradius.value),
-      parseInt(this.config.lollipopsides.value),
-      parseFloat(this.config.lollipopturns.value),
-      parseFloat(this.config.spiral_factor.value)
+      this.config.lollipopradius.value,
+      this.config.lollipopsides.value,
+      this.config.lollipopturns.value,
+      this.config.spiral_factor.value
     );
 
     // Update object

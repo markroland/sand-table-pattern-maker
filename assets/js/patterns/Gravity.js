@@ -13,7 +13,7 @@ class Gravity {
     this.config = {
       "steps": {
         "name": "Iteration Steps",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -28,7 +28,7 @@ class Gravity {
       },
       "A1m": {
         "name": "Attractor Mass",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -43,7 +43,7 @@ class Gravity {
       },
       "xp0": {
         "name": "X0 Position",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -58,7 +58,7 @@ class Gravity {
       },
       "yp0": {
         "name": "Y0 Position",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -73,7 +73,7 @@ class Gravity {
       },
       "xv0": {
         "name": "X0 Velocity",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -88,7 +88,7 @@ class Gravity {
       },
       "yv0": {
         "name": "Y0 Velocity",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

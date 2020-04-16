@@ -14,7 +14,7 @@ class FermatSpiral {
     this.config = {
       "revolutions": {
         "name": "Revolutions",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -29,7 +29,7 @@ class FermatSpiral {
       },
       "return": {
         "name": "Return Home",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -42,7 +42,7 @@ class FermatSpiral {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -65,7 +65,7 @@ class FermatSpiral {
   draw() {
 
     // Read in selected value(s)
-    this.config.revolutions.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.revolutions.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.revolutions.value;
@@ -78,7 +78,7 @@ class FermatSpiral {
 
     // Calculate path
     let path = this.calc(
-      parseInt(this.config.revolutions.value),
+      this.config.revolutions.value,
       this.config.return.value
     );
 

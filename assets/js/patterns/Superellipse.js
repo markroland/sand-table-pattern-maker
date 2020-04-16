@@ -19,7 +19,7 @@ class Superellipse {
     this.config = {
       "width": {
         "name": "Width",
-        "value": max_r,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -34,7 +34,7 @@ class Superellipse {
       },
       "height": {
         "name": "Height",
-        "value": max_r,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -49,7 +49,7 @@ class Superellipse {
       },
       "n": {
         "name": "n-value",
-        "value": 2,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -64,7 +64,7 @@ class Superellipse {
       },
       "spiralize": {
         "name": "Spiralize",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -77,7 +77,7 @@ class Superellipse {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -96,19 +96,18 @@ class Superellipse {
   draw() {
 
     // Update object
-    this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.n.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.width.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.height.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.n.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
     this.config.spiralize.value = false;
     if (document.querySelector('#pattern-controls > div:nth-child(4) > input[type=checkbox]').checked) {
       this.config.spiralize.value = true;
     }
 
-
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.width.value;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.height.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.n.value;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.n.value.toFixed(1);
 
     // Calculate path
     let path = this.calc(

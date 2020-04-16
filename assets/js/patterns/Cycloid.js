@@ -12,7 +12,7 @@ class Cycloid {
     this.config = {
       "radius_a": {
         "name": "Fixed Radius (A)",
-        "value": Math.floor(0.5 * Math.min(max_x,max_y)),
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Cycloid {
       },
       "radius_b": {
         "name": "Fixed Radius (B)",
-        "value": -1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Cycloid {
       },
       "arm_length": {
         "name": "Arm Length",
-        "value": 100,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -57,7 +57,7 @@ class Cycloid {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -76,9 +76,9 @@ class Cycloid {
   draw() {
 
     // Update object
-    this.config.radius_a.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.radius_b.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.arm_length.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.radius_a.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.radius_b.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.arm_length.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.radius_a.value;
@@ -87,9 +87,9 @@ class Cycloid {
 
     // Calculate the path
     let path = this.calc(
-      parseInt(this.config.radius_a.value),
-      parseInt(this.config.radius_b.value),
-      parseInt(this.config.arm_length.value)
+      this.config.radius_a.value,
+      this.config.radius_b.value,
+      this.config.arm_length.value
     );
 
     // Update object

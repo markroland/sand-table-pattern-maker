@@ -69,7 +69,7 @@ class Lindenmayer {
     this.config = {
       "curve": {
         "name": "Curve",
-        "value": 5,
+        "value": null,
         "input": {
           "type": "createSelect",
           "options": {
@@ -81,7 +81,7 @@ class Lindenmayer {
       },
       "iterations": {
         "name": "Iterations",
-        "value": 3,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -96,7 +96,7 @@ class Lindenmayer {
       },
       "length": {
         "name": "Line Length",
-        "value": 10,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -111,7 +111,7 @@ class Lindenmayer {
       },
       "rotate": {
         "name": "Rotate",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params": [
@@ -126,7 +126,7 @@ class Lindenmayer {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -151,16 +151,17 @@ class Lindenmayer {
     // Read in selected value(s)
 
     var curve_type = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
+    this.config.curve.value = curve_type;
     this.curve = this[curve_type];
 
-    this.config.iterations.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.curve.iterations = this.config.iterations.value;
-    this.config.length.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
-    this.config.rotate.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.iterations.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.curve.iterations = parseInt(this.config.iterations.value);
+    this.config.length.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
+    this.config.rotate.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
 
     // Display selected value(s)
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(2) > span').innerHTML = this.config.iterations.value;
-    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.length.value + " " + units;
+    document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.length.value.toFixed(1) + " " + units;
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.rotate.value + "°";
 
     let lindenmayer_string = this.curve.l_system.axiom;

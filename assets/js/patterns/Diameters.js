@@ -12,7 +12,7 @@ class Diameters {
     this.config = {
       "spokes": {
         "name": "Spokes",
-        "value": 12,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -27,7 +27,7 @@ class Diameters {
       },
       "waves": {
         "name": "Waves",
-        "value": 4,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -42,7 +42,7 @@ class Diameters {
       },
       "amplitude": {
         "name": "Amplitude",
-        "value": 20,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [

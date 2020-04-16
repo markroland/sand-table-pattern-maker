@@ -4,6 +4,9 @@
   This is a rewrite/refactor of my original Java sketches
 */
 
+// Set application version. Used to validate Local Storage
+var app_version = "0.1.0";
+
 // Set the units, i.e. "mm", "in"
 var units = env.table.units;
 
@@ -34,6 +37,13 @@ var draw_iteration = 0;
 var gCodeCommand = env.gcode.command;
 
 var plotter_format_select;
+
+// Set a global variable for Pattern <select> HTML object
+var pattern_select;
+
+// Set a global variable for the "previous" Pattern. When a new Pattern
+// is selected this is used to save the configuration of the previous Pattern
+var previous_pattern;
 
 var path;
 
@@ -88,7 +98,7 @@ function setup() {
   var canvas = createCanvas(648, 648).parent('canvas-holder');
 
   // Pattern selector
-  pattern_select_div = createDiv('<label>Pattern</label>')
+  var pattern_select_div = createDiv('<label>Pattern</label>')
     .parent('pattern-selector');
   pattern_select = createSelect()
     .parent(pattern_select_div)
@@ -107,11 +117,25 @@ function setup() {
   // Add change event handler
   pattern_select.changed(patternSelectEvent);
 
-  // Select pattern from URL query string
+  // Select pattern from Local Storage
+  var local_storage_pattern = localStorage.getItem('lastPattern');
+  if (local_storage_pattern) {
+    pattern_select.selected(local_storage_pattern);
+  }
+
+  // Select pattern from URL query string.
+  // This will intentionally overwrite any saved configuration
   let url_params = getURLParams();
   if (url_params.pattern) {
     pattern_select.selected(url_params.pattern);
   }
+
+  // Initialize previous pattern
+  previous_pattern = pattern_select.value();
+
+  // Load configuration state of selected Pattern (if available)
+  var loaded_patterns;
+  loadPatternConfig(pattern_select.value());
 
   // Add select for Table format (Cartesian or Polar)
   plotter_format_select = createSelect()
@@ -122,6 +146,7 @@ function setup() {
   plotter_format_select.selected(env.table.format);
   plotter_format_select.changed(display_config_values);
 
+  // Display plotter configuration values
   display_config_values();
 
   // Download controls
@@ -129,8 +154,8 @@ function setup() {
     .parent('download');
   downloadButton.mousePressed(download);
 
-  // Initialize
-  patternSelectEvent();
+  // Initialize.
+  patternSelectEvent(false);
 }
 
 // Processing standard function that loops forever
@@ -139,13 +164,15 @@ function draw() {
   // Draw the background
   background(68);
 
-  // Draw selected pattern
+  // Save the selected pattern to a local variable
   var selected_pattern = pattern_select.value();
 
+  // Some patterns, like a free-drawing, must be recalculated on every draw loop
   if (selected_pattern == "draw") {
     recalculate_pattern = true;
   }
 
+  // Recalculate the pattern if required (depending on env.recalculate_pattern)
   if (recalculate_pattern) {
     path = Patterns[selected_pattern].draw();
     recalculate_pattern = env.recalculate_pattern;
@@ -153,7 +180,12 @@ function draw() {
 
   // Reverse the path
   if (document.querySelector('#pattern-controls input[name=reverse]')) {
-    if (document.querySelector('#pattern-controls input[name=reverse]').checked) {
+
+    // Save to Pattern object
+    Patterns[selected_pattern].config.reverse.value = document.querySelector('#pattern-controls input[name=reverse]').checked;
+
+    // Reverse the path if checked (true)
+    if (Patterns[selected_pattern].config.reverse.value) {
       path.reverse();
     }
   }
@@ -256,16 +288,27 @@ function path_exceeds_plotter(path)
 /**
  * Trigger actions when the pattern is changed
  */
-function patternSelectEvent() {
-
-  // Set flag to recalculate pattern
-  recalculate_pattern = true;
+function patternSelectEvent(recalculate_pattern = true) {
 
   // Clear controls
   select('#pattern-controls').html('');
 
-  // Create HTML elements for each pattern configuration option
+  // Save the selected pattern to a local variable
   var selected_pattern = pattern_select.value();
+  localStorage.setItem('lastPattern', selected_pattern);
+
+  // Load Pattern State
+  loadPatternConfig(selected_pattern);
+
+  // Save the state of the Patterns object to Local Browser Storage
+  if (recalculate_pattern) {
+    savePatternConfig(previous_pattern);
+  }
+
+  // Update the previous pattern
+  previous_pattern = selected_pattern;
+
+  // Create HTML elements for each pattern configuration option
   let controls = new Array();
   const configs = Object.entries(Patterns[selected_pattern].config);
   for (const [key, val] of configs) {
@@ -288,30 +331,51 @@ function patternSelectEvent() {
       for (const [key, object] of entries) {
         control.input.option(object, key);
       }
+      if (val.value) {
+        control.input.selected(val.value);
+      }
     } else if (val.input.type == "createSlider") {
-      control.input = createSlider(val.input.params[0], val.input.params[1], val.input.params[2], val.input.params[3])
-        .attribute('name', key)
-        .parent(control.div)
-        .addClass(val.input.class);
+      control.input = createSlider(
+        val.input.params[0],
+        val.input.params[1],
+        val.value ? val.value : val.input.params[2],
+        val.input.params[3]
+      )
+      .attribute('name', key)
+      .parent(control.div)
+      .addClass(val.input.class);
     } else if (val.input.type == "createCheckbox") {
-      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
-        .attribute("type", "checkbox")
-        .attribute('name', key)
-        .attribute('checkbox', null)
-        .parent(control.div);
+      // control.input = createInput(val.input.params[0], "checkbox") // Should it be this?
+      control.input = createInput(
+        val.input.params[0],
+        val.input.params[1],
+        val.input.params[2]
+      )
+      .attribute("type", "checkbox")
+      .attribute('name', key)
+      .attribute('checkbox', null)
+      .parent(control.div);
       if (val.input.params[2] == 1) {
+        control.input.attribute('checked', 'checked');
+      } else if (val.value) {
         control.input.attribute('checked', 'checked');
       }
     } else if (val.input.type == "createInput") {
-      control.input = createInput(val.input.params[0], val.input.params[1], val.input.params[2])
-        .attribute('name', key)
-        .parent(control.div);
+      control.input = createInput(
+        val.value ? val.value : val.input.params[0],
+        val.input.params[1]
+      )
+      .attribute('name', key)
+      .parent(control.div);
     } else if (val.input.type == "createTextarea") {
-      control.input = createElement("textarea", val.input.value)
-        .attribute("rows", val.input.attributes.rows)
-        .attribute("cols", val.input.attributes.cols)
-        .attribute('name', key)
-        .parent(control.div);
+      control.input = createElement(
+        "textarea",
+        val.value ? val.value : val.input.value,
+      )
+      .attribute("rows", val.input.attributes.rows)
+      .attribute("cols", val.input.attributes.cols)
+      .attribute('name', key)
+      .parent(control.div);
     }
 
     // Add change event handler
@@ -332,28 +396,12 @@ function patternSelectEvent() {
   }
 
   // Change document title
-  document.title = 'Sand Pattern | ' + pattern_select.value();
+  document.title = 'Sand Pattern | ' + Patterns[selected_pattern].name;
 
   // Update the URL
-  // https://zellwk.com/blog/looping-through-js-objects/
-  //*
   if (Patterns[pattern_select.value()] !== undefined) {
-    let query_string = '?pattern=' + pattern_select.value();
-    const entries = Object.entries(Patterns[pattern_select.value()].config)
-
-    for (const [param, content] of entries) {
-      query_string = query_string.concat(`&${param}=${content.value}`)
-    }
-
-    // Update the browser history
-    history.replaceState({
-          id: 'homepage'
-      },
-      document.title,
-      query_string
-    );
+    updateURL(pattern_select.value())
   }
-  //*/
 }
 
 /**
@@ -436,5 +484,51 @@ function keyTyped() {
     coordinate_overlay = !coordinate_overlay;
   } else if (key === 'o') {
     pattern_config_overlay = !pattern_config_overlay;
+  }
+}
+
+/**
+ * Save state to the URL
+ * https://zellwk.com/blog/looping-through-js-objects/
+ */
+function updateURL(selected_pattern)
+{
+  let query_string = '?pattern=' + selected_pattern;
+  const entries = Object.entries(Patterns[selected_pattern].config)
+
+  // Loop through configuration and create query string
+  // Uncommenting for now because these are not being read in
+  /*
+  for (const [param, content] of entries) {
+    query_string = query_string.concat(`&${param}=${content.value}`)
+  }
+  //*/
+
+  // Update the browser history
+  history.replaceState(
+    {id: 'homepage'},
+    document.title,
+    query_string
+  );
+}
+
+/**
+ * Save a Pattern configuration object
+ */
+function savePatternConfig(previous_pattern)
+{
+  localStorage.setItem('appVersion', app_version);
+  localStorage.setItem('lastSaved', new Date());
+  localStorage.setItem("v" + app_version + "_" + previous_pattern, JSON.stringify(Patterns[previous_pattern].config));
+}
+
+/**
+ * Load a Pattern configuration object
+ */
+function loadPatternConfig(selected_pattern)
+{
+  var loaded_state = JSON.parse(localStorage.getItem("v" + app_version + "_" + selected_pattern));
+  if (loaded_state) {
+    Patterns[selected_pattern].config = loaded_state;
   }
 }

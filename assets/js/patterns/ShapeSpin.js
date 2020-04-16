@@ -46,7 +46,7 @@ class ShapeSpin {
     this.config = {
       "steps": {
         "name": "Steps",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -67,14 +67,14 @@ class ShapeSpin {
   draw() {
 
     // Update object
-    this.config.steps.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
+    this.config.steps.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.steps.value;
 
     let path = this.calc(
       this.base_shape,
-      parseInt(this.config.steps.value)
+      this.config.steps.value
     );
 
     // Update object

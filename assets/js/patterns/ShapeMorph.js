@@ -49,7 +49,7 @@ class ShapeMorph {
       },
       "revolutions": {
         "name": "Revolutions",
-        "value": 1,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -64,7 +64,7 @@ class ShapeMorph {
       },
       "twist": {
         "name": "Twist",
-        "value": 0.0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -79,7 +79,7 @@ class ShapeMorph {
       },
       "completion": {
         "name": "Completion",
-        "value": 0.5,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -94,7 +94,7 @@ class ShapeMorph {
       },
       "reverse": {
         "name": "Reverse",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -114,21 +114,21 @@ class ShapeMorph {
 
     // Update object
 
-    var selected_outside_shape = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
-    var selected_inside_shape = document.querySelector('#pattern-controls > div:nth-child(2) > select').value;
+    this.config.startShape.value = document.querySelector('#pattern-controls > div:nth-child(1) > select').value;
+    this.config.endShape.value = document.querySelector('#pattern-controls > div:nth-child(2) > select').value;
 
-    this.config.revolutions.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.revolutions.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(3) > span').innerHTML = this.config.revolutions.value;
 
-    this.config.twist.value = document.querySelector('#pattern-controls > div:nth-child(4) > input').value;
+    this.config.twist.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(4) > input').value);
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(4) > span').innerHTML = this.config.twist.value;
 
-    this.config.completion.value = document.querySelector('#pattern-controls > div:nth-child(5) > input').value;
+    this.config.completion.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(5) > input').value);
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(5) > span').innerHTML = (100 * this.config.completion.value) + "%";
 
     let path = this.calc(
-      this[selected_outside_shape],
-      this[selected_inside_shape],
+      this[this.config.startShape.value],
+      this[this.config.endShape.value],
       this.sides,
       this.config.revolutions.value,
       this.config.completion.value,

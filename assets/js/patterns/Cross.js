@@ -9,7 +9,7 @@ class Cross {
     this.config = {
       "width": {
         "name": "Width",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -24,7 +24,7 @@ class Cross {
       },
       "height": {
         "name": "Height",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -39,7 +39,7 @@ class Cross {
       },
       "intersect": {
         "name": "Intersect Height",
-        "value": 75,
+        "value": null,
         "input": {
           "type": "createSlider",
           "params" : [
@@ -54,7 +54,7 @@ class Cross {
       },
       "starburst": {
         "name": "Starburst",
-        "value": 0,
+        "value": null,
         "input": {
           "type": "createCheckbox",
           "attributes" : [{
@@ -73,9 +73,9 @@ class Cross {
   draw() {
 
     // Update object
-    this.config.width.value = document.querySelector('#pattern-controls > div:nth-child(1) > input').value;
-    this.config.height.value = document.querySelector('#pattern-controls > div:nth-child(2) > input').value;
-    this.config.intersect.value = document.querySelector('#pattern-controls > div:nth-child(3) > input').value;
+    this.config.width.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
+    this.config.height.value = parseInt(document.querySelector('#pattern-controls > div:nth-child(2) > input').value);
+    this.config.intersect.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(3) > input').value);
 
     this.config.starburst.value = false;
     if (document.querySelector('#pattern-controls > div:nth-child(4) > input[type=checkbox]').checked) {
@@ -89,9 +89,9 @@ class Cross {
 
     // Calculate path for Circle at center
     let path = this.calc(
-      parseInt(this.config.width.value),
-      parseInt(this.config.height.value),
-      parseFloat(this.config.intersect.value/100),
+      this.config.width.value,
+      this.config.height.value,
+      this.config.intersect.value/100,
       this.config.starburst.value
     );
 

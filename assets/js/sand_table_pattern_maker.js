@@ -4,6 +4,9 @@
   This is a rewrite/refactor of my original Java sketches
 */
 
+// Set application version. Used to validate Local Storage
+var app_version = "0.1.0";
+
 // Set the units, i.e. "mm", "in"
 var units = env.table.units;
 
@@ -34,6 +37,13 @@ var draw_iteration = 0;
 var gCodeCommand = env.gcode.command;
 
 var plotter_format_select;
+
+// Set a global variable for Pattern <select> HTML object
+var pattern_select;
+
+// Set a global variable for the "previous" Pattern. When a new Pattern
+// is selected this is used to save the configuration of the previous Pattern
+var previous_pattern;
 
 var path;
 
@@ -107,12 +117,25 @@ function setup() {
   // Add change event handler
   pattern_select.changed(patternSelectEvent);
 
+  // Select pattern from Local Storage
+  var local_storage_pattern = localStorage.getItem('lastPattern');
+  if (local_storage_pattern) {
+    pattern_select.selected(local_storage_pattern);
+  }
+
   // Select pattern from URL query string.
   // This will intentionally overwrite any saved configuration
   let url_params = getURLParams();
   if (url_params.pattern) {
     pattern_select.selected(url_params.pattern);
   }
+
+  // Initialize previous pattern
+  previous_pattern = pattern_select.value();
+
+  // Load configuration state of selected Pattern (if available)
+  var loaded_patterns;
+  loadPatternConfig(pattern_select.value());
 
   // Add select for Table format (Cartesian or Polar)
   plotter_format_select = createSelect()
@@ -131,8 +154,8 @@ function setup() {
     .parent('download');
   downloadButton.mousePressed(download);
 
-  // Initialize
-  patternSelectEvent();
+  // Initialize.
+  patternSelectEvent(false);
 }
 
 // Processing standard function that loops forever
@@ -157,7 +180,12 @@ function draw() {
 
   // Reverse the path
   if (document.querySelector('#pattern-controls input[name=reverse]')) {
-    if (document.querySelector('#pattern-controls input[name=reverse]').checked) {
+
+    // Save to Pattern object
+    Patterns[selected_pattern].config.reverse.value = document.querySelector('#pattern-controls input[name=reverse]').checked;
+
+    // Reverse the path if checked (true)
+    if (Patterns[selected_pattern].config.reverse.value) {
       path.reverse();
     }
   }
@@ -260,16 +288,26 @@ function path_exceeds_plotter(path)
 /**
  * Trigger actions when the pattern is changed
  */
-function patternSelectEvent() {
-
-  // Set flag to recalculate pattern
-  recalculate_pattern = true;
+function patternSelectEvent(recalculate_pattern = true) {
 
   // Clear controls
   select('#pattern-controls').html('');
 
   // Save the selected pattern to a local variable
   var selected_pattern = pattern_select.value();
+  localStorage.setItem('lastPattern', selected_pattern);
+
+  // Load Pattern State
+  loadPatternConfig(selected_pattern);
+
+  // Save the state of the Patterns object to Local Browser Storage
+  if (recalculate_pattern) {
+    savePatternConfig(previous_pattern);
+  }
+
+  // Update the previous pattern
+  previous_pattern = selected_pattern;
+
   // Create HTML elements for each pattern configuration option
   let controls = new Array();
   const configs = Object.entries(Patterns[selected_pattern].config);
@@ -472,4 +510,25 @@ function updateURL(selected_pattern)
     document.title,
     query_string
   );
+}
+
+/**
+ * Save a Pattern configuration object
+ */
+function savePatternConfig(previous_pattern)
+{
+  localStorage.setItem('appVersion', app_version);
+  localStorage.setItem('lastSaved', new Date());
+  localStorage.setItem("v" + app_version + "_" + previous_pattern, JSON.stringify(Patterns[previous_pattern].config));
+}
+
+/**
+ * Load a Pattern configuration object
+ */
+function loadPatternConfig(selected_pattern)
+{
+  var loaded_state = JSON.parse(localStorage.getItem("v" + app_version + "_" + selected_pattern));
+  if (loaded_state) {
+    Patterns[selected_pattern].config = loaded_state;
+  }
 }

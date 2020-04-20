@@ -123,6 +123,39 @@ class ThetaRho {
       max_r * thr_commands[num_thr_commands-1][1] * Math.sin(thr_commands[num_thr_commands-1][0])
     ]);
 
+    // Rotate the path by a quarter revolution
+    path = this.rotatePath(path, Math.PI/2);
+
+    // Flip on the X axis
+    path = this.scalePath(path, [-1, 1]);
+
     return path;
+  }
+
+  /**
+   * Scale Path
+   * path A path array of [x,y] coordinates
+   * scale A value from 0 to 1
+   **/
+  scalePath(path, scale) {
+    return path.map(function(a){
+      return [
+        a[0] * scale[0],
+        a[1] * scale[1]
+      ];
+    });
+  }
+
+  /**
+   * Rotate points x and y by angle theta about center point (0,0)
+   * https://en.wikipedia.org/wiki/Rotation_matrix
+   **/
+  rotatePath(path, theta) {
+    return path.map(function(a){
+      return [
+        a[0] * Math.cos(theta) - a[1] * Math.sin(theta),
+        a[0] * Math.sin(theta) + a[1] * Math.cos(theta)
+      ]
+    });
   }
 }

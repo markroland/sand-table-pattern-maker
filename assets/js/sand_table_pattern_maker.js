@@ -80,7 +80,7 @@ var Patterns = {
   "star": new Star(),
   "superellipse": new Superellipse(),
   "text": new Text(),
-  "thr": new ThetaRho(),
+  "thr": new ThetaRhoInput(),
   "wigglyspiral": new WigglySpiral(),
   "zigzag": new ZigZag()
 }
@@ -470,10 +470,19 @@ function download()
   draw_pattern_config(Patterns[selected_pattern]);
 
   // Download pattern image
-  saveCanvas(filename, "png")
+  // TEMP: Disabled to avoid "Multiple Download" prompt
+  // saveCanvas(filename, "png")
 
   // Download pattern G-code
-  save(createGcode(path, gCodeCommand), filename, "gcode");
+  if (env.table.format == "cartesian") {
+    save(createGcode(path, gCodeCommand), filename, "gcode");
+  }
+
+  // Download pattern Theta-Rho Track
+  else if (env.table.format == "polar") {
+    let thr_path = new thetaRho(path);
+    save(thr_path.convert(path), filename, "thr");
+  }
 }
 
 /**

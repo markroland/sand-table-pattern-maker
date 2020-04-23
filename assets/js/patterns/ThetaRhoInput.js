@@ -1,4 +1,4 @@
-class ThetaRho {
+class ThetaRhoInput {
 
   constructor() {
 
@@ -34,7 +34,7 @@ class ThetaRho {
             "rows": 11,
             "cols": 30,
           },
-          "value" : spiral_test,
+          "value" : square_test,
           "params" : []
         }
       }

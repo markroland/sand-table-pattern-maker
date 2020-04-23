@@ -1,6 +1,6 @@
 var env = {
     "table" : {
-        "format": "cartesian",
+        "format": "polar",
         "units": "mm",
         "x": {
             "min": 0.0,

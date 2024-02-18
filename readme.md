@@ -21,6 +21,7 @@ from Github and then open the index.html file in your favorite browser.
 
  - Press "o" to toggle an overlay of the pattern settings in the canvas
  - Press "c" to toggle the live coordinates and plotter mechanism view
+ - Press "d" to download a heightmap PNG of the pattern.
 
 ## How to Build a New Pattern
 

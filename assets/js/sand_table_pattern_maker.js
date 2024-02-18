@@ -491,9 +491,223 @@ function download()
 function keyTyped() {
   if (key === 'c') {
     coordinate_overlay = !coordinate_overlay;
+  } else if (key === 'd') {
+
+    var selected_pattern = pattern_select.value();
+    let path = Patterns[selected_pattern].draw();
+
+    imagePath(path);
+
   } else if (key === 'o') {
     pattern_config_overlay = !pattern_config_overlay;
   }
+}
+
+/**
+ * Convert a Path to an image
+ **/
+function imagePath(path) {
+
+  const canvas_dimension = 1024;
+
+  // Draw something to an offscreen canvas
+  let offscreen = new OffscreenCanvas(canvas_dimension, canvas_dimension);
+  let offscreen_ctx = offscreen.getContext('2d', { alpha: false });
+  offscreen_ctx.fillStyle = 'rgb(0, 0, 0)';
+  offscreen_ctx.fillRect(0, 0, offscreen.width, offscreen.height);
+
+  offscreen_ctx.lineCap = "butt";
+
+  // Path offset for center on canvas
+  const dx = offscreen.width/2;
+  const dy = offscreen.height/2;
+
+  const radius_normal_px = (0.5 * Math.min((env.table.x.max - env.table.x.min), (env.table.y.max - env.table.y.min)));
+
+  const ball_diameter = 0.044 * radius_normal_px;
+
+  const scale = canvas_dimension / (2 * radius_normal_px);
+
+  // Draw Sand
+  //*
+  offscreen_ctx.beginPath();
+  offscreen_ctx.fillStyle = 'rgb(128, 128, 128)';
+  offscreen_ctx.arc(dx, dy, radius_normal_px * scale, 0, 2 * Math.PI);
+  offscreen_ctx.fill();
+  //*/
+
+  // Draw
+  offscreen_ctx.strokeStyle = 'rgb(200, 200, 200)';
+  offscreen_ctx.lineWidth = 2;
+
+  // Scale
+  for (let i = 0; i < path.length; i++) {
+    path[i] = [
+      path[i][0] * scale,
+      -path[i][1] * scale
+    ];
+  }
+
+  // Single line
+  /*
+  offscreen_ctx.beginPath();
+  offscreen_ctx.moveTo(dx+ path[0][0], dy + path[0][1]);
+  for (let i = 1; i < path.length; i++) {
+    offscreen_ctx.lineTo(dx+ path[i][0], dy + path[i][1]);
+  }
+  offscreen_ctx.stroke();
+  //*/
+
+  // Segments
+
+  if (offscreen_ctx.lineCap == "butt") {
+
+    // Method 1
+    // This method draws lots of short segments and
+    // preserves overlaps, but the line "miters" aren't
+    // perfectly crisp
+    for (let i = 0; i < path.length - 1; i++) {
+      offscreen_ctx.strokeStyle = 'rgb(128, 128, 128)';
+      offscreen_ctx.lineWidth = 13;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+
+      offscreen_ctx.strokeStyle = 'rgb(192, 192, 192)';
+      offscreen_ctx.lineWidth = 11;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+
+      offscreen_ctx.strokeStyle = 'rgb(255, 255, 255)';
+      offscreen_ctx.lineWidth = 9;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+
+      offscreen_ctx.strokeStyle = 'rgb(192, 192, 192)';
+      offscreen_ctx.lineWidth = 7;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+
+      offscreen_ctx.strokeStyle = 'rgb(128, 128, 128)';
+      offscreen_ctx.lineWidth = 5;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+
+      offscreen_ctx.strokeStyle = 'rgb(64, 64, 64)';
+      offscreen_ctx.lineWidth = 3;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+
+      offscreen_ctx.strokeStyle = 'rgb(0, 0, 0)';
+      offscreen_ctx.lineWidth = 1;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+    }
+
+  } else if (offscreen_ctx.lineCap == "round") {
+
+    // Method 2
+    // This addresses the "miter" discontinuities but
+    // overlaps are not preserved
+
+    for (let i = 0; i < path.length - 1; i++) {
+      offscreen_ctx.strokeStyle = 'rgb(192, 192, 192)';
+      offscreen_ctx.lineWidth = 9;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+    }
+
+    for (let i = 0; i < path.length - 1; i++) {
+      offscreen_ctx.strokeStyle = 'rgb(255, 255, 255)';
+      offscreen_ctx.lineWidth = 7;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+    }
+
+    for (let i = 0; i < path.length - 1; i++) {
+      offscreen_ctx.strokeStyle = 'rgb(192, 192, 192)';
+      offscreen_ctx.lineWidth = 5;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+    }
+
+    for (let i = 0; i < path.length - 1; i++) {
+      offscreen_ctx.strokeStyle = 'rgb(128, 128, 128)';
+      offscreen_ctx.lineWidth = 3;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+    }
+
+    for (let i = 0; i < path.length - 1; i++) {
+      offscreen_ctx.strokeStyle = 'rgb(0, 0, 0)';
+      offscreen_ctx.lineWidth = 1;
+      offscreen_ctx.beginPath();
+      offscreen_ctx.moveTo(dx + path[i][0], dy + path[i][1]);
+      offscreen_ctx.lineTo(dx + path[i+1][0], dy + path[i+1][1]);
+      offscreen_ctx.stroke();
+    }
+  }
+
+  // TODO: Method 3
+  // Calculate an offset line and draw a thin offset segment (as
+  // opposed to layered thick-to-thin segments)
+
+  // Draw ball
+  //*
+  offscreen_ctx.beginPath();
+  offscreen_ctx.fillStyle = 'rgb(255, 0, 0)';
+  offscreen_ctx.arc(dx + path[path.length-1][0], dy + path[path.length-1][1], ball_diameter/2, 0, 2 * Math.PI);
+  offscreen_ctx.fill();
+  //*/
+
+  // Convert the canvas to a blob
+  offscreen.convertToBlob().then(function(blob) {
+
+    // Set filename
+    let filename = "pattern";
+    var selected_pattern = pattern_select.value();
+    if (Patterns[selected_pattern] !== undefined) {
+      filename += "-" + Patterns[selected_pattern].key;
+    }
+
+    // 1a) Create an object URL from the blob
+    const pngUrl = URL.createObjectURL(blob);
+
+    // 1b) Create a new image element and set the source to be the object URL
+    var img = new Image();
+    img.src = pngUrl;
+
+    // 2) Download: Create a new link and trigger a click to download it and then remove the element
+    const a = document.createElement("a");
+    a.href = pngUrl;
+    // element.setAttribute('href', 'data:image/png' + encodeURIComponent(svg_text));
+    a.download = filename + ".png";
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
 }
 
 /**

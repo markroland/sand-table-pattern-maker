@@ -47,6 +47,8 @@ var previous_pattern;
 
 var path;
 
+let path_preview;
+
 // Flag for setting whether the pattern coordinates should be recalculated
 var recalculate_pattern = env.recalculate_pattern;
 
@@ -84,6 +86,8 @@ var Patterns = {
   "wigglyspiral": new WigglySpiral(),
   "zigzag": new ZigZag()
 }
+
+const PathHelp = new PathHelper();
 
 // Processing standard function called once at beginning of Sketch
 function setup() {
@@ -175,6 +179,7 @@ function draw() {
   // Recalculate the pattern if required (depending on env.recalculate_pattern)
   if (recalculate_pattern) {
     path = Patterns[selected_pattern].draw();
+    path_preview = PathHelp.dividePathComplete(path, 10);
     recalculate_pattern = env.recalculate_pattern;
   }
 
@@ -203,7 +208,7 @@ function draw() {
   drawTable(path_exceeds_plotter(path));
 
   // Draw the path [path, path width, connected path, animated]
-  drawPath(path, 2, false, true, coordinate_overlay);
+  drawPath(path_preview, 2, false, true, coordinate_overlay);
 
   // Calculate path length
   distance = 0;

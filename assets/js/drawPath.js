@@ -1,6 +1,5 @@
 /*
 Draw Path
-
 */
 function drawPath(path, pathWidth = 1, connected = true, animated = true, showPlotter = false) {
 

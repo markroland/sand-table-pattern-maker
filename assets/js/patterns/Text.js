@@ -91,8 +91,21 @@ class Text {
         // Add connector if not the last letter
         if (j != (j_max-1)) {
           path.push([x, y]);
-          x += this.char_width;
-          path.push([x, y]);
+
+          const spacing_option = 1;
+          if (spacing_option == 1) {
+
+            // Move straight to the next character location
+            x += this.char_width;
+            path.push([x, y]);
+
+          } else if (spacing_option == 2) {
+
+            // Go down and up to the next character location (using a smaller spacing)
+            path.push([x, y - (0.125 * this.char_height)]);
+            x += (0.5 * this.char_width);
+            path.push([x, y - (0.125 * this.char_height)]);
+          }
         }
       }
 

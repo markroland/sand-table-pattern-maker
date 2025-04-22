@@ -1,0 +1,1 @@
+var e={app:{version:"0.1.0",framerate:10},canvas:{width:648,height:648},table:{format:"cartesian",units:"mm",x:{min:0,max:472},y:{min:0,max:380}},motor:{speed:4e3},ball:{diameter:19},gcode:{command:"G0"},recalculate_pattern:!0,mouse:{pressed:!1,x:null,y:null}};export{e};

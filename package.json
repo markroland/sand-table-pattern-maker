@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@markroland/path-helper": "^1.36.0",
+    "@markroland/path-helper": "^1.37.0",
     "p5": "^2.0.0"
   }
 }

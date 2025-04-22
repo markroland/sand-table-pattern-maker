@@ -5,9 +5,7 @@
 */
 import env from './env.js';
 
-// TODO: Update @markroland/path-helper to use ES6 modules
-import PathHelper from './PathHelper.js'
-// import PathHelper from '@markroland/path-helper'
+import PathHelper from '@markroland/path-helper'
 
 import createGcode from './gCode.js';
 import thetaRho from './thetaRho.js';
@@ -112,7 +110,6 @@ var Patterns = {
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(env),
   "lissajous": new Lissajous(env),
-  "new": new New(env),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(env),
   "rhodonea": new Rhodonea(env),

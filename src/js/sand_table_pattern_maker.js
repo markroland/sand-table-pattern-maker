@@ -141,7 +141,9 @@ new p5((sketch) => {
     // sketch.noLoop();
 
     // Slow down the frame rate to reduce calculations
-    sketch.frameRate(10);
+    if (env.app.framerate && !isNaN(env.app.framerate)) {
+      sketch.frameRate(env.app.framerate);
+    }
 
     // Define canvas size
     var canvas = sketch.createCanvas(env.canvas.width, env.canvas.height).parent('canvas-holder');

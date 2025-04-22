@@ -1,6 +1,7 @@
 var env = {
     "app": {
-        "version": "0.1.0"
+        "version": "0.1.0",
+        "framerate": 10
     },
     "canvas": {
         "width": 648,

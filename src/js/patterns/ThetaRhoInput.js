@@ -71,12 +71,6 @@ class ThetaRhoInput {
     const min_y = this.env.table.y.min;
     const max_y = this.env.table.y.max;
 
-    // Set initial values
-    let theta;
-    let rho;
-    let x;
-    let y;
-
     // Calculate the maximum radius of the machine based on its dimensions
     let max_r = Math.min((max_x - min_x), (max_y - min_y))/2;
 

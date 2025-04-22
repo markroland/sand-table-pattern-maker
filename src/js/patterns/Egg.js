@@ -64,11 +64,9 @@ class Egg {
   /**
    * Egg
    **/
-  calc(radius, rotation_direction = 1) {
+  calc(radius) {
 
     // Set initial values
-    var x;
-    var y;
     var theta;
     let egg_path = new Array();
     let egg_1;
@@ -78,9 +76,6 @@ class Egg {
     // This stores the x,y coordinates for each step
     var path = new Array();
     var point = new Array();
-
-    // Iteration counter.
-    var step = 0;
 
     // The number of "sides" to the shape.
     // A larger number makes the shape more smooth

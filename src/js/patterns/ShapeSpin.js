@@ -91,8 +91,6 @@ class ShapeSpin {
   calc(base_shape, steps_per_revolution) {
 
     // Set initial values
-    var x;
-    var y;
     var t = 0.0;
 
     // Initialize return value - the path array
@@ -101,8 +99,6 @@ class ShapeSpin {
 
     // Iteration counter.
     var step = 0;
-
-    let growth_factor;
 
     const max_t = (2 * Math.PI);
 

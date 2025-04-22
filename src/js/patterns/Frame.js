@@ -138,18 +138,12 @@ class Frame {
    *
    * @return Array Path
    **/
-  calc(num_spirals, a, b, revolutions, sides) {
+  calc(num_spirals, a, b, revolutions, sides = 60) {
 
     const max_x = this.env.table.x.max;
     const max_y = this.env.table.y.max;
 
-    // Set initial values
-    var x;
-    var y;
-
     let radius = Math.min(max_x/2, max_y/2);
-    let theta = 0.0;
-    var sides = 60;
 
     // Initialize return value - the path array
     // This stores the x,y coordinates for each step
@@ -225,7 +219,6 @@ class Frame {
     // Set initial values
     var x;
     var y;
-    var theta = 0.0;
 
     // Calculate the maximum radius
     var max_r = Math.min(max_x - min_x, max_y - min_y) / 2;
@@ -241,7 +234,7 @@ class Frame {
     let delta_theta = (2 * Math.PI) / sides;
 
     // Loop through each angle segment
-    for (var theta = 0; theta < theta_max; theta += delta_theta) {
+    for (let theta = 0; theta < theta_max; theta += delta_theta) {
 
       // Convert polar position to rectangular coordinates
       x = max_r * a * Math.exp(b * theta) * Math.cos(theta);

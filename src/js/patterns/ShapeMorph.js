@@ -160,7 +160,6 @@ class ShapeMorph {
     // Iteration counter.
     var step = 0;
 
-    let growth_factor;
     let lerp_amount;
 
     // Theta values
@@ -228,7 +227,7 @@ class ShapeMorph {
     return shape;
   }
 
-  heartShape(array_size, radius) {
+  heartShape(array_size, radius = 10) {
 
     let shape = [];
 
@@ -236,8 +235,8 @@ class ShapeMorph {
 
     for (var i = 0; i <= (array_size+0); i++) {
       theta = ((i/array_size) * (2 * Math.PI)) + 0.5*Math.PI;
-      x = 10 * (16 * Math.pow(Math.sin(theta), 3));
-      y = 10 * (13 * Math.cos(theta) - 5 * Math.cos(2 * theta) - 2 * Math.cos(3 * theta) - Math.cos(4 * theta));
+      x = radius * (16 * Math.pow(Math.sin(theta), 3));
+      y = radius * (13 * Math.cos(theta) - 5 * Math.cos(2 * theta) - 2 * Math.cos(3 * theta) - Math.cos(4 * theta));
       shape.push([x,y]);
     }
 
@@ -300,7 +299,7 @@ class ShapeMorph {
 
     // bottom right corner to bottom left corner
     i_max = array_size/4;
-    for (var i = 0; i < i_max; i++) {
+    for (let i = 0; i < i_max; i++) {
       shape.push([
         radius - ((i/i_max) * (2 * radius)),
         -radius
@@ -309,7 +308,7 @@ class ShapeMorph {
 
     // bottom left corner to top left corner
     i_max = array_size/4;
-    for (var i = 0; i < i_max; i++) {
+    for (let i = 0; i < i_max; i++) {
       shape.push([
         -radius,
         -radius + ((i/i_max) * (2 * radius)),
@@ -318,7 +317,7 @@ class ShapeMorph {
 
     // top left corner to top right corner
     i_max = array_size/4;
-    for (var i = 0; i < i_max; i++) {
+    for (let i = 0; i < i_max; i++) {
       shape.push([
         -radius + ((i/i_max) * (2 * radius)),
         radius
@@ -327,7 +326,7 @@ class ShapeMorph {
 
     // top right corner to middle right side
     i_max = array_size/8;
-    for (var i = 0; i < i_max; i++) {
+    for (let i = 0; i < i_max; i++) {
       shape.push([
         radius,
         radius - ((i/i_max) * radius),

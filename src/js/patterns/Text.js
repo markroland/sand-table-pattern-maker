@@ -75,7 +75,6 @@ class Text {
     let lines = this.config.text.value.split("\n");
     let x = 0;
     let y = 0;
-    let text_height = this.char_height;
 
     // Loop through lines and split by comma
     for (var i = 0; i < lines.length; i++) {
@@ -126,7 +125,7 @@ class Text {
     }
 
     // Center path
-    var text_width = Math.max(...path.map(function(value, index) { return value[0]; }));
+    var text_width = Math.max(...path.map(function(value) { return value[0]; }));
     path = this.translate_path(path, -text_width/2, -this.char_height/2 + ((lines.length-1) * this.line_height)/2);
 
     return path;
@@ -136,10 +135,6 @@ class Text {
 
     // Initialize path
     let path = new Array();
-
-    // Shorten variables
-    let height = this.char_height;
-    let width = this.char_width;
 
     // Convert to upper case
     character = character.toUpperCase();

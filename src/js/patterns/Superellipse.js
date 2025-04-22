@@ -168,7 +168,7 @@ class Superellipse {
     } else {
 
       // Loop through one revolution
-      for (var theta = 0; theta <= 2 * Math.PI; theta += (2 * Math.PI) / sides) {
+      for (let theta = 0; theta <= 2 * Math.PI; theta += (2 * Math.PI) / sides) {
         x = Math.pow(Math.abs(Math.cos(theta)), (2/n)) * a * this.sgn(Math.cos(theta));
         y = Math.pow(Math.abs(Math.sin(theta)), (2/n)) * b * this.sgn(Math.sin(theta));
         path.push([x,y]);

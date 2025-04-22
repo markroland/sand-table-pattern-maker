@@ -12,8 +12,6 @@ class Lissajous {
 
     this.path_sampling_optimization = 2;
 
-    let max_r = Math.min((env.table.x.max - env.table.x.min), (env.table.y.max - env.table.y.min))/2;
-
     // Define the parametric equations using text inputs
     this.config = {
       "A": {

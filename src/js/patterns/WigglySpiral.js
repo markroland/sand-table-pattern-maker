@@ -106,17 +106,11 @@ class WigglySpiral {
    **/
   calc(start_x, start_y, start_r, start_theta, distance_between_turns, wiggle_amplitude, wiggle_frequency) {
 
-    const max_x = this.env.table.x.max;
-    const max_y = this.env.table.y.max;
-
     // Set initial values
     var x;
     var y;
     var r = start_r;
     var theta = start_theta;
-
-    // Calculate the maximum radius
-    var max_r = Math.min(max_x/2, max_y/2);
 
     // Initialize shape path array
     // This stores the x,y coordinates for each step

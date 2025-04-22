@@ -290,12 +290,10 @@ class Lindenmayer {
     var x_coordinates = arrayColumn(path, 0);
     var x_min = Math.min(...x_coordinates);
     var x_max = Math.max(...x_coordinates);
-    var x_range = x_max - x_min;
 
     var y_coordinates = arrayColumn(path, 1);
     var y_min = Math.min(...y_coordinates);
     var y_max = Math.max(...y_coordinates);
-    var y_range = y_max - y_min;
 
     return path.map(function(a){
       return [

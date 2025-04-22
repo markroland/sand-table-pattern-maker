@@ -131,7 +131,6 @@ class FibonacciLollipops {
     var r_max = Math.min(max_x-min_x, max_y-min_y) / 2;
     var r;
     var theta;
-    var x, y;
 
     // Calculate the number of iterations required to decay
     // to a minimum value;

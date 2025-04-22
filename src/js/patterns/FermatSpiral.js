@@ -5,11 +5,13 @@
  */
 class FermatSpiral {
 
-  constructor() {
+  constructor(env) {
 
     this.key = "fermatspiral";
 
     this.name = "Fermat's Spiral";
+
+    this.env = env;
 
     this.config = {
       "revolutions": {
@@ -106,6 +108,11 @@ class FermatSpiral {
 
     */
 
+    const min_x = this.env.table.x.min;
+    const max_x = this.env.table.x.max;
+    const min_y = this.env.table.y.min;
+    const max_y = this.env.table.y.max;
+
     // Set initial values
     var x;
     var y;
@@ -113,9 +120,6 @@ class FermatSpiral {
     // Initialize return value - the path array
     // This stores the x,y coordinates for each step
     var path = new Array();
-
-    // Iteration counter.
-    var step = 0;
 
     // Controls "tightness" of spiral. 1.0 is a good value
     const pow_n = 1.0;
@@ -143,7 +147,7 @@ class FermatSpiral {
     }
 
     // Positive Radius
-    for (var t = t_min; t <= t_max + t_step; t += t_step) {
+    for (let t = t_min; t <= t_max + t_step; t += t_step) {
 
       // Run the parametric equations
       x = -a * Math.pow(t, pow_n) * Math.cos(t);

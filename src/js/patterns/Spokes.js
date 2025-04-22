@@ -114,9 +114,6 @@ class Spokes {
     var y;
     var theta = 0;
 
-    // Calculate the maximum radius
-    var max_r = Math.min(max_x/2, max_y/2);
-
     // Initialize shape path array
     // This stores the x,y coordinates for each step
     var path = new Array();

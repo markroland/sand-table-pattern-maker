@@ -47,19 +47,9 @@ class thetaRho {
     var theta;
     var current_theta;
     var previous_theta;
-    var previous_theta_offset;
     var delta_theta;
 
     var rho;
-    var current_rho;
-    var previous_rho;
-    var previous_rho_offset;
-
-    var theta_offset = 0;
-
-    var theta_direction;
-
-    var sub_steps = new Array();
 
     // Rotate the path by a quarter revolution
     // Should rotation be negative?

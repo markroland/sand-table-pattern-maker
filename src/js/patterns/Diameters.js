@@ -101,9 +101,6 @@ class Diameters {
     const max_x = this.env.table.x.max;
     const max_y = this.env.table.y.max;
 
-    // Calculate the maximum radius
-    var max_r = Math.min(max_x/2, max_y/2);
-
     // Initialize shape path array
     // This stores the x,y coordinates for each step
     var path = new Array();

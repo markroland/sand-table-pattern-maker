@@ -54,8 +54,6 @@ const max_x = env.table.x.max;
 const min_y = env.table.y.min;
 const max_y = env.table.y.max;
 
-var plotter_exceeded = false;
-
 // Set motor speed in units/min
 const motor_speed = env.motor.speed;
 
@@ -101,7 +99,7 @@ var Patterns = {
   "draw": new Draw(env),
   "egg": new Egg(env),
   "farris": new Farris(env),
-  "fermatspiral": new FermatSpiral(),
+  "fermatspiral": new FermatSpiral(env),
   "fibonacci": new Fibonacci(env),
   "fibonaccilollipops": new FibonacciLollipops(env),
   "frame": new Frame(env),
@@ -128,7 +126,7 @@ var Patterns = {
 
 const PathHelp = new PathHelper();
 
-
+// p5 is loaded through index.html
 new p5((sketch) => {
 
   // Processing standard function called once at beginning of Sketch
@@ -153,7 +151,6 @@ new p5((sketch) => {
       .attribute("name", "pattern");
 
     // Add patterns from object
-    var pattern_select_menu = document.querySelector('#pattern-selector > div > select');
     const entries = Object.entries(Patterns)
     for (const [pattern_key, pattern_object] of entries) {
       pattern_select.option(pattern_object.name, pattern_object.key);
@@ -182,7 +179,6 @@ new p5((sketch) => {
     previous_pattern = pattern_select.value();
 
     // Load configuration state of selected Pattern (if available)
-    var loaded_patterns;
     loadPatternConfig(pattern_select.value());
 
     // Add select for Table format (Cartesian or Polar)
@@ -412,8 +408,7 @@ new p5((sketch) => {
 
       // Create a span element to display the current input's value (useful for Sliders)
       if (val.input.displayValue) {
-        let radius_value = sketch.createSpan('0')
-          .parent(control.div);
+        sketch.createSpan('0').parent(control.div);
       }
 
       // Add to "controls" object
@@ -673,7 +668,7 @@ new p5((sketch) => {
       // Draw animated path
       sketch.stroke(46, 200, 240);
       sketch.beginShape();
-      for (var i = 0; i <= i_max; i++) {
+      for (let i = 0; i <= i_max; i++) {
         sketch.vertex(path[i][0], path[i][1]);
       }
       sketch.endShape();
@@ -691,7 +686,7 @@ new p5((sketch) => {
 
       let c = sketch.color(128, 24 * sketch.cos((i/path.length) * sketch.TWO_PI) + 164, 200);
 
-      for (var i = 0; i < i_max; i++) {
+      for (let i = 0; i < i_max; i++) {
 
         // Background stroke
         sketch.stroke(250);
@@ -759,7 +754,7 @@ new p5((sketch) => {
     sketch.noStroke();
     sketch.fill(128,128,128);
     sketch.textAlign(sketch.CENTER);
-    sketch.text('Created at https://markroland.github.io/sand-table-pattern-maker', width/2, height - 72);
+    sketch.text('Created at https://markroland.github.io/sand-table-pattern-maker', sketch.width/2, sketch.height - 72);
   }
 
   /**
@@ -847,7 +842,7 @@ function optimizePath(path, min_distance)
   filtered_path.push(path[0]);
 
   // Subsequent positions must greater than the minimum distance to be added
-  path.forEach(function(element, index) {
+  path.forEach(function(element) {
     var fp_last = filtered_path[filtered_path.length - 1];
     var step_distance = Math.sqrt(Math.pow(element[0] - fp_last[0], 2) + Math.pow(element[1] - fp_last[1], 2));
     if (step_distance > min_distance) {
@@ -1090,11 +1085,11 @@ function imagePath(path) {
 function updateURL(selected_pattern)
 {
   let query_string = '?pattern=' + selected_pattern;
-  const entries = Object.entries(Patterns[selected_pattern].config)
 
   // Loop through configuration and create query string
   // Uncommenting for now because these are not being read in
   /*
+  const entries = Object.entries(Patterns[selected_pattern].config)
   for (const [param, content] of entries) {
     query_string = query_string.concat(`&${param}=${content.value}`)
   }

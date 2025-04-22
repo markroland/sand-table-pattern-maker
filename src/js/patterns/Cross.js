@@ -120,23 +120,15 @@ class Cross {
 
     let y_center = (cross_intersect * cross_height) - (cross_height/2);
 
-    const min_x = this.env.table.x.min;
-    const max_x = this.env.table.x.max;
-    const min_y = this.env.table.y.min;
-    const max_y = this.env.table.y.max;
-
     let increment = this.env.ball.diameter/2;
     let rotations = 3;
     var offset;
 
     if (starburst) {
       path.push([0, y_center]);
-      let r;
       let rx;
       let ry;
-      let r_scale = 1.0;
-      let max_r = Math.min(max_x - min_x, max_y - min_y);
-      for (var i = 0; i < 16; i++){
+      for (let i = 0; i < 16; i++){
 
         // Calculate ellipse radius
         rx = (cross_width / 2) + ((rotations + 3) * increment);
@@ -169,7 +161,7 @@ class Cross {
 
     // Cross path
     var cross_path = new Array();
-    for (var i = 0; i < rotations; i++) {
+    for (let i = 0; i < rotations; i++) {
       offset = i * increment;
       cross_path = cross_path.concat([
         [0 - offset, y_center - offset],
@@ -192,7 +184,7 @@ class Cross {
     // This may be able to be accomplished more elegantly,
     // but Array reverse was not working well for multi-dimensional arrays
     var reverse_path = new Array();
-    for (var i=0; i < cross_path.length; i++) {
+    for (let i=0; i < cross_path.length; i++) {
       reverse_path.push(cross_path[(cross_path.length-1) - i]);
     }
     path = path.concat(reverse_path);

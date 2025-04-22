@@ -2,8 +2,9 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-  root: 'src', // Set root to 'src' where index.html lives
-  publicDir: '../public', // Static assets (optional)
+  base: '/sand-table-pattern-maker/',
+  root: 'src',
+  publicDir: '../public',
   build: {
     outDir: '../dist',
     emptyOutDir: true,

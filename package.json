@@ -4,6 +4,10 @@
   "description": "A web application for creating patterns to draw in a sand table using (G-code and THR files for Sisyphus tables)",
   "author": "Mark Roland",
   "license": "",
+  "engines": {
+    "node": ">=22.x",
+    "npm": ">=10.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

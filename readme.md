@@ -10,12 +10,10 @@ Built with [p5.js](https://p5js.org)
 
 ## Installation
 
-The great news is that this doesn't need to be compiled or installed to run,
-simply [open it in your browser here](https://markroland.github.io/sand-table-pattern-maker/)!
-
-That said, everyone likes to tweak things, so if you'd like to do that, go ahead and clone
-or [Download](https://github.com/markroland/sand-table-pattern-maker/archive/master.zip)
-from Github and then open the index.html file in your favorite browser.
+```
+npm install
+npm run dev
+```
 
 ## Controls
 

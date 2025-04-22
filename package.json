@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "vite": "^6.3.2"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@markroland/path-helper": "^1.36.0",
+    "p5": "^2.0.0"
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sand Pattern Maker</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <!-- <script src="https://cdn.jsdelivr.net/npm/p5@0.7.3/lib/p5.min.js"></script> -->
+</head>
+<body>
+
+  <header><h1>Sand Pattern Maker</h1></header>
+
+  <div class="container">
+    <div class="box" id="canvas-holder"></div>
+    <div class="box">
+
+      <div>
+        <h2>Plotter Configuration</h2>
+        <table>
+          <tr>
+            <td>Format</td>
+            <td><span id="plotter-format"></span></td>
+          </tr>
+          <tr>
+            <td>X Range</td>
+            <td><span id="plotter-max_x"></span></td>
+          </tr>
+          <tr>
+            <td>Y Range</td>
+            <td><span id="plotter-max_y"></span></td>
+          </tr>
+          <tr>
+            <td>Motor Speed</td>
+            <td><span id="plotter-motor_speed"></span></td>
+          </tr>
+          <tr>
+            <td>Ball Size</td>
+            <td><span id="plotter-ball_size"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <h2>Pattern Input</h2>
+        <div id="pattern-selector"></div>
+        <div id="pattern-controls"></div>
+      </div>
+
+      <div>
+        <h2>Pattern Output</h2>
+        <table>
+          <tr>
+            <td>Instructions</td>
+            <td><span id="pattern-instructions"></span></td>
+          </tr>
+          <tr>
+            <td>Distance</td>
+            <td><span id="pattern-distance"></span></td>
+          </tr>
+          <tr>
+            <td>Time</td>
+            <td><span id="pattern-time"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <h2>&nbsp;</h2>
+        <div id="download"></div>
+        <p class="small">Download Pattern image and G-code instructions at once. Chrome Required.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Mark Roland, 2019. <a href="https://github.com/markroland/sand-table-pattern-maker">On Github</a></p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.7.3/lib/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.7.3/lib/addons/p5.dom.min.js"></script>
+  <script type="module" src="/js/sand_table_pattern_maker.js"></script>
+</body>
+</html>

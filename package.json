@@ -21,7 +21,6 @@
     "vite": "^6.3.2"
   },
   "dependencies": {
-    "@markroland/path-helper": "^1.37.0",
-    "p5": "^2.0.0"
+    "@markroland/path-helper": "^1.37.0"
   }
 }

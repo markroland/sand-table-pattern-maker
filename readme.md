@@ -15,6 +15,18 @@ npm install
 npm run dev
 ```
 
+## Run using NPM
+
+```
+node sand-pattern.mjs --pattern=circle > circle.json
+```
+
+Or using the `bin` command:
+
+```
+sand-pattern --pattern=circle > circle.json
+```
+
 ## Controls
 
  - Press "o" to toggle an overlay of the pattern settings in the canvas

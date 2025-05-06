@@ -3,6 +3,7 @@ import env from './../env.js';
 import Coordinates from './Coordinates.js';
 import Circle from './Circle.js';
 import Cross from './Cross.js';
+import Curvature from './Curvature.js';
 import Cycloid from './Cycloid.js';
 import Diameters from './Diameters.js';
 import Draw from './Draw.js';
@@ -36,6 +37,7 @@ import ZigZag from './ZigZag.js';
 const Patterns = {
   "coordinates": new Coordinates(),
   "circle": new Circle(env),
+  "curvature": new Curvature(env),
   "cross": new Cross(env),
   "cycloid": new Cycloid(env),
   "diameters": new Diameters(env),

@@ -63,6 +63,7 @@ Once you've completed your design, submit a Pull Request and if it works, I'll m
 - Circle
 - Cross
 - Cycloid ([Epicycloid](https://en.wikipedia.org/wiki/Epicycloid), [Hypocycloid](https://en.wikipedia.org/wiki/Hypocycloid), [Hypotrochoid](https://en.wikipedia.org/wiki/Hypotrochoid))
+- Curvature
 - Diameters
 - Free Draw
 - Easter Eggs ([Reference](https://math.stackexchange.com/questions/3375853/parametric-equations-for-a-true-egg-shape))

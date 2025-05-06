@@ -23,7 +23,7 @@ var env = {
         "speed": 4000.0
     },
     "ball": {
-        "diameter": 19.0
+        "diameter": 10.0
     },
     "gcode": {
         "command": "G0"

@@ -50,9 +50,9 @@ var pattern_select;
 // is selected this is used to save the configuration of the previous Pattern
 var previous_pattern;
 
-var path;
+var path = [];
 
-let path_preview;
+let path_preview = [];
 
 // Flag for setting whether the pattern coordinates should be recalculated
 var recalculate_pattern = env.recalculate_pattern;
@@ -139,6 +139,9 @@ new p5((sketch) => {
 
     // Initialize.
     patternSelectEvent(false);
+
+    const selected_pattern = pattern_select.value();
+    path = Patterns[selected_pattern].draw();
   }
 
   // Processing standard function that loops forever
@@ -149,6 +152,8 @@ new p5((sketch) => {
 
     // Save the selected pattern to a local variable
     var selected_pattern = pattern_select.value();
+
+    path_preview = path;
 
     // Some patterns, like a free-drawing, must be recalculated on every draw loop
     if (selected_pattern == "draw") {
@@ -162,7 +167,9 @@ new p5((sketch) => {
     // Recalculate the pattern if required (depending on env.recalculate_pattern)
     if (recalculate_pattern) {
       path = Patterns[selected_pattern].draw();
-      path_preview = PathHelp.dividePathComplete(path, 10);
+      if (path.length > 0) {
+        path_preview = PathHelp.dividePathComplete(path, 10);
+      }
       recalculate_pattern = env.recalculate_pattern;
     }
 
@@ -191,7 +198,9 @@ new p5((sketch) => {
     drawTable(path_exceeds_plotter(path));
 
     // Draw the path [path, path width, connected path, animated]
-    drawPath(path_preview, 2, false, true, coordinate_overlay);
+    if (path_preview.length > 0) {
+      drawPath(path_preview, 2, false, true, coordinate_overlay);
+    }
 
     // Calculate path length
     distance = 0;
@@ -250,7 +259,7 @@ new p5((sketch) => {
     sketch.select('#pattern-controls').html('');
 
     // Save the selected pattern to a local variable
-    var selected_pattern = pattern_select.value();
+    const selected_pattern = pattern_select.value();
     localStorage.setItem('lastPattern', selected_pattern);
 
     // Load Pattern State
@@ -355,9 +364,12 @@ new p5((sketch) => {
     document.title = 'Sand Pattern | ' + Patterns[selected_pattern].name;
 
     // Update the URL
-    if (Patterns[pattern_select.value()] !== undefined) {
-      updateURL(pattern_select.value())
+    if (Patterns[selected_pattern] !== undefined) {
+      updateURL(selected_pattern)
     }
+
+    // Recalculate the pattern
+    path = Patterns[selected_pattern].draw();
   }
 
   function drawTable(plotter_exceeded = false) {
@@ -732,6 +744,10 @@ new p5((sketch) => {
  */
 function path_exceeds_plotter(path)
 {
+
+  if (!path) {
+    return false;
+  }
 
   // Define function to extract column from multidimensional array
   const arrayColumn = (arr, n) => arr.map(a => a[n]);

@@ -28,7 +28,7 @@ var env = {
     "gcode": {
         "command": "G0"
     },
-    "recalculate_pattern": true,
+    "recalculate_pattern": false,
     "mouse": {
         "pressed": false,
         "x": null,

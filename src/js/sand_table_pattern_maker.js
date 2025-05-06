@@ -10,39 +10,6 @@ import PathHelper from '@markroland/path-helper'
 import createGcode from './gCode.js';
 import thetaRho from './thetaRho.js';
 
-import Coordinates from './patterns/Coordinates.js';
-import Circle from './patterns/Circle.js';
-import Cross from './patterns/Cross.js';
-import Cycloid from './patterns/Cycloid.js';
-import Diameters from './patterns/Diameters.js';
-import Draw from './patterns/Draw.js';
-import Egg from './patterns/Egg.js';
-import Farris from './patterns/Farris.js';
-import FermatSpiral from './patterns/FermatSpiral.js';
-import Fibonacci from './patterns/Fibonacci.js';
-import FibonacciLollipops from './patterns/FibonacciLollipops.js';
-import Frame from './patterns/Frame.js';
-import Gcode from './patterns/Gcode.js';
-import Gravity from './patterns/Gravity.js';
-import Heart from './patterns/Heart.js';
-import Lindenmayer from './patterns/Lindenmayer.js';
-import Lissajous from './patterns/Lissajous.js';
-import Sunset from './patterns/Sunset.js';
-import LogarithmicSpiral from './patterns/LogarithmicSpiral.js';
-import Parametric from './patterns/Parametric.js';
-import Rectangle from './patterns/Rectangle.js';
-import Rhodonea from './patterns/Rhodonea.js';
-import ShapeMorph from './patterns/ShapeMorph.js';
-import ShapeSpin from './patterns/ShapeSpin.js';
-import Spiral from './patterns/Spiral.js';
-import Spokes from './patterns/Spokes.js';
-import Star from './patterns/Star.js';
-import Superellipse from './patterns/Superellipse.js';
-import Text from './patterns/Text.js';
-import ThetaRhoInput from './patterns/ThetaRhoInput.js';
-import WigglySpiral from './patterns/WigglySpiral.js';
-import ZigZag from './patterns/ZigZag.js';
-
 // Set application version. Used to validate Local Storage
 const app_version = env.app.version;
 
@@ -91,40 +58,7 @@ let path_preview;
 var recalculate_pattern = env.recalculate_pattern;
 
 // Master Patterns object to hold patterns
-var Patterns = {
-  "coordinates": new Coordinates(),
-  "circle": new Circle(env),
-  "cross": new Cross(env),
-  "cycloid": new Cycloid(env),
-  "diameters": new Diameters(env),
-  "draw": new Draw(env),
-  "egg": new Egg(env),
-  "farris": new Farris(env),
-  "fermatspiral": new FermatSpiral(env),
-  "fibonacci": new Fibonacci(env),
-  "fibonaccilollipops": new FibonacciLollipops(env),
-  "frame": new Frame(env),
-  "gcode": new Gcode(env),
-  "gravity": new Gravity(env),
-  "heart": new Heart(),
-  "lindenmayer": new Lindenmayer(env),
-  "lissajous": new Lissajous(env),
-  "parametric": new Parametric(),
-  "rectangle": new Rectangle(env),
-  "rhodonea": new Rhodonea(env),
-  "shapemorph": new ShapeMorph(env),
-  "shapespin": new ShapeSpin(),
-  "spiral": new Spiral(env),
-  "sunset": new Sunset(env),
-  "logspiral": new LogarithmicSpiral(env),
-  "spokes": new Spokes(env),
-  "star": new Star(env),
-  "superellipse": new Superellipse(env),
-  "text": new Text(env),
-  "thr": new ThetaRhoInput(env),
-  "wigglyspiral": new WigglySpiral(env),
-  "zigzag": new ZigZag(env)
-}
+import Patterns from './patterns/index.js';
 
 const PathHelp = new PathHelper();
 

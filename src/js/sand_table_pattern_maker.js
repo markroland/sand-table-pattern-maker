@@ -27,6 +27,7 @@ import Gravity from './patterns/Gravity.js';
 import Heart from './patterns/Heart.js';
 import Lindenmayer from './patterns/Lindenmayer.js';
 import Lissajous from './patterns/Lissajous.js';
+import Sunset from './patterns/Sunset.js';
 import LogarithmicSpiral from './patterns/LogarithmicSpiral.js';
 import Parametric from './patterns/Parametric.js';
 import Rectangle from './patterns/Rectangle.js';
@@ -114,6 +115,7 @@ var Patterns = {
   "shapemorph": new ShapeMorph(env),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(env),
+  "sunset": new Sunset(env),
   "logspiral": new LogarithmicSpiral(env),
   "spokes": new Spokes(env),
   "star": new Star(env),

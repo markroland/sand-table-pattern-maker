@@ -114,9 +114,6 @@ class Cycloid {
     // This stores the x,y coordinates for each step
     var path = new Array();
 
-    // Iteration counter
-    var step = 0;
-
     // Set the step multiplication factor. A value of 1 will increase theta
     // by 1-degree. A value of 10 will result in theta increasing by
     // 10-degrees for each drawing loop. A larger number results in fewer
@@ -132,10 +129,11 @@ class Cycloid {
     var cycloid_period = Math.abs(radius_b / this.greatest_common_divisor(parseInt(radius_a), parseInt(radius_b))) * (2 * Math.PI);
 
     // Continue as long as the design stays within bounds of the plotter
-    while (theta < cycloid_period) {
+    const i_max = cycloid_period / (step_scale * (Math.PI / 180))
+    for (let i = 0; i <= i_max; i++) {
 
       // Calculate theta offset for the step
-      theta = this.#radians(step_scale * step);
+      theta = this.#radians(step_scale * i);
 
       // Cycloid parametric equations
       x = (radius_a + radius_b) * Math.cos(theta) + arm_length * Math.cos(((radius_a + radius_b)/radius_b) * theta);
@@ -145,7 +143,7 @@ class Cycloid {
       path.push([x,y]);
 
       // Increment iteration counter
-      step++;
+      i++;
     }
 
     return path;

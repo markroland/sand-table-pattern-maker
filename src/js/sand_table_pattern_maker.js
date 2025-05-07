@@ -808,20 +808,17 @@ function optimizePath(path, min_distance)
 /**
  * Process key presses
  */
-function keyTyped() {
-  if (key === 'c') {
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'c') {
     coordinate_overlay = !coordinate_overlay;
-  } else if (key === 'd') {
-
+  } else if (event.key === 'd') {
     var selected_pattern = pattern_select.value();
     let path = Patterns[selected_pattern].draw();
-
     imagePath(path);
-
-  } else if (key === 'o') {
+  } else if (event.key === 'o') {
     pattern_config_overlay = !pattern_config_overlay;
   }
-}
+});
 
 /**
  * Convert a Path to an image

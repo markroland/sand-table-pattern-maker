@@ -35,8 +35,10 @@ var coordinate_overlay = true;
 // Store the total path distance
 var distance;
 
-// A counter for the draw loop
-var draw_iteration = 0;
+// Playback control
+let play = true;
+let controllerActive = false;
+let pattern_step = 0;
 
 // Set G-Code command, usually "GO" or "G1"
 var gCodeCommand = env.gcode.command;
@@ -142,6 +144,26 @@ new p5((sketch) => {
 
     const selected_pattern = pattern_select.value();
     path = Patterns[selected_pattern].draw();
+
+    // Initialize playback controller
+    const playbackController = document.querySelector('#playbackController');
+    playbackController.max = path.length;
+
+    // Add change event handler for playbackController
+    playbackController.addEventListener('input', () => {
+      pattern_step = parseInt(playbackController.value);
+    });
+
+    playbackController.addEventListener('mousedown', () => {
+      controllerActive = true;
+      play = false;
+    });
+
+    playbackController.addEventListener('mouseup', () => {
+      updatePlaybackController();
+      controllerActive = false;
+      play = true;
+    });
   }
 
   // Processing standard function that loops forever
@@ -171,6 +193,7 @@ new p5((sketch) => {
         path_preview = PathHelp.dividePathComplete(path, 10);
       }
       recalculate_pattern = env.recalculate_pattern;
+      playbackController.max = path.length;
     }
 
     // Reverse the path
@@ -218,8 +241,18 @@ new p5((sketch) => {
       draw_pattern_config(Patterns[selected_pattern]);
     }
 
-    // Increment draw loop counter
-    draw_iteration++;
+    // Update the playback controller
+    if (!controllerActive) {
+      updatePlaybackController();
+    }
+
+    // Increment pattern step
+    if (play) {
+      pattern_step++;
+      if (pattern_step > path.length) {
+        pattern_step = 0;
+      }
+    }
   }
 
   // Add event callback for mouse pressed
@@ -253,7 +286,7 @@ new p5((sketch) => {
   /**
    * Trigger actions when the pattern is changed
    */
-  function patternSelectEvent(recalculate_pattern = true) {
+  function patternSelectEvent(recalc_pattern = true) {
 
     // Clear controls
     sketch.select('#pattern-controls').html('');
@@ -266,7 +299,7 @@ new p5((sketch) => {
     loadPatternConfig(selected_pattern);
 
     // Save the state of the Patterns object to Local Browser Storage
-    if (recalculate_pattern) {
+    if (recalc_pattern) {
       savePatternConfig(previous_pattern);
     }
 
@@ -370,6 +403,7 @@ new p5((sketch) => {
 
     // Recalculate the pattern
     path = Patterns[selected_pattern].draw();
+    playbackController.max = path.length;
   }
 
   function drawTable(plotter_exceeded = false) {
@@ -463,7 +497,7 @@ new p5((sketch) => {
 
     let i_max = path.length;
     if (animated) {
-      i_max = draw_iteration % path.length;
+      i_max = pattern_step % path.length;
     }
 
     // Draw entire path
@@ -817,6 +851,8 @@ window.addEventListener('keydown', (event) => {
     imagePath(path);
   } else if (event.key === 'o') {
     pattern_config_overlay = !pattern_config_overlay;
+  } else if (event.key === 'p') {
+    play = !play;
   }
 });
 
@@ -1071,4 +1107,15 @@ function loadPatternConfig(selected_pattern)
   if (loaded_state) {
     Patterns[selected_pattern].config = loaded_state;
   }
+}
+
+function updatePlaybackController() {
+  const playbackController = document.querySelector('#playbackController');
+  playbackController.value = pattern_step % path.length;
+
+  // Insert value after playbackController
+  const playbackValueSpan = document.querySelector('#playback-step');
+  playbackValueSpan.innerHTML = parseInt(playbackController.value).toLocaleString('en-US', { maximumFractionDigits: 0 })
+    + " / "
+    + path.length.toLocaleString('en-US', { maximumFractionDigits: 0 });
 }

@@ -1,6 +1,6 @@
 {
   "name": "sand-table-pattern-maker",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A web application for creating patterns to draw in a sand table using (G-code and THR files for Sisyphus tables)",
   "author": "Mark Roland",
   "license": "",

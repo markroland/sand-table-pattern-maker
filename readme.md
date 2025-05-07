@@ -32,6 +32,7 @@ sand-pattern --pattern=circle > circle.json
  - Press "o" to toggle an overlay of the pattern settings in the canvas
  - Press "c" to toggle the live coordinates and plotter mechanism view
  - Press "d" to download a heightmap PNG of the pattern.
+ - Press "p" to play/pause playback of pattern.
 
 ## How to Build a New Pattern
 

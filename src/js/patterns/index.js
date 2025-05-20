@@ -26,6 +26,7 @@ import Rhodonea from './Rhodonea.js';
 import ShapeMorph from './ShapeMorph.js';
 import ShapeSpin from './ShapeSpin.js';
 import Spiral from './Spiral.js';
+import SpiralZigZag from './SpiralZigZag.js';
 import Spokes from './Spokes.js';
 import Star from './Star.js';
 import Superellipse from './Superellipse.js';
@@ -59,6 +60,7 @@ const Patterns = {
   "shapemorph": new ShapeMorph(env),
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(env),
+  "spiralzigzag": new SpiralZigZag(env),
   "sunset": new Sunset(env),
   "logspiral": new LogarithmicSpiral(env),
   "spokes": new Spokes(env),

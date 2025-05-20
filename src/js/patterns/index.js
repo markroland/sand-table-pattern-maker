@@ -1,7 +1,7 @@
 import env from './../env.js';
 
-import Coordinates from './Coordinates.js';
 import Circle from './Circle.js';
+import Coordinates from './Coordinates.js';
 import Cross from './Cross.js';
 import Curvature from './Curvature.js';
 import Cycloid from './Cycloid.js';
@@ -18,7 +18,6 @@ import Gravity from './Gravity.js';
 import Heart from './Heart.js';
 import Lindenmayer from './Lindenmayer.js';
 import Lissajous from './Lissajous.js';
-import Sunset from './Sunset.js';
 import LogarithmicSpiral from './LogarithmicSpiral.js';
 import Parametric from './Parametric.js';
 import Rectangle from './Rectangle.js';
@@ -29,6 +28,7 @@ import Spiral from './Spiral.js';
 import SpiralZigZag from './SpiralZigZag.js';
 import Spokes from './Spokes.js';
 import Star from './Star.js';
+import Sunset from './Sunset.js';
 import Superellipse from './Superellipse.js';
 import Text from './Text.js';
 import ThetaRhoInput from './ThetaRhoInput.js';
@@ -36,10 +36,10 @@ import WigglySpiral from './WigglySpiral.js';
 import ZigZag from './ZigZag.js';
 
 const Patterns = {
-  "coordinates": new Coordinates(),
   "circle": new Circle(env),
-  "curvature": new Curvature(env),
+  "coordinates": new Coordinates(),
   "cross": new Cross(env),
+  "curvature": new Curvature(env),
   "cycloid": new Cycloid(env),
   "diameters": new Diameters(env),
   "draw": new Draw(env),
@@ -54,6 +54,7 @@ const Patterns = {
   "heart": new Heart(),
   "lindenmayer": new Lindenmayer(env),
   "lissajous": new Lissajous(env),
+  "logspiral": new LogarithmicSpiral(env),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(env),
   "rhodonea": new Rhodonea(env),
@@ -61,10 +62,9 @@ const Patterns = {
   "shapespin": new ShapeSpin(),
   "spiral": new Spiral(env),
   "spiralzigzag": new SpiralZigZag(env),
-  "sunset": new Sunset(env),
-  "logspiral": new LogarithmicSpiral(env),
   "spokes": new Spokes(env),
   "star": new Star(env),
+  "sunset": new Sunset(env),
   "superellipse": new Superellipse(env),
   "text": new Text(env),
   "thr": new ThetaRhoInput(env),

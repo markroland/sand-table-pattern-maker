@@ -36,13 +36,9 @@ sand-pattern --pattern=circle > circle.json
 
 ## How to Build a New Pattern
 
-In order to build a new pattern a few things must be done:
-
-1. Create a Pattern Class and save it to the `assets/js/patterns` folder
-2. Link to Pattern Class file in `index.html`
-3. Add the Pattern Class to the `Patterns` config in the main sketch file (`sand_table_pattern_maker.js`).
-   This object must have a key that matches the class's `this.key` value and the object value
-   must be a Class instantiation.
+```
+node ./scripts/create-new.js NewPatternName
+```
 
 Pattern classes are made up of at least 4 methods:
 

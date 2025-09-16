@@ -1,3 +1,5 @@
+import PathHelper from '@markroland/path-helper'
+
 /**
  * Fibonacci
  */
@@ -27,17 +29,16 @@ class Fibonacci {
           "displayValue": true
         }
       },
-      "rtc": {
-        "name": "Return to Center",
+      "transition": {
+        "name": "Transition",
         "value": null,
         "input": {
-          "type": "createCheckbox",
-          "attributes" : [{
-            "type" : "checkbox",
-            "checked" : null
-          }],
-          "params": [0, 1, 0],
-          "displayValue": false
+          "type": "createSelect",
+          "options": {
+            "direct": "Direct",
+            "center": "Center",
+            "bezier": "Bezier Curve"
+          }
         }
       },
       "reverse": {
@@ -62,10 +63,7 @@ class Fibonacci {
 
     // Update object
     this.config.decay.value = parseFloat(document.querySelector('#pattern-controls > div:nth-child(1) > input').value);
-    this.config.rtc.value = false;
-    if (document.querySelector('#pattern-controls > div:nth-child(2) > input[type=checkbox]').checked) {
-      this.config.rtc.value = true;
-    }
+    this.config.transition.value = document.querySelector('#pattern-controls > div:nth-child(2) > select').value;
 
     // Display selected values
     document.querySelector('#pattern-controls > div.pattern-control:nth-child(1) > span').innerHTML = this.config.decay.value.toFixed(4);
@@ -73,7 +71,7 @@ class Fibonacci {
     // Calculate the path
     let path = this.calc(
       this.config.decay.value,
-      this.config.rtc.value
+      this.config.transition.value
     );
 
     // Update object
@@ -87,7 +85,7 @@ class Fibonacci {
   *
   * Type: Radial
   **/
-  calc(radius_shrink_factor, return_to_center)
+  calc(radius_shrink_factor, transition)
   {
 
     const min_x = this.env.table.x.min;
@@ -121,21 +119,62 @@ class Fibonacci {
       x = r * Math.cos(theta);
       y = r * Math.sin(theta);
 
-      // Add point to path
-      path.push([x,y]);
-
-      // Go back to center
-      if (return_to_center) {
+      if (transition == "bezier") {
+        if (path.length) {
+          path = path.concat(
+            this.transition(
+              path[path.length - 1],
+              [x,y],
+            )
+          )
+        }
+      } else if (transition == "center") {
         path.push([0,0]);
       }
+
+      // Add new point to path
+      path.push([x,y]);
     }
 
-    // End in center
-    if (!return_to_center) {
-      path.push([0,0]);
-    }
+    // Always end in center
+    path.push([0,0]);
 
     return path;
+  }
+
+  transition(p1, p2) {
+
+    const option = 2;
+
+    let transitionPath = [];
+
+    const PathHelp = new PathHelper();
+
+    if (option == 1) {
+
+      const midpoint = PathHelp.midpoint(p1, p2);
+
+      const theta = Math.atan2(midpoint[1], midpoint[0]);
+      const r = Math.sqrt(midpoint[0] ** 2 + midpoint[1] ** 2);
+      const r_factor = 0.5;
+
+      const point = [
+        r_factor * r * Math.cos(theta),
+        r_factor * r * Math.sin(theta)
+      ];
+
+      transitionPath.push(point);
+
+    } else if (option == 2) {
+
+      let bezier = PathHelp.quadraticBezierPath(p1, [0, 0], p2, 10);
+
+      bezier = bezier.slice(1, -1);
+      transitionPath = bezier;
+
+    }
+
+    return transitionPath;
   }
 }
 

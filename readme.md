@@ -54,6 +54,18 @@ Pattern classes are made up of at least 4 methods:
 
 Once you've completed your design, submit a Pull Request and if it works, I'll merge it in. Thanks in advance!
 
+## Optimize a THR track
+
+When creating tracks, it may be that there are far too many points than necessary - the sand table
+may not be able to render the track with the precision specified. Since each instruction is processed
+this may lead to an unnecessarily slow drawing time. In order to prevent this I have created a THR
+optimization script that uses the drawing devices table and ball size to simplify the path to avoid
+unnecessary drawing steps.
+
+```
+node ./scripts/optimize-thr.mjs {path_to_thr_file}
+```
+
 ## Patterns
 
 - XY Coordinates

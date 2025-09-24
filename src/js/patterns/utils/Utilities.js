@@ -40,6 +40,16 @@ export function spiral(r1, r2, n, sides) {
   return path;
 }
 
+export function sineWave(distance, amplitude, periods, phi = 0.0, steps = 120) {
+  let path = [];
+  for (var j = 0; j <= steps; j++) {
+    const x = (j / steps) * distance;
+    const y = amplitude * Math.sin((j / steps) * periods * (2 * Math.PI) + phi);
+    path.push([x, y]);
+  }
+  return path;
+}
+
 export function zigZag(path, offset) {
 
   const PathHelp = new PathHelper();

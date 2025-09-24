@@ -24,6 +24,7 @@ import Rectangle from './Rectangle.js';
 import Rhodonea from './Rhodonea.js';
 import ShapeMorph from './ShapeMorph.js';
 import ShapeSpin from './ShapeSpin.js';
+import SineWaves from './SineWaves.js';
 import SpinMorph from './SpinMorph.js';
 import Spiral from './Spiral.js';
 import SpiralZigZag from './SpiralZigZag.js';
@@ -61,6 +62,7 @@ const Patterns = {
   "rhodonea": new Rhodonea(env),
   "shapemorph": new ShapeMorph(env),
   "shapespin": new ShapeSpin(),
+  "sinewaves": new SineWaves(env),
   "spinmorph": new SpinMorph(env),
   "spiral": new Spiral(env),
   "spiralzigzag": new SpiralZigZag(env),

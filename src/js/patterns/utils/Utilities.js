@@ -94,10 +94,17 @@ export function arcBetweenPoints(x1, y1, x2, y2, step_size) {
   let path = [[x1, y1]];
 
   const r1 = Math.sqrt(x1 * x1 + y1 * y1);
-  const theta1 = Math.atan2(y1, x1);
+  let theta1 = Math.atan2(y1, x1);
 
   const r2 = Math.sqrt(x2 * x2 + y2 * y2);
-  const theta2 = Math.atan2(y2, x2);
+  let theta2 = Math.atan2(y2, x2);
+
+  if (theta1 < 0) {
+    theta1 += 2 * Math.PI;
+  }
+  if (theta2 < 0) {
+    theta2 += 2 * Math.PI;
+  }
 
   const i_max = 1000;
   for (let i = 0; i < i_max; i++) {

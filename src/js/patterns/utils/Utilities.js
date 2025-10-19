@@ -115,3 +115,52 @@ export function arcBetweenPoints(x1, y1, x2, y2, step_size) {
 
   return path;
 }
+
+
+/**
+ * Create an arc transitioning from one radius to another
+ * @param {number} theta1 - Start angle in radians
+ * @param {number} r1 - Start radius
+ * @param {number} theta2 - End angle in radians
+ * @param {number} r2 - End radius
+ * @param {boolean} clockwise - True for clockwise, false for counterclockwise
+ * @param {number} steps - Number of steps to divide the arc into (default: 20)
+ * @returns {Array} Array of [x, y] coordinate pairs forming the arc
+ */
+export function polarTransition(theta1, r1, theta2, r2, clockwise = true, steps = 20) {
+  // Normalize angles to handle wrapping
+  let angleDiff = theta2 - theta1;
+
+  // Choose the direction based on clockwise parameter
+  if (clockwise) {
+    // Go clockwise (negative direction)
+    if (angleDiff > 0) {
+      angleDiff -= 2 * Math.PI;
+    }
+  } else {
+    // Go counterclockwise (positive direction)
+    if (angleDiff < 0) {
+      angleDiff += 2 * Math.PI;
+    }
+  }
+
+  const path = [];
+
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+
+    // Interpolate angle
+    const theta = theta1 + angleDiff * t;
+
+    // Interpolate radius
+    const r = r1 + (r2 - r1) * t;
+
+    // Convert to cartesian
+    const x = r * Math.cos(theta);
+    const y = r * Math.sin(theta);
+
+    path.push([x, y]);
+  }
+
+  return path;
+}

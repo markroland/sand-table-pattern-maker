@@ -95,8 +95,16 @@ rl.on('close', () => {
   // Write one line per coordinate pair with "number space number"
   fs.writeFileSync(outputFilePath, combinedPath.join('\n'), 'utf8');
 
+  // Calculate percentage reduction (guard against division by zero)
+  let reduction = 0;
+  if (old_instruction_count > 0) {
+    reduction = ((old_instruction_count - new_instruction_count) / old_instruction_count) * 100;
+    reduction = Math.round(reduction);
+  }
+
   // Print info
   console.log(`Original Point Count: ${old_instruction_count.toLocaleString()}`);
   console.log(`Optimized Point Count: ${new_instruction_count.toLocaleString()}`);
+  console.log(`Reduced by ${reduction}%`)
   console.log(`Saved to ${outputFilePath}`);
 });

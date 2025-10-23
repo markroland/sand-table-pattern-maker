@@ -121,6 +121,7 @@ class Fibonacci {
 
     // Calculate the path
     let path = this.createFloret(
+      Math.min(this.env.table.x.max - this.env.table.x.min, this.env.table.y.max - this.env.table.y.min) / 2,
       this.config.points.value,
       this.config.easing.value,
       this.config.transition.value,
@@ -138,20 +139,16 @@ class Fibonacci {
   *
   * Type: Radial
   **/
-  createFloret(points, easing, transition, sort)
+  createFloret(radius, points, easing, transition, sort)
   {
 
     const PathHelp = new PathHelper();
 
-    const min_x = this.env.table.x.min;
-    const max_x = this.env.table.x.max;
-    const min_y = this.env.table.y.min;
-    const max_y = this.env.table.y.max;
     const ball_size = this.env.ball.diameter;
 
     let path = [];
 
-    const r_max = Math.min(max_x - min_x, max_y - min_y) / 2;
+    const r_max = radius;
 
     // Calculate the number of iterations required to decay
     // to a minimum value;

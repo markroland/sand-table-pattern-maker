@@ -12,6 +12,7 @@ import Farris from './Farris.js';
 import FermatSpiral from './FermatSpiral.js';
 import Fibonacci from './Fibonacci.js';
 import FibonacciLollipops from './FibonacciLollipops.js';
+import Flower from './Flower.js';
 import Frame from './Frame.js';
 import Gcode from './Gcode.js';
 import Gravity from './Gravity.js';
@@ -50,6 +51,7 @@ const Patterns = {
   "fermatspiral": new FermatSpiral(env),
   "fibonacci": new Fibonacci(env),
   "fibonaccilollipops": new FibonacciLollipops(env),
+  "flower": new Flower(env),
   "frame": new Frame(env),
   "gcode": new Gcode(env),
   "gravity": new Gravity(env),

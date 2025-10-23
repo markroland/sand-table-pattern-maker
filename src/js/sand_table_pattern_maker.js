@@ -58,6 +58,7 @@ let path_preview = [];
 
 // Flag for setting whether the pattern coordinates should be recalculated
 var recalculate_pattern = env.recalculate_pattern;
+let reversed = false;
 
 // Master Patterns object to hold patterns
 import Patterns from './patterns/index.js';
@@ -203,8 +204,12 @@ new p5((sketch) => {
       Patterns[selected_pattern].config.reverse.value = document.querySelector('#pattern-controls input[name=reverse]').checked;
 
       // Reverse the path if checked (true)
-      if (Patterns[selected_pattern].config.reverse.value) {
+      if (Patterns[selected_pattern].config.reverse.value && !reversed) {
         path.reverse();
+      }
+
+      if (Patterns[selected_pattern].config.reverse.value != reversed) {
+        reversed = !reversed;
       }
     }
 

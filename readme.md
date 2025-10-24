@@ -37,7 +37,9 @@ sand-pattern --pattern=circle > circle.json
 ## How to Build a New Pattern
 
 ```
-node ./scripts/create-new.js NewPatternName
+git branch pattern/{NewPatternName}
+git checkout pattern/{NewPatternName}
+node ./scripts/create-new.js {NewPatternName}
 ```
 
 Pattern classes are made up of at least 4 methods:

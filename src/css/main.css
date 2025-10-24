@@ -107,6 +107,12 @@ button {
   cursor: pointer;
 }
 
+button.small {
+  background-color: #4ca8af;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
 .pattern-control {
   background-color: rgb(32, 32, 32);
   padding: 0.25em 0.5em;

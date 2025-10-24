@@ -774,8 +774,6 @@ new p5((sketch) => {
       sketch.save(thr_path.convert(path), filename, "thr");
     }
   }
-
-
 });
 
 /**
@@ -860,6 +858,17 @@ window.addEventListener('keydown', (event) => {
     play = !play;
   }
 });
+
+// Clear cached pattern configs when the clear-cache button is clicked
+const clearCacheBtn = document.querySelector('button#clear-cache');
+if (clearCacheBtn) {
+  clearCacheBtn.addEventListener('click', () => {
+    const selectEl = document.querySelector('select[name="pattern"]');
+    const selected_pattern = selectEl ? selectEl.value : null;
+    clearPatternConfig(selected_pattern);
+    confirm(`Cache for "${selected_pattern}" has been cleared.`)
+  });
+}
 
 /**
  * Convert a Path to an image
@@ -1112,6 +1121,13 @@ function loadPatternConfig(selected_pattern)
   if (loaded_state) {
     Patterns[selected_pattern].config = loaded_state;
   }
+}
+
+/**
+ * Clear Pattern Configuration
+ */
+function clearPatternConfig(pattern) {
+  localStorage.removeItem("v" + app_version + "_" + pattern);
 }
 
 function updatePlaybackController() {

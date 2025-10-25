@@ -22,6 +22,7 @@ import Lissajous from './Lissajous.js';
 import LogarithmicSpiral from './LogarithmicSpiral.js';
 import Parametric from './Parametric.js';
 import Rectangle from './Rectangle.js';
+import Relief from './Relief.js';
 import Rhodonea from './Rhodonea.js';
 import ShapeMorph from './ShapeMorph.js';
 import ShapeSpin from './ShapeSpin.js';
@@ -61,6 +62,7 @@ const Patterns = {
   "logspiral": new LogarithmicSpiral(env),
   "parametric": new Parametric(),
   "rectangle": new Rectangle(env),
+  "relief": new Relief(env),
   "rhodonea": new Rhodonea(env),
   "shapemorph": new ShapeMorph(env),
   "shapespin": new ShapeSpin(),

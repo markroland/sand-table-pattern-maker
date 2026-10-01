@@ -10,20 +10,20 @@ Built with [p5.js](https://p5js.org)
 
 ## Installation
 
-```
+```sh
 npm install
 npm run dev
 ```
 
 ## Run using NPM
 
-```
+```sh
 node sand-pattern.mjs --pattern=circle > circle.json
 ```
 
 Or using the `bin` command:
 
-```
+```sh
 sand-pattern --pattern=circle > circle.json
 ```
 
@@ -36,7 +36,7 @@ sand-pattern --pattern=circle > circle.json
 
 ## How to Build a New Pattern
 
-```
+```sh
 git branch pattern/{NewPatternName}
 git checkout pattern/{NewPatternName}
 node ./scripts/create-new.js {NewPatternName}
@@ -64,7 +64,7 @@ this may lead to an unnecessarily slow drawing time. In order to prevent this I 
 optimization script that uses the drawing devices table and ball size to simplify the path to avoid
 unnecessary drawing steps.
 
-```
+```sh
 node ./scripts/optimize-thr.mjs {path_to_thr_file}
 ```
 

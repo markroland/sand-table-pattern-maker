@@ -87,7 +87,8 @@ new p5((sketch) => {
       .parent('pattern-selector');
     pattern_select = sketch.createSelect()
       .parent(pattern_select_div)
-      .attribute("name", "pattern");
+      .attribute("name", "pattern")
+      .addClass('select-css');
 
     // Add patterns from object
     const entries = Object.entries(Patterns)
@@ -124,6 +125,7 @@ new p5((sketch) => {
     plotter_format_select = sketch.createSelect()
       .attribute('name', 'TBD')
       .parent('#plotter-format')
+      .addClass('select-css');
     plotter_format_select.option("Cartesian", "cartesian");
     plotter_format_select.option("Polar", "polar");
     plotter_format_select.selected(localStorage.getItem('format') ?? env.table.format);
@@ -330,7 +332,8 @@ new p5((sketch) => {
         control.input = sketch.createSelect()
           .attribute('name', key)
           .parent(control.div)
-          .addClass(val.input.class);
+          .addClass(val.input.class)
+          .addClass('select-css');
         const entries = Object.entries(val.input.options)
         for (const [key, object] of entries) {
           control.input.option(object, key);

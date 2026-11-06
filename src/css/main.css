@@ -94,6 +94,12 @@ table tr td:nth-of-type(1) {
   width: 7em;
 }
 
+/* Give every row the same height so the Format select doesn't make its row taller */
+table tr td {
+  height: 2em;
+  vertical-align: middle;
+}
+
 button {
   background-color: #4CAF50;
   border: none;
